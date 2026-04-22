@@ -1,0 +1,13 @@
+# Scripts to skip during automated runs (smoke tests, pre-release checks, CI).
+# Each entry is matched against script paths:
+#   - Entries with '/' do a substring match against the file path
+#   - Entries without '/' match the file stem exactly
+# Add an inline # comment to document the reason for skipping.
+#
+# NEEDS_FIX convention:
+#   Entries tagged `# NEEDS_FIX <YYYY-MM-DD> - <reason>` mark scripts that
+#   are broken and parked as a to-do list. These are NOT permanent skips —
+#   every mega-run surfaces them with a loud warning banner. Investigate the
+#   failure, fix the underlying bug, and remove the NEEDS_FIX marker.
+
+- chapter_1_introduction/tutorial_5_results_and_samples # NEEDS_FIX 2026-04-10 - IndexError in samples access, likely related to InstanceInterpolator bug in autofit features/interpolate

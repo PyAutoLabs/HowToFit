@@ -1,0 +1,21 @@
+# HowToFit smoke test list — one path per line, relative to `scripts/`.
+# Consumed by `.github/scripts/run_smoke.py` (CI) and by the `/smoke_test` skill.
+#
+# Chapter 1 tutorials are fast and representative — they exercise core PyAutoFit
+# API (models, analysis, non-linear searches) and, under PYAUTO_TEST_MODE=2, skip
+# the sampler entirely so each runs in under a minute.
+#
+# tutorial_5_results_and_samples is excluded while the interpolator IndexError
+# tracked at https://github.com/rhayes777/PyAutoFit/issues/<tbd> is unresolved —
+# mirrors the autofit_workspace `no_run.yaml` entry for the same tutorial.
+
+chapter_1_introduction/start_here.py
+chapter_1_introduction/tutorial_1_models.py
+chapter_1_introduction/tutorial_2_fitting_data.py
+chapter_1_introduction/tutorial_3_non_linear_search.py
+chapter_1_introduction/tutorial_4_why_modeling_is_hard.py
+chapter_3_graphical_models/tutorial_1_individual_models.py
+chapter_3_graphical_models/tutorial_2_graphical_model.py
+chapter_3_graphical_models/tutorial_3_graphical_benefits.py
+chapter_3_graphical_models/tutorial_4_hierachical_models.py
+chapter_3_graphical_models/tutorial_5_expectation_propagation.py
