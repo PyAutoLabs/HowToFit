@@ -56,7 +56,6 @@ __Contents__
 This tutorial is split into the following sections:
 
 - **Paths**: Setting up the working directory path so the tutorial runs correctly on your computer.
-- **PyProjRoot**: A brief introduction to the PyProjRoot package, which sets the working directory for Jupiter notebooks.
 - **Model Parameterization**: An example of how a model is parameterized and is made up of free parameters.
 - **Model Composition**: Composing a model using PyAutoFit's model composition API.
 - **Model Creation**: Creating an instance of the model using PyAutoFit's `Model` python object.
@@ -91,14 +90,6 @@ If you don't have a HowToFit clone, you can download it here:
  
  https://github.com/PyAutoLabs/autofit_workspace
 
-__PyProjRoot__
-
-At the top of every tutorial notebook, you will see the following cell. This cell uses the project pyprojroot to 
-locate the path to the workspace on your computer and set it as the working directory of the notebook.
-"""
-# from autoconf import setup_notebook; setup_notebook()
-
-"""
 __Model Parameterization__
 
 A model is a set of equations, numerical processes, and assumptions that describe a physical system and dataset.
