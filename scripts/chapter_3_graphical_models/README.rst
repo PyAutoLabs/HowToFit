@@ -9,17 +9,17 @@ Files
 
 The chapter contains the following tutorials:
 
-`Tutorial 1: Individual Models <https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.5.1.1/notebooks/chapter_3_graphical_models/tutorial_1_individual_models.ipynb>`_
+`Tutorial 1: Individual Models <https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.5.1.4/notebooks/chapter_3_graphical_models/tutorial_1_individual_models.ipynb>`_
 - Inferring global parameters from a dataset by fitting the model to each individual dataset one-by-one.
 
-`Tutorial 2: Graphical Model <https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.5.1.1/notebooks/chapter_3_graphical_models/tutorial_2_graphical_model.ipynb>`_
+`Tutorial 2: Graphical Model <https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.5.1.4/notebooks/chapter_3_graphical_models/tutorial_2_graphical_model.ipynb>`_
 - Fitting the dataset with a graphical model that fits all datasets simultaneously to infer the global parameters.
 
-`Tutorial 3: Graphical Benefits <https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.5.1.1/notebooks/chapter_3_graphical_models/tutorial_3_graphical_benefits.ipynb>`_
+`Tutorial 3: Graphical Benefits <https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.5.1.4/notebooks/chapter_3_graphical_models/tutorial_3_graphical_benefits.ipynb>`_
 - Illustrating the benefits of graphical modeling over fitting individual datasets one-by-one.
 
-`Tutorial 4: Hierarchical Models <https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.5.1.1/notebooks/chapter_3_graphical_models/tutorial_4_hierarchical_models.ipynb>`_
+`Tutorial 4: Hierarchical Models <https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.5.1.4/notebooks/chapter_3_graphical_models/tutorial_4_hierarchical_models.ipynb>`_
 - Fitting hierarchical models using the graphical modeling framework.
 
-`Tutorial 5: Expectation Propagation <https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.5.1.1/notebooks/chapter_3_graphical_models/tutorial_5_expectation_propagation.ipynb>`_
+`Tutorial 5: Expectation Propagation <https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.5.1.4/notebooks/chapter_3_graphical_models/tutorial_5_expectation_propagation.ipynb>`_
 - Scaling graphical models up to fit extremely large datasets using Expectation Propagation (EP).
