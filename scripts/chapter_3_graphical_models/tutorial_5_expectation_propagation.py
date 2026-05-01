@@ -166,9 +166,7 @@ Each `AnalysisFactor` is also given a `name`, corresponding to the name of the d
 to name the folders containing the results in the output directory.
 """
 paths = af.DirectoryPaths(
-    name=path.join(
-        "chapter_3_graphical_models", "tutorial_5_expectation_propagation"
-    )
+    name=path.join("chapter_3_graphical_models", "tutorial_5_expectation_propagation")
 )
 
 search = af.DynestyStatic(paths=paths, nlive=100, sample="rwalk")

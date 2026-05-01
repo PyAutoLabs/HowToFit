@@ -1,30 +1,29 @@
-The ``notebooks`` folder contains Jupyter notebook versions of the **HowToFit** lectures, which teach a new user how to compose and fit models in **PyAutoFit**.
-
-These notebooks are **auto-generated** from the Python scripts in ``../scripts/`` — if you want to make changes, edit the ``.py`` scripts, not the ``.ipynb`` notebooks.
+The ``scripts`` folder contains **HowToFit** lectures, which teach a new user how to compose and fit models in **PyAutoFit**.
 
 Folders
 -------
 
 - ``chapter_1_introduction``: Introduction lectures describing how to compose and fit models in **PyAutoFit**.
-- ``chapter_2_scientific_workflow``: Reserved stub for future material.
+- ``chapter_2_scientific_workflow``: Reserved stub for future material on building a full scientific model-fitting workflow. The equivalent overview currently lives in ``autofit_workspace/scripts/overview/overview_2_science_workflow.py``.
 - ``chapter_3_graphical_models``: How to compose and fit graphical models which fit many datasets simultaneously, including hierarchical models and Expectation Propagation.
+- ``simulators``: Simulator scripts that generate the tutorial 1D datasets at runtime.
 
 Jupyter Notebooks
 -----------------
 
-All tutorials are supplied as *Jupyter notebooks* with the ``.ipynb`` suffix. For those new to Python,
-Jupyter notebooks are a different way to write, view and use Python code. Compared to traditional Python
-scripts, they allow:
+The tutorials are supplied as *Jupyter notebooks*, which come with a ``.ipynb`` suffix. For those new to
+Python, *Jupyter notebooks* are a different way to write, view and use Python code. Compared to traditional
+Python scripts, they allow:
 
-- Small blocks of code to be viewed and run at a time.
+- Small blocks of code to be viewed and run at a time
 - Images and visualization from a code block to be displayed directly underneath it.
 - Text script to appear between the blocks of code.
 
-This makes them an ideal way for us to present the **HowToFit** lecture series. If you don't have a
-notebook viewer installed yet, see https://jupyter.org/.
+This makes them an ideal way for us to present the **HowToFit** lecture series. The notebooks live under
+``notebooks/`` and are auto-generated from the Python scripts in ``scripts/`` — **edit the Python scripts,
+not the notebooks.**
 
-For actual **PyAutoFit** use we recommend the Python scripts in ``../scripts/``. Chapter 3 assumes that
-transition.
+For actual **PyAutoFit** use we recommend the Python scripts. Chapter 3 onwards assumes that transition.
 
 Code Style and Formatting
 -------------------------
