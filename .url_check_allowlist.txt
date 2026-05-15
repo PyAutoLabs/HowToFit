@@ -1,0 +1,24 @@
+# Known broken URLs grandfathered for url_check_live.sh.
+# Format: one URL per line. Lines starting with '#' and blank lines are ignored.
+# Sample location follows each URL as a trailing comment.
+#
+# This file is referenced by .github/workflows/url_check.yml (weekly cron).
+# url_check_live.sh fails CI when a URL is broken AND not in this file.
+# To accept new breakage: append the URL here. To force a fix: leave it out.
+
+# Code of Conduct boilerplate
+http://geekfeminism.wikia.com/wiki/Conference_anti-harassment/Policy  # CODE_OF_CONDUCT.md:305
+
+# Colab refs to notebooks no longer in HowTo/workspace
+https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.5.14.2/notebooks/chapter_1_introduction/tutorial_4_complex_models.ipynb  # scripts/chapter_1_introduction/README.md:16
+https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.5.14.2/notebooks/chapter_3_graphical_models/tutorial_4_hierarchical_models.ipynb  # scripts/chapter_3_graphical_models/README.md:17
+
+# GitHub refs (workspaces / removed tutorials)
+https://github.com/Jammy2211/PyAutoLogo/blob/main/gifs/pyautofit.gif?raw=true  # README.md:7
+https://github.com/PyAutoLabs/HowToFit/blob/main/scripts/chapter_1_introduction/images/bad_fit.png?raw=true  # scripts/chapter_1_introduction/tutorial_4_why_modeling_is_hard.py:452
+https://github.com/PyAutoLabs/HowToFit/blob/main/scripts/chapter_1_introduction/images/bad_normalized_residual_map.png?raw=true  # scripts/chapter_1_introduction/tutorial_4_why_modeling_is_hard.py:461
+https://github.com/PyAutoLabs/HowToFit/blob/main/scripts/chapter_1_introduction/images/good_fit.png?raw=true  # scripts/chapter_1_introduction/tutorial_4_why_modeling_is_hard.py:454
+https://github.com/PyAutoLabs/HowToFit/blob/main/scripts/chapter_1_introduction/images/good_normalized_residual_map.png?raw=true  # scripts/chapter_1_introduction/tutorial_4_why_modeling_is_hard.py:463
+https://github.com/PyAutoLabs/HowToFit/blob/main/scripts/chapter_1_introduction/images/okay_fit.png?raw=true  # scripts/chapter_1_introduction/tutorial_4_why_modeling_is_hard.py:453
+https://github.com/PyAutoLabs/HowToFit/blob/main/scripts/chapter_1_introduction/images/okay_normalized_residual_map.png?raw=true  # scripts/chapter_1_introduction/tutorial_4_why_modeling_is_hard.py:462
+https://github.com/PyAutoLabs/PyAutoFit/blob/main/files/citations.tex  # CITATIONS.md:5
