@@ -17,7 +17,7 @@ phenomenological methods used in data science. By the end of the lectures, you'l
 data analysis.
 
 The lectures use the probabilistic programming language PyAutoFit, an open-source library for model-fitting,
-scientific analysis, and big data analysis (https://github.com/rhayes777/PyAutoFit).
+scientific analysis, and big data analysis (https://github.com/PyAutoLabs/PyAutoFit).
 
 The HowToFit lectures are composed of 3 chapters:
 
