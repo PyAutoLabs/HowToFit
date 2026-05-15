@@ -6,7 +6,7 @@
 # the sampler entirely so each runs in under a minute.
 #
 # tutorial_5_results_and_samples is excluded while the interpolator IndexError
-# tracked at https://github.com/rhayes777/PyAutoFit/issues/<tbd> is unresolved —
+# tracked at https://github.com/PyAutoLabs/PyAutoFit/issues/<tbd> is unresolved —
 # mirrors the autofit_workspace `no_run.yaml` entry for the same tutorial.
 
 chapter_1_introduction/start_here.py
