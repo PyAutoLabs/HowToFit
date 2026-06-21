@@ -1,0 +1,326 @@
+[
+  {
+    "contents": [],
+    "cross_refs": [
+      "autofit_workspace_developer/scripts/howtofit/chapter_1_introduction/tutorial_8_astronomy_example.py",
+      "tutorial_1_models.py",
+      "tutorial_2_fitting_data.py",
+      "tutorial_3_non_linear_search.py",
+      "tutorial_4_why_modeling_is_hard.py",
+      "tutorial_5_results_and_samples.py"
+    ],
+    "notebook": "notebooks/chapter_1_introduction/start_here.ipynb",
+    "path": "scripts/chapter_1_introduction/start_here.py",
+    "summary": "Welcome to the HowToFit Jupyter Notebook lectures!",
+    "title": "HowToFit Lectures"
+  },
+  {
+    "contents": [
+      "Paths",
+      "Model Parameterization",
+      "Model Composition",
+      "Model Creation",
+      "Model Mapping",
+      "Complex Models",
+      "Tuple Parameters",
+      "Extensibility",
+      "Wrap Up"
+    ],
+    "cross_refs": [
+      "autofit_workspace/scripts/overview/new_model_component/new_model_component.py"
+    ],
+    "notebook": "notebooks/chapter_1_introduction/tutorial_1_models.ipynb",
+    "path": "scripts/chapter_1_introduction/tutorial_1_models.py",
+    "summary": "At the heart of model-fitting is the model: a set of equations, numerical processes, and assumptions describing a physical system of interest. The goal of model-fitting is to better understand this physical system and develop predictive models that describe it more accurately.",
+    "title": "Tutorial 1: Models"
+  },
+  {
+    "contents": [
+      "Data",
+      "Model Data",
+      "Residuals",
+      "Normalized Residuals",
+      "Chi Squared",
+      "Noise Normalization",
+      "Likelihood",
+      "Recap",
+      "Fitting Models",
+      "Guess 1",
+      "Guess 2",
+      "Guess 3",
+      "Extensibility",
+      "Wrap Up"
+    ],
+    "cross_refs": [],
+    "notebook": "notebooks/chapter_1_introduction/tutorial_2_fitting_data.ipynb",
+    "path": "scripts/chapter_1_introduction/tutorial_2_fitting_data.py",
+    "summary": "We've learned that a model consists of equations, numerical processes, and assumptions that describe a physical system. Using **PyAutoFit**, we defined simple 1D models like the Gaussian, composed them into models using `Model` and `Collection` objects, and generated model data by varying their parameters.",
+    "title": "Tutorial 2: Fitting Data"
+  },
+  {
+    "contents": [
+      "Parameter Space",
+      "Non-Linear Search",
+      "Search Types",
+      "Deeper Background",
+      "Data",
+      "Model",
+      "Priors",
+      "Analysis",
+      "Searches",
+      "Maximum Likelihood Estimation (MLE)",
+      "Markov Chain Monte Carlo (MCMC)",
+      "Nested Sampling",
+      "What is The Best Search To Use?",
+      "Wrap Up"
+    ],
+    "cross_refs": [],
+    "notebook": "notebooks/chapter_1_introduction/tutorial_3_non_linear_search.ipynb",
+    "path": "scripts/chapter_1_introduction/tutorial_3_non_linear_search.py",
+    "summary": "In the previous tutorials, we laid the groundwork by defining a model and manually fitting it to data using fitting functions. We quantified the goodness of fit using the log likelihood and demonstrated that for models with only a few free parameters, we could achieve satisfactory fits by manually guessing parameter values. However, as the complexity of our models increased, this approach quickly became impractical.",
+    "title": "Tutorial 3: Non Linear Search"
+  },
+  {
+    "contents": [
+      "Data",
+      "Model",
+      "Analysis",
+      "Alternative Syntax",
+      "Collection",
+      "Search",
+      "Model Fit",
+      "Result",
+      "Why Modeling is Hard",
+      "Prior Tuning",
+      "Reducing Complexity",
+      "Search More Thoroughly",
+      "Summary",
+      "Run Times",
+      "Model Mismatch",
+      "Astronomy Example",
+      "Wrap Up"
+    ],
+    "cross_refs": [],
+    "notebook": "notebooks/chapter_1_introduction/tutorial_4_why_modeling_is_hard.ipynb",
+    "path": "scripts/chapter_1_introduction/tutorial_4_why_modeling_is_hard.py",
+    "summary": "We have successfully fitted a simple 1D Gaussian profile to a dataset using a non-linear search. While achieving an accurate model fit has been straightforward, the reality is that model fitting is a challenging problem where many things can go wrong.",
+    "title": "Tutorial 4: Why Modeling Is Hard"
+  },
+  {
+    "contents": [
+      "Data",
+      "Reused Functions",
+      "Model Fit",
+      "Result",
+      "Samples",
+      "Parameters",
+      "Figures of Merit",
+      "Instances",
+      "Vectors",
+      "Labels",
+      "Posterior / PDF",
+      "Plot",
+      "Errors",
+      "PDF",
+      "Other Results",
+      "Sample Instance",
+      "Bayesian Evidence",
+      "Derived Errors (PDF from samples)",
+      "Samples Filtering",
+      "Latex"
+    ],
+    "cross_refs": [
+      "autofit_workspace/overview/simple/result.py",
+      "corner.py"
+    ],
+    "notebook": "notebooks/chapter_1_introduction/tutorial_5_results_and_samples.ipynb",
+    "path": "scripts/chapter_1_introduction/tutorial_5_results_and_samples.py",
+    "summary": "In this tutorial, we'll cover all of the output that comes from a non-linear search's `Result`  object.",
+    "title": "Tutorial 5: Results And Samples"
+  },
+  {
+    "contents": [
+      "Real World Example",
+      "Example Source Code (`af.ex`)",
+      "Model",
+      "Data",
+      "Model Fits (one-by-one)",
+      "Results",
+      "Estimating the Centre",
+      "Posterior Multiplication",
+      "Wrap Up"
+    ],
+    "cross_refs": [],
+    "notebook": "notebooks/chapter_3_graphical_models/tutorial_1_individual_models.ipynb",
+    "path": "scripts/chapter_3_graphical_models/tutorial_1_individual_models.py",
+    "summary": "In many examples, we fit one model to one dataset. For many problems, we may have a large dataset and are not interested in how well the model fits each individual dataset. Instead, we want to know how the model fits the full dataset, so that we can determine \"global\" trends of how the model fits the data.",
+    "title": "Tutorial 1: Individual Models"
+  },
+  {
+    "contents": [
+      "Example Source Code (`af.ex`)",
+      "Dataset",
+      "Analysis",
+      "Model",
+      "Analysis Factors",
+      "Factor Graph",
+      "Search",
+      "Result",
+      "Wrap Up"
+    ],
+    "cross_refs": [],
+    "notebook": "notebooks/chapter_3_graphical_models/tutorial_2_graphical_model.ipynb",
+    "path": "scripts/chapter_3_graphical_models/tutorial_2_graphical_model.py",
+    "summary": "We have fitted a dataset containing 5 noisy 1D Gaussian which had a shared `centre` value. We estimated the `centre` by fitting each dataset individually and combining the value of the `centre` inferred by each fit into an overall estimate, using a weighted average.",
+    "title": "Tutorial 2: Graphical Models"
+  },
+  {
+    "contents": [
+      "The Model",
+      "Example Source Code (`af.ex`)",
+      "Dataset",
+      "Analysis",
+      "Model (one-by-one)",
+      "Model Fits (one-by-one)",
+      "Centre Estimates (Weighted Average)",
+      "Discussion",
+      "Model (Graphical)",
+      "Analysis Factors",
+      "Factor Graph",
+      "Search",
+      "Result",
+      "Discussion",
+      "Posterior Multiplication",
+      "Wrap Up"
+    ],
+    "cross_refs": [],
+    "notebook": "notebooks/chapter_3_graphical_models/tutorial_3_graphical_benefits.ipynb",
+    "path": "scripts/chapter_3_graphical_models/tutorial_3_graphical_benefits.py",
+    "summary": "In the previous tutorials, we fitted a dataset containing 5 noisy 1D Gaussian which had a shared `centre` value and compared different approaches to estimate the shared `centre`. This included a simple approach fitting each dataset one-by-one and estimating the centre via a weighted average or posterior multiplication and a more complicated approach using a graphical model.",
+    "title": "Tutorial 3: Graphical Benefits"
+  },
+  {
+    "contents": [
+      "Example Source Code (`af.ex`)",
+      "Dataset",
+      "Analysis",
+      "Model Individual Factors",
+      "Analysis Factors",
+      "Model",
+      "Factor Graph",
+      "Search",
+      "Result",
+      "Comparison to One-by-One Fits",
+      "Benefits of Graphical Model",
+      "Wrap Up"
+    ],
+    "cross_refs": [
+      "tutorial_optional_hierarchical_individual.py"
+    ],
+    "notebook": "notebooks/chapter_3_graphical_models/tutorial_4_hierachical_models.ipynb",
+    "path": "scripts/chapter_3_graphical_models/tutorial_4_hierachical_models.py",
+    "summary": "In the previous tutorial, we fitted a graphical model with the aim of determining an estimate of shared parameters, the `centre`'s of a dataset of 1D Gaussians. We did this by fitting all datasets simultaneously. When there are shared parameters in a model, this is a powerful and effective tool, but things may not always be so simple.",
+    "title": "Tutorial 4: Hierarchical"
+  },
+  {
+    "contents": [
+      "Example Source Code (`af.ex`)",
+      "Dataset",
+      "Analysis",
+      "Model",
+      "Analysis Factors",
+      "Factor Graph",
+      "Expectation Propagation",
+      "Cyclic Fitting",
+      "Result",
+      "Output",
+      "Results"
+    ],
+    "cross_refs": [],
+    "notebook": "notebooks/chapter_3_graphical_models/tutorial_5_expectation_propagation.ipynb",
+    "path": "scripts/chapter_3_graphical_models/tutorial_5_expectation_propagation.py",
+    "summary": "In the previous tutorials, we fitted graphical models to dataset comprising many noisy 1D Gaussians. These had a shared and global value of their `centre`, or assumed their centres were hierarchically drawn from a parent Gaussian distribution. This provides the basis of composing and fitting complex graphical models to large datasets.",
+    "title": "Tutorial 5: Expectation Propagation"
+  },
+  {
+    "contents": [
+      "Example Source Code (`af.ex`)",
+      "Dataset",
+      "Analysis",
+      "Model Individual Factors",
+      "Analysis Factors",
+      "Model",
+      "Factor Graph",
+      "Model Fit"
+    ],
+    "cross_refs": [],
+    "notebook": "notebooks/chapter_3_graphical_models/tutorial_optional_hierarchical_ep.ipynb",
+    "path": "scripts/chapter_3_graphical_models/tutorial_optional_hierarchical_ep.py",
+    "summary": "This optional tutorial gives an example of fitting a hierarchical model using EP.",
+    "title": "Tutorial Optional: Hierarchical Expectation Propagation (EP)"
+  },
+  {
+    "contents": [
+      "Example Source Code (`af.ex`)",
+      "Dataset",
+      "Analysis",
+      "Model",
+      "Model Fits (one-by-one)",
+      "Results",
+      "Overall Gaussian Parent Distribution",
+      "Model",
+      "Analysis + Search"
+    ],
+    "cross_refs": [],
+    "notebook": "notebooks/chapter_3_graphical_models/tutorial_optional_hierarchical_individual.ipynb",
+    "path": "scripts/chapter_3_graphical_models/tutorial_optional_hierarchical_individual.py",
+    "summary": "In tutorial 4, we fit a hierarchical model using a graphical model, whereby all datasets are fitted simultaneously and the hierarchical parameters are fitted for simultaneously with the model parameters of each 1D Gaussian in each dataset.",
+    "title": "Tutorial Optional: Hierarchical Individual"
+  },
+  {
+    "contents": [
+      "Gaussian x1",
+      "Gaussian x1 (0)",
+      "Gaussian x1 (1)",
+      "Gaussian x1 (2)",
+      "Gaussian x1 (Identical 0)",
+      "Gaussian x1 (Identical 1)",
+      "Gaussian x1 (Identical 2)",
+      "Gaussian x1 + Exponential x1",
+      "Gaussian x2 + Exponential x1",
+      "Gaussian x2",
+      "Gaussian x3",
+      "Gaussian x5",
+      "Gaussian x1 unconvolved",
+      "Gaussian x1 convolved",
+      "Gaussian x1 with feature",
+      "Gaussian x2 split",
+      "Gaussian x1 time"
+    ],
+    "cross_refs": [],
+    "notebook": "notebooks/simulators/simulators.ipynb",
+    "path": "scripts/simulators/simulators.py",
+    "summary": "These scripts simulate the 1D Gaussian datasets used to demonstrate model-fitting.",
+    "title": "__Simulators__"
+  },
+  {
+    "contents": [
+      "Gaussian x1 low snr (centre fixed to 50.0)",
+      "Gaussian x1 low snr (centre drawn from parent Gaussian distribution to 50.0)",
+      "Gaussian x2 offset centre"
+    ],
+    "cross_refs": [],
+    "notebook": "notebooks/simulators/simulators_sample.ipynb",
+    "path": "scripts/simulators/simulators_sample.py",
+    "summary": "These scripts simulates many 1D Gaussian datasets with a low signal to noise ratio, which are used to demonstrate model-fitting.",
+    "title": "__Simulators__"
+  },
+  {
+    "contents": [],
+    "cross_refs": [],
+    "notebook": "notebooks/simulators/util.ipynb",
+    "path": "scripts/simulators/util.py",
+    "summary": "(no summary in script docstring)",
+    "title": "util"
+  }
+]
