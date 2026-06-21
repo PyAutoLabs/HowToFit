@@ -1,0 +1,80 @@
+If your AI can't browse GitHub, paste this entire file into the chat as context.
+
+# HowToFit
+
+> The **HowToFit** lecture series: tutorial scripts (and generated notebooks) that teach
+> Bayesian model-fitting and the **PyAutoFit** API from first principles, using simple 1D
+> datasets (e.g. noisy Gaussians) so the statistics — not the science — are the focus. This
+> file is a routing layer: given a learner's question, point them to the RIGHT existing
+> tutorial in this repository instead of inventing an explanation. Every path below is a
+> real file in this repo; scripts run from the repo root (e.g.
+> `python scripts/chapter_1_introduction/tutorial_1_models.py`), and each has a matching
+> notebook under `notebooks/`.
+
+## Who this is for
+
+HowToFit is the **on-ramp for beginners** — anyone new to model-fitting / Bayesian inference,
+or new to PyAutoFit. It teaches model composition, fitting, non-linear searches, results, and
+graphical/hierarchical models step by step, independent of any science domain. Once a learner
+wants to apply this to a real problem, route them *out* to the production examples in
+[autofit_workspace](https://github.com/PyAutoLabs/autofit_workspace) (see "Ready for real
+analysis?" below).
+
+## Start here
+
+- [scripts/chapter_1_introduction/start_here.py](scripts/chapter_1_introduction/start_here.py): Orientation — what the lectures cover and how to run them.
+- [scripts/chapter_1_introduction/tutorial_1_models.py](scripts/chapter_1_introduction/tutorial_1_models.py): The first real lecture — what a "model" is, and composing one with `Model` and `Collection`. Begin here if the learner is new to model-fitting.
+
+## The learning path (chapters in order)
+
+- **Chapter 1 — Introduction** → [scripts/chapter_1_introduction/](scripts/chapter_1_introduction/): The foundations of model-fitting — defining models, fitting data (residuals / chi-squared / likelihood), the non-linear search, why modeling is hard, and reading results & samples.
+- **Chapter 3 — Graphical Models** → [scripts/chapter_3_graphical_models/](scripts/chapter_3_graphical_models/): Fitting one model across a large dataset — individual fits vs graphical models, shared parameters, hierarchical models, and Expectation Propagation for scaling to many datasets.
+
+## I want to understand…
+
+- **How do I compose a model?** → [scripts/chapter_1_introduction/tutorial_1_models.py](scripts/chapter_1_introduction/tutorial_1_models.py): `Model`, `Collection`, parameter mapping, tuple parameters, building complex models.
+- **What does "fitting data" actually compute?** → [scripts/chapter_1_introduction/tutorial_2_fitting_data.py](scripts/chapter_1_introduction/tutorial_2_fitting_data.py): Model data, residuals, normalized residuals, chi-squared, the log likelihood.
+- **How does a non-linear search work?** → [scripts/chapter_1_introduction/tutorial_3_non_linear_search.py](scripts/chapter_1_introduction/tutorial_3_non_linear_search.py): Parameter space, priors, MLE / MCMC / nested sampling, and which to use.
+- **Why do model fits fail, and how do I fix them?** → [scripts/chapter_1_introduction/tutorial_4_why_modeling_is_hard.py](scripts/chapter_1_introduction/tutorial_4_why_modeling_is_hard.py): Prior tuning, reducing complexity, searching more thoroughly.
+- **What's in the `Result` / how do I read samples?** → [scripts/chapter_1_introduction/tutorial_5_results_and_samples.py](scripts/chapter_1_introduction/tutorial_5_results_and_samples.py): Samples, instances, PDFs, errors, Bayesian evidence, LaTeX output.
+- **I have many datasets with a shared parameter — what's the right tool?** → [scripts/chapter_3_graphical_models/tutorial_2_graphical_model.py](scripts/chapter_3_graphical_models/tutorial_2_graphical_model.py): Factor graphs and graphical models vs one-by-one fits.
+- **What is a hierarchical model / Expectation Propagation?** → [scripts/chapter_3_graphical_models/tutorial_4_hierachical_models.py](scripts/chapter_3_graphical_models/tutorial_4_hierachical_models.py) then [tutorial_5_expectation_propagation.py](scripts/chapter_3_graphical_models/tutorial_5_expectation_propagation.py).
+
+## Ready for real analysis?
+
+When the learner wants to apply PyAutoFit to their *own* model/data (not a teaching dataset),
+route them to the production workspace — it has cookbooks and science-workflow examples:
+
+- [autofit_workspace](https://github.com/PyAutoLabs/autofit_workspace) — see its own `llms.txt` routing layer for model cookbooks, search configuration, and result analysis.
+
+## How to answer (for the assistant)
+
+When routing a learner, reply in this shape (the same shape the workspace navigator uses, so
+the two agree):
+
+- **Start here** — the single best tutorial for their question (from the lists above).
+- **Then see** — the next tutorial in the chapter, or the concept it builds toward.
+- **Related guide** — a relevant later chapter, or the matching `autofit_workspace` example for production use.
+- **Why this is the right example** — one line tying the tutorial to their question.
+- **What to modify** — the few things they'd change to explore (model components, dataset, search settings).
+- **What needs local execution** — flag any step that requires actually running the fit on their machine.
+
+### Code style (match the lectures, not banner comments)
+
+Drafted code must match this repo's style: triple-quoted `"""__Section__"""` docstrings with
+a line of prose explaining each step, and a module docstring whose title is underlined with
+`=`. Do NOT use `# -----` banner comments to mark sections; reserve inline `#` for short
+line-level notes only.
+
+## Capability boundary (chat without local execution)
+
+A chat assistant can route to the right tutorial, explain model-fitting concepts, review
+pasted scripts / tracebacks / results, and draft code. It CANNOT run fits, inspect the
+learner's local files or `output/` folder, or guarantee code against their installed
+PyAutoFit version. To run a tutorial, the learner executes it locally from the repo root, or
+in Google Colab (the notebooks ship Colab setup cells). For sustained editing, execution and
+project state, point them to a local coding agent (Claude Code / Codex).
+
+---
+
+For the full per-tutorial listing, see the generated companion catalogue `llms-full.txt`.
