@@ -13,6 +13,6 @@ The chapter contains the following tutorials:
 
 - [Tutorial 3: Non Linear Search](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.7.6.649/notebooks/chapter_1_introduction/tutorial_3_non_linear_search.ipynb) — Searching non-linear parameter spaces to find the best-fit model.
 
-- [Tutorial 4: Complex Models](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.7.6.649/notebooks/chapter_1_introduction/tutorial_4_complex_models.ipynb) — Composing and fitting more complex models in a scalable and extensible way.
+- [Tutorial 4: Why Modeling Is Hard](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.7.6.649/notebooks/chapter_1_introduction/tutorial_4_why_modeling_is_hard.ipynb) — Why fitting complex models is challenging and how a good scientific approach overcomes common problems.
 
 - [Tutorial 5: Results and Samples](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.7.6.649/notebooks/chapter_1_introduction/tutorial_5_results_and_samples.ipynb) — Interpreting model-fit results and using the samples for scientific analysis.
