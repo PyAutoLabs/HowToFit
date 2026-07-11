@@ -228,3 +228,14 @@ laplace = af.LaplaceOptimiser()
 #     ep_history=af.EPHistory(kl_tol=1.0),
 #     max_steps=5,
 # )
+
+"""
+__Wrap Up__
+
+This optional tutorial showed how a hierarchical model can be fitted using Expectation Propagation (EP). The
+`factor_graph.optimise` call above is commented out because a full EP fit is computationally expensive; uncomment it
+to run the fit yourself.
+
+For the concepts behind hierarchical models and EP, see the main chapter 3 tutorials
+(`tutorial_4_hierarchical_model` and `tutorial_5_expectation_propagation`).
+"""

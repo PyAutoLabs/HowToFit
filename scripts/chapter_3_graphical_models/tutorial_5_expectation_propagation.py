@@ -355,3 +355,14 @@ print()
 # """
 # print(f"Centre SD/sqrt(variance) = {mean_field.scale[centre_shared_prior]}")
 # print()
+
+"""
+__Wrap Up__
+
+This tutorial introduced Expectation Propagation (EP), which fits a graphical model by passing messages between its
+factors rather than sampling the full joint parameter space at once. This makes inference scalable to graphs with many
+datasets and shared parameters.
+
+The commented-out code above shows optional further inspection of the `MeanField` result (per-parameter means,
+variances and standard deviations) which you can uncomment to explore.
+"""

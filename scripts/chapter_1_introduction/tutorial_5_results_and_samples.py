@@ -694,5 +694,9 @@ latex = af.text.Samples.latex(
 print(latex)
 
 """
-Finish.
+__Wrap Up__
+
+This tutorial showed how to inspect the results of a model-fit: the maximum log likelihood instance, the full set of
+samples, parameter estimates with errors at a given confidence, and how to output quantities to a LaTeX table. These
+tools are the foundation for interpreting every model-fit you perform with **PyAutoFit**.
 """

@@ -332,9 +332,11 @@ print(f"{scatter} ({l3_error} {u3_error}) [3.0 sigma confidence intervals]")
 print()
 
 """
+__Wrap Up__
+
 We can compare these values to those inferred in `tutorial_4_hierarchical_model`, which fits all datasets and the
-hierarchical values of the parent Gaussian simultaneously.,
- 
+hierarchical values of the parent Gaussian simultaneously.
+
 The errors for the fit performed in this tutorial are much larger. This is because of how in a graphical model
 the "datasets talk to one another", which is described fully in that tutorials subsection "Benefits of Graphical Model".
 """
