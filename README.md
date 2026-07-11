@@ -2,6 +2,7 @@
 
 [Installation Guide](https://pyautofit.readthedocs.io/en/latest/installation/overview.html) |
 [PyAutoFit readthedocs](https://pyautofit.readthedocs.io/en/latest/index.html) |
+[Browse Chapter 1 With Images](markdown/README.md) |
 [autofit_workspace](https://github.com/PyAutoLabs/autofit_workspace)
 
 <img src="https://github.com/Jammy2211/PyAutoLogo/blob/main/gifs/pyautofit.gif?raw=true" width="900" />
