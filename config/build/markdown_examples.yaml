@@ -1,5 +1,5 @@
 # Curated examples rendered to executed markdown pages (markdown/) with real
-# output images, for GitHub browsing. Built by PyAutoBuild's generate_markdown.py
+# output images, for GitHub browsing. Built by PyAutoHands's generate_markdown.py
 # (never TEST_MODE; features/ never rendered; order = execution + index order).
 # Batch 2b: chapter_1_introduction (the intro lecture, in reading order).
 - script: scripts/chapter_1_introduction/start_here.py
