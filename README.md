@@ -67,9 +67,9 @@ Before starting chapter 1, open `start_here.py` for a one-page overview of the s
 
 ## Notebooks vs Scripts
 
-Notebooks in `notebooks/` are generated from the Python files in `scripts/`. **Always edit the \`\`.py\`\`
+Notebooks in `notebooks/` are generated from the Python files in `scripts/`. **Always edit the ``.py``
 scripts, never the notebooks directly.** The `# %%` markers in each script alternate between code and
-markdown cells, which [PyAutoBuild](https://github.com/PyAutoLabs/PyAutoBuild) uses to produce the
+markdown cells, which [PyAutoHands](https://github.com/PyAutoLabs/PyAutoHands) uses to produce the
 `.ipynb` files.
 
 ## Relationship to autofit_workspace

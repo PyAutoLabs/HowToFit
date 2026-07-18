@@ -9,4 +9,4 @@ Every page below is the corresponding example script **fully executed**, rendere
 - [Tutorial 4: Why Modeling Is Hard](chapter_1_introduction/tutorial_4_why_modeling_is_hard.md) — from `scripts/chapter_1_introduction/tutorial_4_why_modeling_is_hard.py`
 - [Tutorial 5: Results And Samples](chapter_1_introduction/tutorial_5_results_and_samples.md) — from `scripts/chapter_1_introduction/tutorial_5_results_and_samples.py`
 
-These pages are regenerated manually by PyAutoBuild's `generate_markdown.py` when a curated script changes.
+These pages are regenerated manually by PyAutoHands's `generate_markdown.py` when a curated script changes.
