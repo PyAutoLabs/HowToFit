@@ -151,7 +151,7 @@ from os import path
 
 import autofit as af
 
-# from autoconf import setup_notebook; setup_notebook()
+# from autofit import setup_notebook; setup_notebook()
 
 """
 __Data__

@@ -53,7 +53,7 @@ This tutorial is split into the following sections:
 - **Wrap Up**: Summarize the key concepts of this tutorial.
 """
 
-# from autoconf import setup_notebook; setup_notebook()
+# from autofit import setup_notebook; setup_notebook()
 
 from os import path
 import matplotlib.pyplot as plt

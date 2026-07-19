@@ -25,7 +25,7 @@ This tutorial is split into the following sections:
 - **Analysis + Search**: Create the analysis and search for the parent distribution fit.
 """
 
-# from autoconf import setup_notebook; setup_notebook()
+# from autofit import setup_notebook; setup_notebook()
 
 import numpy as np
 from os import path

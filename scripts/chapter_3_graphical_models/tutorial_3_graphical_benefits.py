@@ -38,7 +38,7 @@ This tutorial is split into the following sections:
 - **Wrap Up**: Summary comparing the different methods and transition to hierarchical models.
 """
 
-# from autoconf import setup_notebook; setup_notebook()
+# from autofit import setup_notebook; setup_notebook()
 
 import numpy as np
 from os import path
