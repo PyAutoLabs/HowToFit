@@ -58,7 +58,7 @@ This tutorial is split into the following sections:
 
 ```python
 
-from autoconf import setup_notebook; setup_notebook()
+from autofit import setup_notebook; setup_notebook()
 
 from os import path
 import matplotlib.pyplot as plt

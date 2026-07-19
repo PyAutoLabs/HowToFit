@@ -6,5 +6,5 @@
 # here; the ceremony lives in the reusable workflow.
 set -e
 
-pip install ./PyAutoConf ./PyAutoFit
+pip install ./PyAutoNerves ./PyAutoFit
 pip install numba

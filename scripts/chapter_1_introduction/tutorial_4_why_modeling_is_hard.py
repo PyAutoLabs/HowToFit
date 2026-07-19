@@ -42,7 +42,7 @@ __Contents__
 - **Wrap Up**: A summary of the key takeaways of this tutorial.
 """
 
-# from autoconf import setup_notebook; setup_notebook()
+# from autofit import setup_notebook; setup_notebook()
 
 from os import path
 import numpy as np

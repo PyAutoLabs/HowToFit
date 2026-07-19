@@ -156,10 +156,10 @@ from os import path
 
 import autofit as af
 
-from autoconf import setup_notebook; setup_notebook()
+from autofit import setup_notebook; setup_notebook()
 ```
 
-    .../PyAutoConf/autoconf/workspace.py:206: UserWarning: Cannot verify the workspace at HowToFit/scripts/chapter_1_introduction is compatible with the installed library version (2026.7.6.649): no `version.minimum_library_version` or `version.workspace_version` key in config/general.yaml and no version.txt at the workspace root.
+    .../PyAutoNerves/autonerves/workspace.py:206: UserWarning: Cannot verify the workspace at HowToFit/scripts/chapter_1_introduction is compatible with the installed library version (2026.7.6.649): no `version.minimum_library_version` or `version.workspace_version` key in config/general.yaml and no version.txt at the workspace root.
     
     If you cloned the workspace from `main` rather than a release tag, set `version.workspace_version_check: False` in config/general.yaml to silence this warning. The `main` branch updates more frequently than library releases, so version mismatches are expected and not actionable for `main`-branch users.
     

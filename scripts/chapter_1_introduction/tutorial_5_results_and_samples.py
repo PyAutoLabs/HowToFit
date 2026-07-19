@@ -34,7 +34,7 @@ This tutorial is split into the following sections:
 - **Latex**: Generate LaTeX table code for modeling results.
 """
 
-# from autoconf import setup_notebook; setup_notebook()
+# from autofit import setup_notebook; setup_notebook()
 
 import autofit as af
 import autofit.plot as aplt

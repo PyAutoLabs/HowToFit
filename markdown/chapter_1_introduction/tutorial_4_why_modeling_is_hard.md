@@ -47,7 +47,7 @@ __Contents__
 
 ```python
 
-from autoconf import setup_notebook; setup_notebook()
+from autofit import setup_notebook; setup_notebook()
 
 from os import path
 import numpy as np

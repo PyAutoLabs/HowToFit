@@ -20,7 +20,7 @@ This tutorial is split into the following sections:
 - **Model Fit**: Run the EP fit of the hierarchical model.
 """
 
-# from autoconf import setup_notebook; setup_notebook()
+# from autofit import setup_notebook; setup_notebook()
 
 import numpy as np
 from os import path
