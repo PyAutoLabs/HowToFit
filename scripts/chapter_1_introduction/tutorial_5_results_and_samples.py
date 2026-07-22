@@ -626,7 +626,7 @@ print(samples.parameter_lists[0])
 
 samples = samples.with_paths([("gaussian", "centre")])
 
-print("All parameters of the very first sample (containing only the Gaussian centre.")
+print("All parameters of the very first sample (containing only the Gaussian centre).")
 print(samples.parameter_lists[0])
 
 print("Maximum Log Likelihood Model Instances (containing only the Gaussian centre):\n")
@@ -636,7 +636,7 @@ print(samples.max_log_likelihood(as_instance=False))
 Above, we specified each path as a list of tuples of strings. 
 
 This is how the source code internally stores the path to different components of the model, but it is not 
-in-profile_1d with the PyAutoFIT API used to compose a model.
+in-line with the PyAutoFit API used to compose a model.
 
 We can alternatively use the following API:
 """
@@ -651,7 +651,11 @@ print(samples.parameter_lists[0])
 Above, we filtered the `Samples` but asking for all parameters which included the path ("gaussian", "centre").
 
 We can alternatively filter the `Samples` object by removing all parameters with a certain path. Below, we remove
-the Gaussian's `centre` to be left with 2 parameters; the `normalization` and `sigma`.
+the Gaussian's `centre`.
+
+Recall that the model fitted in this tutorial has two components, a `Gaussian` and an `Exponential`, and therefore
+6 parameters in total. Removing one of them therefore leaves us with 5 parameters: the Gaussian's `normalization`
+and `sigma`, plus all three of the Exponential's parameters.
 """
 samples = result.samples
 
@@ -664,7 +668,7 @@ print(samples.parameter_lists[0])
 samples = samples.without_paths(["gaussian.centre"])
 
 print(
-    "All parameters of the very first sample (containing only the Gaussian normalization and sigma)."
+    "All parameters of the very first sample (with the Gaussian centre removed)."
 )
 print(samples.parameter_lists[0])
 
