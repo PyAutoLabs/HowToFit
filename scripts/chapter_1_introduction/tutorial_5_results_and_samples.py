@@ -667,9 +667,7 @@ print(samples.parameter_lists[0])
 
 samples = samples.without_paths(["gaussian.centre"])
 
-print(
-    "All parameters of the very first sample (with the Gaussian centre removed)."
-)
+print("All parameters of the very first sample (with the Gaussian centre removed).")
 print(samples.parameter_lists[0])
 
 """
