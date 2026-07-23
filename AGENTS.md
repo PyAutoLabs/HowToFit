@@ -56,7 +56,7 @@ Notebooks in `notebooks/` are **generated** from the `.py` scripts via PyAutoHan
 Regenerate from the repo root:
 
 ```bash
-PYTHONPATH=../PyAutoHands/autobuild python3 ../PyAutoHands/autobuild/generate.py howtofit
+PYTHONPATH=../PyAutoHands/autohands python3 ../PyAutoHands/autohands/generate.py howtofit
 ```
 
 The `howtofit` project target is registered in PyAutoHands (`run_all.py`, `navigator.py`, `config/`).
