@@ -20,10 +20,15 @@ defaults:
   NUMBA_CACHE_DIR: "/tmp/numba_cache"   # Writable cache dir for numba
   MPLCONFIGDIR: "/tmp/matplotlib"       # Writable config dir for matplotlib
 
-overrides:
-  # Plotter scripts need the real search to run so `result.search_internal` is
-  # populated — bypass mode skips the sampler and returns None.
-  - pattern: "plot/emcee_plotter"
-    unset: [PYAUTO_TEST_MODE, PYAUTO_SKIP_FIT_OUTPUT]
-  - pattern: "plot/zeus_plotter"
-    unset: [PYAUTO_TEST_MODE, PYAUTO_SKIP_FIT_OUTPUT]
+# (Removed on 2026-07-23: the two overrides here, `plot/emcee_plotter` and
+# `plot/zeus_plotter`, were copied in from autofit_workspace's env_vars.yaml,
+# where the identical patterns still live and still match. Those scripts exist
+# only as autofit_workspace/scripts/plot/*.py and have never existed in
+# HowToFit, which contains only chapter_*/tutorial_*.py — so neither pattern
+# ever matched a file here.
+#
+# Do not copy override patterns between repos; a pattern that matches nothing
+# is silently inert, not an override. `overrides: []` is written explicitly
+# because env_config.py reads `.get("overrides", [])` — a bare `overrides:`
+# key would load as None and raise on iteration.)
+overrides: []
