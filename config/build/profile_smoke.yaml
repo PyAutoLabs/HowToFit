@@ -19,7 +19,7 @@ defaults:
   MPLCONFIGDIR: "/tmp/matplotlib"           # Writable config dir for matplotlib
 
 # (Removed on 2026-07-23: the two overrides here, `plot/emcee_plotter` and
-# `plot/zeus_plotter`, were copied in from autofit_workspace's env_vars.yaml,
+# `plot/zeus_plotter`, were copied in from autofit_workspace's profile_smoke.yaml,
 # where the identical patterns still live and still match. Those scripts exist
 # only as autofit_workspace/scripts/plot/*.py and have never existed in
 # HowToFit, which contains only chapter_*/tutorial_*.py — so neither pattern

@@ -35,7 +35,7 @@ and the generic `af.Model` / `af.Collection` API.
 ## Testing
 
 On CI, every PR is gated on Python **3.12 and 3.13** by `smoke_tests.yml` (runs
-`python .github/scripts/run_smoke.py`, driven by `smoke_tests.txt` + `config/build/env_vars.yaml` —
+`python .github/scripts/run_smoke.py`, driven by `smoke_tests.txt` + `config/build/profile_smoke.yaml` —
 the definition of green), `navigator_check.yml` (PyAutoHands's reusable navigator-catalogue check;
 see *Notebooks vs Scripts*), and `url_check.yml` (link checking). The smoke and navigator jobs check
 out **PyAutoHands** as a sibling and run the PyAuto* libraries from the **same-named branch** of each
