@@ -3,7 +3,7 @@ The `scripts` folder contains **HowToFit** lectures, which teach a new user how 
 # Folders
 
 - `chapter_1_introduction`: Introduction lectures describing how to compose and fit models in **PyAutoFit**.
-- `chapter_2_scientific_workflow`: Reserved stub for future material on building a full scientific model-fitting workflow. The equivalent overview currently lives in `autofit_workspace/scripts/overview/overview_2_science_workflow.py`.
+- `chapter_2_scientific_workflow`: Reserved stub for future material on building a full scientific model-fitting workflow. The equivalent overview currently lives in `autofit_workspace/scripts/overview/overview_2_scientific_workflow.py`.
 - `chapter_3_graphical_models`: How to compose and fit graphical models which fit many datasets simultaneously, including hierarchical models and Expectation Propagation.
 - `simulators`: Simulator scripts that generate the tutorial 1D datasets at runtime.
 
