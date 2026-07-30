@@ -5,7 +5,7 @@ Tutorial 5: Results And Samples
 In this tutorial, we'll cover all of the output that comes from a non-linear search's `Result`  object.
 
 We used this object at various points in the chapter. The bulk of material covered here is described in the example
-script `autofit_workspace/overview/simple/result.py`. Nevertheless, it is a good idea to refresh ourselves about how
+script `autofit_workspace/*/cookbooks/result.py`. Nevertheless, it is a good idea to refresh ourselves about how
 results in **PyAutoFit** work before covering more advanced material.
 
 __Contents__
@@ -678,7 +678,7 @@ code which you can copy to your .tex document.
 
 By combining this with the filtering tools below, specific parameters can be included or removed from the latex.
 
-Remember that the superscripts of a parameter are loaded from the config file `notation/label.yaml`, providing high
+Remember that the superscripts of a parameter are loaded from the config file `notation.yaml`, providing high
 levels of customization for how the parameter names appear in the latex table. This is especially useful if your model
 uses the same model components with the same parameter, which therefore need to be distinguished via superscripts.
 """
