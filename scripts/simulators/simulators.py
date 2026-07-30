@@ -218,7 +218,3 @@ runpy.run_path(
     path.join(path.dirname(path.abspath(__file__)), "simulators_sample.py"),
     run_name="__main__",
 )
-
-"""
-Finish.
-"""
