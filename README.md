@@ -25,7 +25,7 @@ they are concise, API-focused, and assume the concepts taught in **HowToFit** as
   interpret the results of a fit.
 - `chapter_2_scientific_workflow` — Reserved for future material on building a full scientific
   model-fitting workflow. Currently a stub; the corresponding overview lives in
-  `autofit_workspace/scripts/overview/overview_2_science_workflow.py`.
+  `autofit_workspace/scripts/overview/overview_2_scientific_workflow.py`.
 - `chapter_3_graphical_models` — Fitting many datasets simultaneously with graphical models,
   hierarchical models, and Expectation Propagation.
 
