@@ -130,7 +130,7 @@
       "Latex"
     ],
     "cross_refs": [
-      "autofit_workspace/overview/simple/result.py",
+      "/cookbooks/result.py",
       "corner.py"
     ],
     "notebook": "notebooks/chapter_1_introduction/tutorial_5_results_and_samples.ipynb",

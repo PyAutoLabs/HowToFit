@@ -50,6 +50,6 @@ interpretation. The chapter includes:
 
 An applied astronomy-focused example (previously tutorial 8) now lives in
 `autofit_workspace_developer/scripts/howtofit/chapter_1_introduction/tutorial_8_astronomy_example.py`,
-alongside the larger `projects/cosmology/` example. These depend on astronomy-specific datasets
+alongside the larger `autofit_workspace_developer/projects/cosmology/` example. These depend on astronomy-specific datasets
 that only live in the developer workspace.
 """
