@@ -9,3 +9,5 @@
 #   are broken and parked as a to-do list. These are NOT permanent skips —
 #   every mega-run surfaces them with a loud warning banner. Investigate the
 #   failure, fix the underlying bug, and remove the NEEDS_FIX marker.
+
+- tutorial_5_expectation_propagation # NEEDS_FIX 2026-08-05 - LinearRegressionAnalysis.log_likelihood_function returns a constant -1, ignoring `instance`, so every initial sample has an identical figure of merit and the per-factor search cannot initialise. The tutorial only "passes" today because CI runs at PYAUTO_TEST_MODE=2, which bypasses the sampler; at real sampling the linear_regression factor never completes a single update. Fix needs a real likelihood for the m/c regression over fwhm_list (currently computed and unused), which is tutorial authoring, not a mechanical repair. See PyAutoFit#1454.
