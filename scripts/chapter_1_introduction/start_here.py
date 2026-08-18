@@ -53,3 +53,5 @@ An applied astronomy-focused example (previously tutorial 8) now lives in
 alongside the larger `autofit_workspace_developer/projects/cosmology/` example. These depend on astronomy-specific datasets
 that only live in the developer workspace.
 """
+
+# from autofit import setup_notebook; setup_notebook()

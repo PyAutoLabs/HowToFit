@@ -49,4 +49,6 @@ __Next Step__
 Open `scripts/chapter_1_introduction/start_here.py` (or the `.ipynb` equivalent) and start there.
 """
 
+# from autofit import setup_notebook; setup_notebook()
+
 print(__doc__)
