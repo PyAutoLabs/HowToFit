@@ -69,6 +69,8 @@ This tutorial introduces the PyAutoFit API for model composition, which forms th
 performed by PyAutoFit.
 """
 
+# from autofit import setup_notebook; setup_notebook()
+
 import numpy as np
 import matplotlib.pyplot as plt
 
