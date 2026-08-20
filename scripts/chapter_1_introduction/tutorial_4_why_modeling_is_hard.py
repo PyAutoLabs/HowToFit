@@ -434,7 +434,7 @@ normalized_residual_map = residual_map / noise_map
 plt.plot(xvalues, normalized_residual_map, color="k")
 plt.title(f"Normalized Residuals (log likelihood = {result.log_likelihood})")
 plt.xlabel("x values of profile")
-plt.ylabel("Normalized Residuals ($\sigma$)")
+plt.ylabel(r"Normalized Residuals ($\sigma$)")
 plt.show()
 plt.clf()
 plt.close()
@@ -601,7 +601,7 @@ normalized_residual_map = residual_map / noise_map
 plt.plot(xvalues, normalized_residual_map, color="k")
 plt.title(f"Normalized Residuals (log likelihood = {result.log_likelihood})")
 plt.xlabel("x values of profile")
-plt.ylabel("Normalized Residuals ($\sigma$)")
+plt.ylabel(r"Normalized Residuals ($\sigma$)")
 plt.show()
 plt.clf()
 plt.close()
@@ -709,7 +709,7 @@ normalized_residual_map = residual_map / noise_map
 plt.plot(xvalues, normalized_residual_map, color="k")
 plt.title(f"Normalized Residuals (log likelihood = {result.log_likelihood})")
 plt.xlabel("x values of profile")
-plt.ylabel("Normalized Residuals ($\sigma$)")
+plt.ylabel(r"Normalized Residuals ($\sigma$)")
 plt.show()
 plt.clf()
 plt.close()
@@ -817,12 +817,12 @@ normalized_residual_map = residual_map / noise_map
 plt.plot(xvalues, normalized_residual_map, color="k")
 plt.title(f"Normalized Residuals (log likelihood = {result.log_likelihood})")
 plt.xlabel("x values of profile")
-plt.ylabel("Normalized Residuals ($\sigma$)")
+plt.ylabel(r"Normalized Residuals ($\sigma$)")
 plt.show()
 plt.clf()
 plt.close()
 
-"""
+r"""
 If you repeat the fit multiple times, you will find that the model-fit is more likely to produce a good fit than
 previously. 
 
