@@ -76,7 +76,7 @@ import matplotlib.pyplot as plt
 
 import autofit as af
 
-"""
+r"""
 __Paths__
 
 PyAutoFit assumes the current working directory is /path/to/HowToFit/ on your hard-disk (or in Colab). 
@@ -288,7 +288,7 @@ plt.ylabel("Gaussian Value")
 plt.show()
 plt.clf()
 
-"""
+r"""
 __Complex Models__
 
 The code above may seem like a lot of steps just to create an instance of the `Gaussian` class. Couldn't we have 

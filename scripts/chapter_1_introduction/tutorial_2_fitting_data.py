@@ -286,7 +286,7 @@ plt.ylabel("Residuals")
 plt.show()
 plt.clf()
 
-"""
+r"""
 __Normalized Residuals__
 
 Another method to quantify and visualize the quality of the fit is using the normalized residual map, also known as 
@@ -312,7 +312,7 @@ plt.ylabel("Normalized Residuals")
 plt.show()
 plt.clf()
 
-"""
+r"""
 __Chi Squared__
 
 Next, we define the `chi_squared_map`, which is obtained by squaring the `normalized_residual_map` and serves as a 
@@ -335,7 +335,7 @@ plt.ylabel("Chi-Squareds")
 plt.show()
 plt.clf()
 
-"""
+r"""
 Now, we consolidate all the information in our `chi_squared_map` into a single measure of goodness-of-fit 
 called `chi_squared`. 
 
@@ -350,7 +350,7 @@ leading to an inaccurate assessment of the model's fit to the data.
 chi_squared = np.sum(chi_squared_map)
 print("Chi-squared = ", chi_squared)
 
-"""
+r"""
 
 The lower the `chi_squared`, the fewer residuals exist between the model's fit and the data, indicating a better 
 overall fit!
@@ -375,7 +375,7 @@ with a Gaussian distribution.
 """
 noise_normalization = np.sum(np.log(2 * np.pi * noise_map**2.0))
 
-"""
+r"""
 __Likelihood__
 
 From the `chi_squared` and `noise_normalization`, we can define a final goodness-of-fit measure known as 
