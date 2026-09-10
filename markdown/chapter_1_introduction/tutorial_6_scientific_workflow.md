@@ -25,4 +25,6 @@ for natural language prompts that build this workflow with an assistant.
 For the corresponding Python implementation, follow the
 [workspace scientific workflow example](https://github.com/PyAutoLabs/autofit_workspace/blob/main/scripts/overview/overview_2_scientific_workflow.py).
 
+__Wrap Up__
+
 Apply the workflow to your own data before returning to chapter 3 for graphical and hierarchical models.
