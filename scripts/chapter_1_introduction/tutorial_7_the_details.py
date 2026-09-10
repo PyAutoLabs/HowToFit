@@ -775,6 +775,7 @@ search = af.MultiStartAdam(
     n_starts=8,  # The number of independent lanes launched through parameter space.
     n_steps=150,  # The number of gradient steps each lane takes.
     learning_rate=0.5,
+    batch_size=None,  # None evaluates every lane in one compiled call, as in tutorial 6.
 )
 
 print(
@@ -968,6 +969,7 @@ search = af.MultiStartAdam(
     n_starts=8,
     n_steps=150,
     learning_rate=0.5,
+    batch_size=None,  # As above.
     clipper=clipper,
 )
 

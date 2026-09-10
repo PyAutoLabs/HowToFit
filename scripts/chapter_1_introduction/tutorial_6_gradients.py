@@ -589,6 +589,7 @@ search = af.MultiStartAdam(
     n_starts=12,  # The number of independent lanes which walk uphill from different starting points.
     n_steps=200,  # The maximum number of gradient steps each lane takes.
     learning_rate=0.5,  # How far each lane moves per step, in units of the adapted gradient.
+    batch_size=None,  # None evaluates every lane in one compiled call; pass an integer to cap memory on large models.
 )
 
 print(
