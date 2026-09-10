@@ -26,7 +26,14 @@ defaults:
 # ever matched a file here.
 #
 # Do not copy override patterns between repos; a pattern that matches nothing
-# is silently inert, not an override. `overrides: []` is written explicitly
-# because env_config.py reads `.get("overrides", [])` — a bare `overrides:`
-# key would load as None and raise on iteration.)
-overrides: []
+# is silently inert, not an override. Patterns without a '/' match the file
+# stem exactly, so the two entries below match only the chapter 1 gradient
+# tutorials. Never leave the `overrides:` key with an empty value — a bare
+# `overrides:` loads as None; write `overrides: []` if every entry is removed.)
+overrides:
+  # The gradient tutorials teach JAX autodiff searches (MultiStartAdam, BlackJAXNUTS),
+  # which refuse to run with use_jax=False, so JAX stays on for them.
+  - pattern: "tutorial_6_gradients"
+    set: {PYAUTO_DISABLE_JAX: "0"}
+  - pattern: "tutorial_7_the_details"
+    set: {PYAUTO_DISABLE_JAX: "0"}

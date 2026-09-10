@@ -21,8 +21,9 @@ scientific analysis, and big data analysis (https://github.com/PyAutoLabs/PyAuto
 
 The HowToFit lectures cover an introductory chapter and an advanced chapter:
 
-**Chapter 1: Introduction**: How to fit a model to data, perform statistical inference, and interpret the results
-for scientific analysis, ending with an introduction to scientific workflows.
+**Chapter 1: Introduction**: How to fit a model to data, perform statistical inference, interpret the results
+for scientific analysis and use gradients to fit models more efficiently, ending with an introduction to
+scientific workflows.
 
 **Chapter 3: Graphical Models**: Simultaneous model fitting of large datasets, scaling up to models with tens of
 thousands of parameters.
@@ -45,8 +46,16 @@ interpretation. The chapter includes:
 
 `tutorial_5_results_and_samples.py`: Interpreting model-fit results and using the samples for scientific analysis.
 
-`tutorial_6_scientific_workflow.py`: A short, prose-only introduction to organizing and comparing many model fits,
+`tutorial_6_gradients.py`: How gradients tell a search which way is up, JAX autodiff, and how gradients change
+MLE, MCMC and nested sampling.
+
+`tutorial_7_the_details.py`: Parameterization, plateaus, assertions, clipping, NaN diagnostics and the unit cube,
+the details that decide whether a fit converges.
+
+`tutorial_8_scientific_workflow.py`: A short, prose-only introduction to organizing and comparing many model fits,
 with links to the scientific workflow guide and workspace example.
+
+`tutorial_optional_bayesian_formalism.py`: How everything in chapter 1 maps onto Bayes' theorem.
 
 An applied astronomy-focused example (previously tutorial 8) now lives in
 `autofit_workspace_developer/scripts/howtofit/chapter_1_introduction/tutorial_8_astronomy_example.py`,

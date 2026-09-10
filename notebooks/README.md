@@ -2,7 +2,7 @@ The `scripts` folder contains **HowToFit** lectures, which teach a new user how 
 
 # Folders
 
-- `chapter_1_introduction`: Introduction lectures describing how to compose and fit models in **PyAutoFit**, ending with a prose-only introduction to scientific workflows.
+- `chapter_1_introduction`: Introduction lectures describing how to compose and fit models in **PyAutoFit**, use gradients to fit them more efficiently and handle the details that make a fit succeed or fail, ending with a prose-only introduction to scientific workflows and an optional tutorial on the Bayesian formalism.
 - `chapter_3_graphical_models`: How to compose and fit graphical models which fit many datasets simultaneously, including hierarchical models and Expectation Propagation.
 - `simulators`: Simulator scripts that generate the tutorial 1D datasets at runtime.
 
@@ -55,6 +55,8 @@ able to:
 4. Fit a model to data using a non-linear search.
 5. Compose and fit more complex models using **PyAutoFit**'s model composition API.
 6. Analyse the results of a model-fit, including parameter estimates and errors.
+7. Use gradients of the log likelihood, computed with JAX automatic differentiation, to fit models with gradient based searches.
+8. Recognise and fix the details that make a fit fail: degenerate parameterizations, plateaus, clipping and NaNs, and the unit cube.
 
 # Overview of Chapter 3 (Advanced)
 

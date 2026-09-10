@@ -17,4 +17,10 @@ The chapter contains the following tutorials:
 
 - [Tutorial 5: Results and Samples](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.9.8.1/notebooks/chapter_1_introduction/tutorial_5_results_and_samples.ipynb) — Interpreting model-fit results and using the samples for scientific analysis.
 
-- [Tutorial 6: Scientific Workflow](../../notebooks/chapter_1_introduction/tutorial_6_scientific_workflow.ipynb) — A prose-only introduction to organizing and comparing many fits, with links to the full guide and workspace example.
+- [Tutorial 6: Gradients](../../notebooks/chapter_1_introduction/tutorial_6_gradients.ipynb) — How gradients tell a search which way is up, JAX autodiff, and how gradients change MLE, MCMC and nested sampling.
+
+- [Tutorial 7: The Details](../../notebooks/chapter_1_introduction/tutorial_7_the_details.ipynb) — Parameterization, plateaus, assertions, clipping, NaN diagnostics and the unit cube — the details that decide whether a fit converges.
+
+- [Tutorial 8: Scientific Workflow](../../notebooks/chapter_1_introduction/tutorial_8_scientific_workflow.ipynb) — A prose-only introduction to organizing and comparing many fits, with links to the full guide and workspace example.
+
+- [Tutorial Optional: Bayesian Formalism](../../notebooks/chapter_1_introduction/tutorial_optional_bayesian_formalism.ipynb) — How everything in chapter 1 maps onto Bayes' theorem.

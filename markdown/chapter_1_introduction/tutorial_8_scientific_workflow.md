@@ -1,9 +1,9 @@
-> ✏️ **This page is auto-generated from [`scripts/chapter_1_introduction/tutorial_6_scientific_workflow.py`](../../scripts/chapter_1_introduction/tutorial_6_scientific_workflow.py) — do not edit it directly.**
+> ✏️ **This page is auto-generated from [`scripts/chapter_1_introduction/tutorial_8_scientific_workflow.py`](../../scripts/chapter_1_introduction/tutorial_8_scientific_workflow.py) — do not edit it directly.**
 > It shows the example fully executed, with its real output images.
-> Run it yourself via the [Python script](../../scripts/chapter_1_introduction/tutorial_6_scientific_workflow.py) or the [Jupyter notebook](../../notebooks/chapter_1_introduction/tutorial_6_scientific_workflow.ipynb).
+> Run it yourself via the [Python script](../../scripts/chapter_1_introduction/tutorial_8_scientific_workflow.py) or the [Jupyter notebook](../../notebooks/chapter_1_introduction/tutorial_8_scientific_workflow.ipynb).
 
-Tutorial 6: Scientific Workflow
-==============================
+Tutorial 8: Scientific Workflow
+===============================
 
 You can now compose a model, fit it to data and interpret its results. A scientific study often repeats
 these steps for many datasets, competing models and different non-linear searches. The next challenge is
