@@ -8,8 +8,7 @@ interpret probabilistic models from first principles. It is the teaching compani
 ## Repository Structure
 
 - `scripts/` — Runnable Python tutorial scripts:
-  - `chapter_1_introduction/` — Models, fitting data, non-linear searches, results and samples
-  - `chapter_2_scientific_workflow/` — Reserved stub for future material (empty except README)
+  - `chapter_1_introduction/` — Models, fitting data, non-linear searches, results and samples, and a prose-only scientific workflow closing tutorial
   - `chapter_3_graphical_models/` — Individual / graphical / hierarchical models, Expectation Propagation
   - `simulators/` — Simulator scripts that generate the tutorial 1D datasets at runtime
 - `notebooks/` — Jupyter versions, generated from `scripts/` (do not edit directly)
@@ -64,6 +63,9 @@ The `howtofit` project target is registered in PyAutoHands (`run_all.py`, `navig
 The navigator catalogue — `llms-full.txt` + `workspace_index.json` — is what `navigator_check.yml`
 gates; it is rebuilt by the same PyAutoHands generate/merge flow that builds the notebooks. Commit
 regenerated notebooks and catalogue alongside the script changes.
+
+`tutorial_6_scientific_workflow.py` is prose-only by design: its generated notebook must contain no
+code cells, including Colab setup. Verify this after regeneration.
 
 ## Bulk-edit safety
 
