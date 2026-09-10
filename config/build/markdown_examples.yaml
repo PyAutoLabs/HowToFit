@@ -14,3 +14,5 @@
   max_minutes: 120
 - script: scripts/chapter_1_introduction/tutorial_5_results_and_samples.py
   max_minutes: 90
+- script: scripts/chapter_1_introduction/tutorial_6_scientific_workflow.py
+  max_minutes: 1

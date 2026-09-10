@@ -9,14 +9,13 @@ This script gives you a one-page overview of the series and points you to the fi
 
 __HowToFit__
 
-**HowToFit** is a three-chapter guide which takes you from knowing nothing about model fitting
+**HowToFit** is a guide which takes you from knowing nothing about model fitting
 to being able to compose, fit, and interpret complex graphical and hierarchical models with
 **PyAutoFit** for scientific research.
 
 - Chapter 1: Introduction — what a model is, how we fit data, how non-linear searches work,
-  why model fitting is hard, and how to inspect the results.
-- Chapter 2: Scientific workflow — placeholder for future material. For now, the equivalent
-  overview lives in ``autofit_workspace/scripts/overview/overview_2_science_workflow.py``.
+  why model fitting is hard, and how to inspect the results. The final tutorial introduces
+  scientific workflows and links to the full guide and workspace example.
 - Chapter 3: Graphical models — fitting many datasets simultaneously with graphical models,
   hierarchical models, and Expectation Propagation.
 

@@ -7,7 +7,8 @@
       "tutorial_2_fitting_data.py",
       "tutorial_3_non_linear_search.py",
       "tutorial_4_why_modeling_is_hard.py",
-      "tutorial_5_results_and_samples.py"
+      "tutorial_5_results_and_samples.py",
+      "tutorial_6_scientific_workflow.py"
     ],
     "notebook": "notebooks/chapter_1_introduction/start_here.ipynb",
     "path": "scripts/chapter_1_introduction/start_here.py",
@@ -137,6 +138,16 @@
     "path": "scripts/chapter_1_introduction/tutorial_5_results_and_samples.py",
     "summary": "In this tutorial, we'll cover all of the output that comes from a non-linear search's `Result`  object.",
     "title": "Tutorial 5: Results And Samples"
+  },
+  {
+    "contents": [],
+    "cross_refs": [
+      "//github.com/PyAutoLabs/autofit_workspace/blob/main/scripts/overview/overview_2_scientific_workflow.py"
+    ],
+    "notebook": "notebooks/chapter_1_introduction/tutorial_6_scientific_workflow.ipynb",
+    "path": "scripts/chapter_1_introduction/tutorial_6_scientific_workflow.py",
+    "summary": "You can now compose a model, fit it to data and interpret its results. A scientific study often repeats these steps for many datasets, competing models and different non-linear searches. The next challenge is keeping those fits organized so that you can understand and compare them.",
+    "title": "Tutorial 6: Scientific Workflow"
   },
   {
     "contents": [

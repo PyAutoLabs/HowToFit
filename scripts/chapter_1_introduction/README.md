@@ -16,3 +16,5 @@ The chapter contains the following tutorials:
 - [Tutorial 4: Why Modeling Is Hard](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.9.8.1/notebooks/chapter_1_introduction/tutorial_4_why_modeling_is_hard.ipynb) — Why fitting complex models is challenging and how a good scientific approach overcomes common problems.
 
 - [Tutorial 5: Results and Samples](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.9.8.1/notebooks/chapter_1_introduction/tutorial_5_results_and_samples.ipynb) — Interpreting model-fit results and using the samples for scientific analysis.
+
+- [Tutorial 6: Scientific Workflow](../../notebooks/chapter_1_introduction/tutorial_6_scientific_workflow.ipynb) — A prose-only introduction to organizing and comparing many fits, with links to the full guide and workspace example.

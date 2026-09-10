@@ -22,13 +22,10 @@ data analysis.
 The lectures use the probabilistic programming language PyAutoFit, an open-source library for model-fitting,
 scientific analysis, and big data analysis (https://github.com/PyAutoLabs/PyAutoFit).
 
-The HowToFit lectures are composed of 3 chapters:
+The HowToFit lectures cover an introductory chapter and an advanced chapter:
 
 **Chapter 1: Introduction**: How to fit a model to data, perform statistical inference, and interpret the results
-for scientific analysis.
-
-**Chapter 2: Scientific Workflow**: Scaling model-fitting to big datasets while ensuring detailed scientific analysis
-of the results.
+for scientific analysis, ending with an introduction to scientific workflows.
 
 **Chapter 3: Graphical Models**: Simultaneous model fitting of large datasets, scaling up to models with tens of
 thousands of parameters.
@@ -51,12 +48,19 @@ interpretation. The chapter includes:
 
 `tutorial_5_results_and_samples.py`: Interpreting model-fit results and using the samples for scientific analysis.
 
+`tutorial_6_scientific_workflow.py`: A short, prose-only introduction to organizing and comparing many model fits,
+with links to the scientific workflow guide and workspace example.
+
 An applied astronomy-focused example (previously tutorial 8) now lives in
 `autofit_workspace_developer/scripts/howtofit/chapter_1_introduction/tutorial_8_astronomy_example.py`,
-alongside the larger `projects/cosmology/` example. These depend on astronomy-specific datasets
+alongside the larger `autofit_workspace_developer/projects/cosmology/` example. These depend on astronomy-specific datasets
 that only live in the developer workspace.
 
 
 ```python
 
+from autofit import setup_notebook; setup_notebook()
+
 ```
+
+    Working Directory has been set to `HowToFit`
