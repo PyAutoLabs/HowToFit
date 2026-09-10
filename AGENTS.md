@@ -8,7 +8,7 @@ interpret probabilistic models from first principles. It is the teaching compani
 ## Repository Structure
 
 - `scripts/` — Runnable Python tutorial scripts:
-  - `chapter_1_introduction/` — Models, fitting data, non-linear searches, results and samples, and a prose-only scientific workflow closing tutorial
+  - `chapter_1_introduction/` — Models, fitting data, non-linear searches, results and samples, gradients and JAX autodiff, the details that make a fit succeed or fail, a prose-only scientific workflow closing tutorial, and an optional Bayesian formalism tutorial
   - `chapter_3_graphical_models/` — Individual / graphical / hierarchical models, Expectation Propagation
   - `simulators/` — Simulator scripts that generate the tutorial 1D datasets at runtime
 - `notebooks/` — Jupyter versions, generated from `scripts/` (do not edit directly)
@@ -64,7 +64,7 @@ The navigator catalogue — `llms-full.txt` + `workspace_index.json` — is what
 gates; it is rebuilt by the same PyAutoHands generate/merge flow that builds the notebooks. Commit
 regenerated notebooks and catalogue alongside the script changes.
 
-`tutorial_6_scientific_workflow.py` is prose-only by design: its generated notebook must contain no
+`tutorial_8_scientific_workflow.py` is prose-only by design: its generated notebook must contain no
 code cells, including Colab setup. Verify this after regeneration.
 
 ## Bulk-edit safety

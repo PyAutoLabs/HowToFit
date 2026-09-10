@@ -14,5 +14,11 @@
   max_minutes: 120
 - script: scripts/chapter_1_introduction/tutorial_5_results_and_samples.py
   max_minutes: 90
-- script: scripts/chapter_1_introduction/tutorial_6_scientific_workflow.py
+- script: scripts/chapter_1_introduction/tutorial_6_gradients.py
+  max_minutes: 60
+- script: scripts/chapter_1_introduction/tutorial_7_the_details.py
+  max_minutes: 60
+- script: scripts/chapter_1_introduction/tutorial_8_scientific_workflow.py
   max_minutes: 1
+- script: scripts/chapter_1_introduction/tutorial_optional_bayesian_formalism.py
+  max_minutes: 30

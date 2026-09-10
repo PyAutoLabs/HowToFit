@@ -48,7 +48,7 @@ interpretation. The chapter includes:
 
 `tutorial_5_results_and_samples.py`: Interpreting model-fit results and using the samples for scientific analysis.
 
-`tutorial_6_scientific_workflow.py`: A short, prose-only introduction to organizing and comparing many model fits,
+`tutorial_8_scientific_workflow.py`: A short, prose-only introduction to organizing and comparing many model fits,
 with links to the scientific workflow guide and workspace example.
 
 An applied astronomy-focused example (previously tutorial 8) now lives in

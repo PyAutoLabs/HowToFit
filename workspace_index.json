@@ -8,7 +8,10 @@
       "tutorial_3_non_linear_search.py",
       "tutorial_4_why_modeling_is_hard.py",
       "tutorial_5_results_and_samples.py",
-      "tutorial_6_scientific_workflow.py"
+      "tutorial_6_gradients.py",
+      "tutorial_7_the_details.py",
+      "tutorial_8_scientific_workflow.py",
+      "tutorial_optional_bayesian_formalism.py"
     ],
     "notebook": "notebooks/chapter_1_introduction/start_here.ipynb",
     "path": "scripts/chapter_1_introduction/start_here.py",
@@ -140,14 +143,78 @@
     "title": "Tutorial 5: Results And Samples"
   },
   {
+    "contents": [
+      "Data",
+      "Model",
+      "Analysis",
+      "Gradients",
+      "Finite Differencing",
+      "JAX and Autodiff",
+      "Maximum Likelihood Estimation (MLE)",
+      "Markov Chain Monte Carlo (MCMC)",
+      "Nested Sampling",
+      "Errors From Curvature",
+      "Wrap Up"
+    ],
+    "cross_refs": [
+      "corner.py"
+    ],
+    "notebook": "notebooks/chapter_1_introduction/tutorial_6_gradients.ipynb",
+    "path": "scripts/chapter_1_introduction/tutorial_6_gradients.py",
+    "summary": "In tutorial 3, describing how a maximum likelihood estimator works, we said it \"evaluates the likelihood at nearby points to estimate the gradient, determining the direction in which to move up in parameter space\". That sentence slipped by quickly, but it hides one of the most important ideas in model-fitting: the search does not have to be blind, because the likelihood surface has a slope, and the slope tells us which way is up.",
+    "title": "Tutorial 6: Gradients"
+  },
+  {
+    "contents": [
+      "Data",
+      "Model",
+      "Analysis",
+      "Parameterization",
+      "Assertions",
+      "Plateaus",
+      "Comparing Searches",
+      "Clipping",
+      "NaN Diagnostics",
+      "Unit Cube Vs Physical",
+      "Summary"
+    ],
+    "cross_refs": [
+      "corner.py"
+    ],
+    "notebook": "notebooks/chapter_1_introduction/tutorial_7_the_details.ipynb",
+    "path": "scripts/chapter_1_introduction/tutorial_7_the_details.py",
+    "summary": "In tutorial 6 we opened up the non-linear search and looked at how it moves. We saw that some searches only ever ask the likelihood function \"what is the value here?\", whilst gradient based searches also ask \"and which way is uphill?\", and that **PyAutoFit** can answer the second question exactly by using JAX to differentiate the likelihood function.",
+    "title": "Tutorial 7: The Details"
+  },
+  {
     "contents": [],
     "cross_refs": [
       "//github.com/PyAutoLabs/autofit_workspace/blob/main/scripts/overview/overview_2_scientific_workflow.py"
     ],
-    "notebook": "notebooks/chapter_1_introduction/tutorial_6_scientific_workflow.ipynb",
-    "path": "scripts/chapter_1_introduction/tutorial_6_scientific_workflow.py",
+    "notebook": "notebooks/chapter_1_introduction/tutorial_8_scientific_workflow.ipynb",
+    "path": "scripts/chapter_1_introduction/tutorial_8_scientific_workflow.py",
     "summary": "You can now compose a model, fit it to data and interpret its results. A scientific study often repeats these steps for many datasets, competing models and different non-linear searches. The next challenge is keeping those fits organized so that you can understand and compare them.",
-    "title": "Tutorial 6: Scientific Workflow"
+    "title": "Tutorial 8: Scientific Workflow"
+  },
+  {
+    "contents": [
+      "Bayes Theorem",
+      "Data",
+      "The Model",
+      "The Likelihood",
+      "The Prior",
+      "The Posterior",
+      "Maximum Likelihood Vs Maximum A Posteriori",
+      "Marginalization",
+      "The Evidence",
+      "Gradients",
+      "Wrap Up"
+    ],
+    "cross_refs": [],
+    "notebook": "notebooks/chapter_1_introduction/tutorial_optional_bayesian_formalism.ipynb",
+    "path": "scripts/chapter_1_introduction/tutorial_optional_bayesian_formalism.py",
+    "summary": "Every tutorial in this chapter has been an exercise in Bayesian inference, and not one of them wrote down a single equation of probability theory. That was deliberate. The **HowToFit** lectures are built on the conviction that you can learn to fit models to data properly, and interpret the results correctly, without first sitting through a course on Bayesian statistics.",
+    "title": "Tutorial Optional: Bayesian Formalism"
   },
   {
     "contents": [

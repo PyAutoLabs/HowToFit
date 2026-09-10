@@ -1,6 +1,6 @@
 """
-Tutorial 6: Scientific Workflow
-==============================
+Tutorial 8: Scientific Workflow
+===============================
 
 You can now compose a model, fit it to data and interpret its results. A scientific study often repeats
 these steps for many datasets, competing models and different non-linear searches. The next challenge is
