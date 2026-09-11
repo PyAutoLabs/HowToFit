@@ -29,7 +29,7 @@ This tutorial is split into the following sections:
 - **Analysis**: Create Analysis objects for each dataset.
 - **Model**: Set up the graphical model with a shared prior for the centre parameter.
 - **Analysis Factors**: Pair each model with its corresponding Analysis class at factor graph nodes.
-- **Factor Graph**: Combine the Analysis Factors into a factor graph representing the graphical model.
+- **Factor Graph**: Combine the Analysis Factors into a factor graph and draw the graphical model.
 - **Search**: Configure and run the non-linear search to fit the factor graph.
 - **Result**: Inspect and compare the graphical model results to the individual fits.
 - **Wrap Up**: Summary and discussion of the benefits of graphical models.
@@ -194,9 +194,7 @@ What is a factor graph? A factor graph defines the graphical model's graph. For 
 model components that make up our model (e.g. the individual `Gaussian` classes) and how their parameters are linked or 
 shared (e.g. that each `Gaussian` has its own unique `normalization` and `sigma`, but a shared `centre` parameter).
 
-This is what our factor graph looks like (visualization of graphs not implemented yet): 
-
-The factor graph above is made up of two components:
+A factor graph is made up of two components:
 
 - Nodes: these are points on the graph where we have a unique set of data and a model that is made up of a subset of 
 our overall graphical model. This is effectively the `AnalysisFactor` objects we created above. 
@@ -214,6 +212,25 @@ Printing the `info` attribute of this model reveals the overall structure of the
 of the analysis factors and therefore datasets.
 """
 print(factor_graph.global_prior_model.info)
+
+"""
+We can also draw the model, via `af.ModelPlotter`. The figure is the **map** of the model and the `info` printed above
+is its **legend**: the map shows the structure, meaning which dataset gets which component and which parameters are
+shared between them, whereas the `info` lists the priors and values themselves.
+
+Look for three things in the figure. The five datasets do not appear as five repeated cards: because every dataset is
+fitted by the same `Gaussian` model they collapse into one dashed plate badged with the number of datasets, which is
+the picture of "this structure repeats". The shared `centre` is lifted out of that plate into its own card above it,
+with every member of the plate pointing back at it, so the single shared parameter is drawn once rather than five
+times. Each dataset's observed data enters as its own pill, coloured as an observation and therefore distinguishable
+at a glance from a value we have fixed by hand.
+
+This is worth dwelling on, because it is exactly the claim the text struggles to make. Written down, "a shared
+`centre`" and "a `centre` per dataset" are three words apart, and the `info` above prints the same `centre` prior once
+per dataset either way. In the figure they are different pictures: one arrow into a hoisted card, or five separate
+pills. If you can read that difference off the map, you can read a graphical model.
+"""
+af.ModelPlotter(factor_graph.global_prior_model).figure()
 
 """
 __Search__
