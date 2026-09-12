@@ -27,7 +27,7 @@ This tutorial is split into the following sections:
 - **Model Individual Factors**: Set up individual Gaussian models with independent priors.
 - **Analysis Factors**: Compose Analysis Factors pairing models with Analysis objects.
 - **Model**: Create a HierarchicalFactor with a parent Gaussian distribution for the centres.
-- **Factor Graph**: Compose the factor graph including the hierarchical factor.
+- **Factor Graph**: Compose the factor graph including the hierarchical factor and draw the hierarchical model.
 - **Search**: Configure and run the non-linear search for the hierarchical model.
 - **Result**: Inspect the inferred hierarchical distribution parameters.
 - **Comparison to One-by-One Fits**: Compare the hierarchical model results to simpler individual fits.
@@ -213,6 +213,23 @@ factor_graph = af.FactorGraphModel(*analysis_factor_list, hierarchical_factor)
 The factor graph model `info` attribute shows that the hierarchical factor's parameters are included in the model.
 """
 print(factor_graph.global_prior_model.info)
+
+"""
+Drawing this model with `af.ModelPlotter` and putting it next to the figure from tutorial 2 is the fastest way to see
+what changed, because the two models say opposite things with almost the same words.
+
+In tutorial 2 the `centre` was hoisted into a card of its own and the plate pointed back at it: one prior object, one
+number, shared. Here every dataset keeps its own `centre`, so it stays inside the plate as a `drawn` pill badged with
+the hierarchical factor it came from, and the violet arrow comes from that factor's card and lands on the pill. There
+is no shared badge anywhere on this figure. The arrow is making the weaker and more realistic claim: these centres
+were drawn from a common population, they are not the same number.
+
+The footer makes the accounting explicit too, counting the parent distribution's `mean` and `sigma` as
+hyper-parameters separately from the parameters belonging to each dataset. That is the split that matters when you
+ask what a hierarchical model actually buys you: the hyper-parameters are the handful of numbers the whole sample
+informs, and the figure is where you can see how few of them there are.
+"""
+af.ModelPlotter(factor_graph.global_prior_model).figure()
 
 """
 __Search__
