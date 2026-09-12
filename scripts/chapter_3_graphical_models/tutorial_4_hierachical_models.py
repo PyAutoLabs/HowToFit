@@ -218,11 +218,11 @@ print(factor_graph.global_prior_model.info)
 Drawing this model with `af.ModelPlotter` and putting it next to the figure from tutorial 2 is the fastest way to see
 what changed, because the two models say opposite things with almost the same words.
 
-In tutorial 2 the `centre` was hoisted into a card of its own and every dataset pointed at it: one prior object, one
-number, shared. Here each dataset keeps its own `centre`, drawn as a `drawn` pill, and the arrow comes from the
-hierarchical factor's card and lands on that pill. There is no shared badge anywhere on this figure. The arrow is
-making the weaker and more realistic claim: these centres were drawn from a common population, they are not the same
-number.
+In tutorial 2 the `centre` was hoisted into a card of its own and the plate pointed back at it: one prior object, one
+number, shared. Here every dataset keeps its own `centre`, so it stays inside the plate as a `drawn` pill badged with
+the hierarchical factor it came from, and the violet arrow comes from that factor's card and lands on the pill. There
+is no shared badge anywhere on this figure. The arrow is making the weaker and more realistic claim: these centres
+were drawn from a common population, they are not the same number.
 
 The footer makes the accounting explicit too, counting the parent distribution's `mean` and `sigma` as
 hyper-parameters separately from the parameters belonging to each dataset. That is the split that matters when you

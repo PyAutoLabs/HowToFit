@@ -221,14 +221,16 @@ shared between them, whereas the `info` lists the priors and values themselves.
 Look for three things in the figure. The five datasets do not appear as five repeated cards: because every dataset is
 fitted by the same `Gaussian` model they collapse into one dashed plate badged with the number of datasets, which is
 the picture of "this structure repeats". The shared `centre` is lifted out of that plate into its own card above it,
-with every member of the plate pointing back at it, so the single shared parameter is drawn once rather than five
-times. Each dataset's observed data enters as its own pill, coloured as an observation and therefore distinguishable
-at a glance from a value we have fixed by hand.
+with the plate linked back to it, so the single shared parameter is drawn once rather than five times. The observed
+data enters as its own pill, coloured as an observation and therefore distinguishable at a glance from the free
+priors beside it.
 
 This is worth dwelling on, because it is exactly the claim the text struggles to make. Written down, "a shared
-`centre`" and "a `centre` per dataset" are three words apart, and the `info` above prints the same `centre` prior once
-per dataset either way. In the figure they are different pictures: one arrow into a hoisted card, or five separate
-pills. If you can read that difference off the map, you can read a graphical model.
+`centre`" and "a `centre` per dataset" are three words apart, and in the `info` above the whole distinction is carried
+by an index range, the shared `centre` being printed once under a `0 - 4` heading instead of once per dataset. In the
+figure they are two different pictures: a hoisted card the plate points back at, or a `centre` pill sitting inside the
+plate exactly as `normalization` and `sigma` do. If you can read that difference off the map, you can read a
+graphical model.
 """
 af.ModelPlotter(factor_graph.global_prior_model).figure()
 
