@@ -221,6 +221,22 @@ not use `global_prior_model` below when performing the fit).
 print(factor_graph.global_prior_model.info)
 
 """
+Drawing the model shows the graph that EP is about to sweep. The figure is the **map**, showing which dataset gets
+which components and what joins them, and the `info` above is the **legend** of priors.
+
+There are four cards. The first three, `0` to `2`, are the `AnalysisFactor`'s, one per dataset, each holding a
+`gaussian` card with its `centre`, `normalization` and `sigma` pills. The fourth card, numbered `3`, is the
+`linear_regression` factor, and its pills are drawn in orange rather than as plain free priors because they are not
+free parameters at all: each one shows the expression it is computed from, a constant times that dataset's
+`gaussian.sigma`, which is the FWHM we built out of `fwhm_list` above. The legend names this kind of pill,
+`relation (expression shown)`, and a line runs from each dataset's `sigma` into the relation built on it.
+
+Those lines are the thing to hold on to for the rest of the tutorial. EP never fits this whole map in one go. It
+visits one card at a time, and the lines drawn here are the paths its messages travel along.
+"""
+af.ModelPlotter(factor_graph.global_prior_model).figure()
+
+"""
 __Expectation Propagation__
 
 In the previous tutorials, we used the `global_prior_model` of the `factor_graph` to fit the global model. In this 
@@ -257,11 +273,20 @@ produce the same estimate of the shared parameter `centre`.
 
 When we fit the factor graph a `name` is passed, which determines the folder all results of the factor graph are
 stored in.
+
+We also pass `visualise_interval=1`. The EP fit draws the factor graph with the state of the run painted onto it and
+writes it to the output folder, and this input sets how many sweeps pass between refreshes of that figure. Its
+default is 100, which over the 5 sweeps below would draw it exactly once, so we set it to 1 and get a fresh picture
+of the graph after every sweep.
 """
 laplace = af.LaplaceOptimiser()
 
 factor_graph_result = factor_graph.optimise(
-    optimiser=laplace, paths=paths, ep_history=af.EPHistory(kl_tol=0.05), max_steps=5
+    optimiser=laplace,
+    paths=paths,
+    ep_history=af.EPHistory(kl_tol=0.05),
+    max_steps=5,
+    visualise_interval=1,
 )
 
 """
@@ -272,6 +297,51 @@ An `info` attribute for the result of a factor graph fitted via EP does not exis
 The result can be seen in the `graph.result` file output to hard-disk.
 """
 ### print(factor_graph_result.info)##
+
+"""
+__Seeing the EP run__
+
+Until that `info` exists, the figure is how we read an EP fit back. `af.EPPlotter` draws the same factor graph as
+before, but now with the state of the run painted onto it.
+
+The graph it draws is not the map we drew earlier, it is the factor graph itself, and its legend says how to read
+it: `box = factor`, `pill = variable`, `dashed frame = repeated structure`. Every `AnalysisFactor` is a box, every
+parameter it touches is a pill, and an edge between them means "this factor has something to say about this
+variable". That is the picture the message passing above lives on: a message leaves a box, arrives at a pill, and is
+read by every other box attached to it. The three datasets sit inside a dashed plate badged `3 datasets`, drawn once
+as an aggregate `AnalysisFactor` box, with the individual `dataset_0`, `dataset_1` and `dataset_2` boxes expanded
+alongside it because their states differ from one another.
+
+Onto that structure the `ep_history` paints what the sweeps actually did. Every box carries a status:
+
+ - `working`: it is updating, nothing was rejected, and it has not yet converged.
+ - `converged`, drawn green: the `EPHistory` convergence test, our `kl_tol=0.05` above, passes for this factor.
+ - `stale`, drawn grey: the sweeps reached it but it never landed a single update, so the posterior reported for its
+ variables is still the message it started with.
+ - `reverting`, drawn with red dashed edges: its latest projection was rejected for at least one variable and that
+ variable's message was put back, so the box updated but that marginal did not move.
+
+Each box is also badged with how many updates it landed out of how many sweeps, an `age` counting the sweeps since
+it last moved, and the reason code of its last rejection, such as `BAD_PROJECTION`. The footer totals the whole
+graph: how many factors, variables and plates it has, and how many are stale, reverting, converged and working after
+the sweeps that were run.
+
+Look at the grey boxes first. A `stale` factor means a dataset contributed nothing at all to the shared inference,
+which is a very different failure from a fit that simply has not converged yet, and it is easy to miss in the numbers
+printed below because EP can report convergence in exactly that state: if no factor updates, the step between sweeps
+is zero.
+
+Note which factor graph we hand the plotter. `factor_graph_result.factor_graph` is the graph the optimiser actually
+swept, and the `ep_history` is keyed by its factor objects. Do not pass `factor_graph.graph` instead: that property
+builds a fresh graph and renames its factors on every access, so the history would match nothing and every node would
+be drawn as `absent`.
+
+Passing `kind="model"` instead draws the structure alone, with no run painted on it, which is the view to use before
+a fit starts.
+"""
+af.EPPlotter(
+    factor_graph_result.factor_graph, ep_history=factor_graph_result.ep_history
+).figure(kind="state")
 
 """
 __Output__
@@ -291,6 +361,16 @@ The following folders and files are worth of note:
  the EP fit. A careful inspection of the `model.info` files inside each folder reveals how the priors are updated
  over each cycle, whereas the `model.results` file should indicate the improved estimate of model parameters over each
  cycle.
+
+ - `graph_model.png`: the factor graph drawn as structure alone, written once at the start of the fit beside
+ `graph.info`.
+
+ - `graph_state.png`: the same graph with the state of the run painted onto it, rewritten every `visualise_interval`
+ sweeps and therefore, with the `visualise_interval=1` we passed above, after every sweep. Flicking through it as the
+ fit runs is the quickest way to see which factors are moving and which have gone stale.
+
+Both `.png` files are only written when `model_figure` is set to `true` in `config/output.yaml`; it ships as
+`false`, so switch it on before the fit if you want them.
 
 __Results__
 

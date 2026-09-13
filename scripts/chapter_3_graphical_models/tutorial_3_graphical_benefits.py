@@ -352,6 +352,24 @@ parameters across the datasets.
 print(factor_graph.global_prior_model.info)
 
 """
+Drawing this model next to tutorial 2's figure shows what the second shared parameter bought us. The figure is the
+**map** of the model, showing which dataset gets which components and which parameters are shared between them, and
+the `info` above is the **legend** of priors.
+
+Two things have changed. The hoisted card at the top is titled `shared across datasets` and subtitled `one value
+across 5 datasets`, and it now holds two `centre` pills rather than one, because each of the two `Gaussian`'s has its
+own shared `centre`. Below it, every dataset is drawn as its own card, `0` through `4`, each containing a
+`gaussian_0` and a `gaussian_1`, and inside them the `centre` pill carries a blue `shared` badge with a line running
+back up to the hoisted card. The `normalization` and `sigma` pills carry no badge and no line, because those
+parameters belong to their own dataset alone.
+
+The footer draws the dimensionality claim made above rather than asserting it: `2 shared across datasets`,
+`4 per dataset × 5 datasets`, `22 unique sampled scalars`. That is the N=22 of the text, and the map shows where each
+of those numbers comes from.
+"""
+af.ModelPlotter(factor_graph.global_prior_model).figure()
+
+"""
 __Search__
 
 We can now create a non-linear search and use it to the fit the factor graph, again using its `global_prior_model` 

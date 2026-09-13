@@ -271,6 +271,17 @@ for gaussian in [model.gaussian_0, model.gaussian_1]:
 print(model.info)
 
 """
+Draw the model and the problem is already on the page. The figure is the **map** of the model, showing its structure,
+and the `info` above is the **legend**, listing the priors.
+
+The two `Gaussian`'s do not get a card each. Because they are the same component carrying identical priors, they
+collapse into a single dashed frame badged `2 components` and subtitled `gaussian_0 - gaussian_1`, with one
+`independent` pill per parameter. The figure is drawn that way because there is genuinely nothing in the model that
+tells the two apart, which is exactly the property the next few cells are about to exploit.
+"""
+af.ModelPlotter(model).figure()
+
+"""
 There is a problem hiding in that model. The two components are interchangeable: nothing says `gaussian_0` is the
 narrow one and `gaussian_1` the broad one. Swap all six values over and we get exactly the same summed model data,
 because addition does not care about the order of its arguments, which means the same residuals, the same
