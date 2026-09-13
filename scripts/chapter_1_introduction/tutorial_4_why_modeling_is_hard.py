@@ -309,6 +309,24 @@ The `model.info` confirms the model is composed of 5 `Gaussian` profiles.
 print(model.info)
 
 """
+Drawing the model makes the jump in complexity easier to see than counting lines of `info` does. The figure is the
+**map** of the model, showing its structure, and the `info` above is the **legend**, listing the priors on every
+parameter.
+
+The five `Gaussian`'s do not appear as five separate cards. Because they are the same component repeated with the
+same priors, they collapse into a single dashed frame badged `5 components` and subtitled `gaussian_0 - gaussian_4`,
+inside which `centre`, `normalization` and `sigma` are each drawn once and badged `independent`, meaning one prior per
+member rather than one prior shared between the members. The legend line below the figure spells that convention
+out, `independent = one prior per member` and `dashed frame = repeated components`, and the footer does the
+arithmetic: `15 unique sampled scalars`, `0 shared priors` and `1 plate standing for 5 components`.
+
+That footer is the difficulty of this tutorial stated in one line. Tutorial 3 searched 3 dimensions; this search has
+15 of them, and parameter space grows in volume so quickly with that number that the same search which comfortably
+found the single `Gaussian` is about to struggle.
+"""
+af.ModelPlotter(model).figure()
+
+"""
 __Search__
 
 We again use the nested sampling algorithm Dynesty to fit the model to the data.
@@ -551,6 +569,14 @@ The `info` attribute shows the model is now using the priors specified above.
 print(model.info)
 
 """
+The map is worth drawing again precisely because it has not changed: the same dashed frame badged `5 components`, the
+same three `independent` pills, the same `15 unique sampled scalars` in the footer. Tuning the priors moved the
+legend, not the map. We are still fitting the same 15 parameter model, we have simply told the search a smaller
+region of it to look in.
+"""
+af.ModelPlotter(model).figure()
+
+"""
 We now repeat the model-fit using these updated priors.
 
 First, you should note that the run time of the fit is significantly faster than the previous fit. This is because
@@ -661,6 +687,17 @@ The `info` attribute shows the model is now using the same `centre` for all `Gau
 print(model.info)
 
 """
+This time the map itself changes, and it changes in one pill. The `centre` pill inside the frame is now badged
+`shared across group` instead of `independent`, the legend below gains the entry `blue badge = shared prior`, and the
+footer reads `11 unique sampled scalars` and `1 shared prior` where before it read 15 and none.
+
+That is the difference between the two approaches drawn side by side. Tuning the priors left the map alone and
+narrowed the legend; assuming a shared `centre` shrinks the map itself, because four of its parameters have stopped
+existing.
+"""
+af.ModelPlotter(model).figure()
+
+"""
 We now repeat the model-fit using this updated model where the `centre` of each `Gaussian` is the same.
 
 You should again note that the run time of the fit is significantly faster than the previous fits
@@ -755,6 +792,14 @@ model = af.Collection(
 The `model.info` confirms the model is the same model fitted initially, composed of 5 `Gaussian` profiles.
 """
 print(model.info)
+
+"""
+The map is back where it started: one dashed frame badged `5 components`, three `independent` pills, no shared badge
+anywhere and `15 unique sampled scalars` in the footer. Approaches 1 and 2 each changed something that the map or its
+legend could show. This third approach changes neither, because searching parameter space more thoroughly is a
+property of the search, not of the model.
+"""
+af.ModelPlotter(model).figure()
 
 """
 __Search__

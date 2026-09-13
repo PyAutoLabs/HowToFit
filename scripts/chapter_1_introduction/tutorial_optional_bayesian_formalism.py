@@ -270,6 +270,18 @@ limits of 0.0 to 100.0.
 """
 print(model.info)
 
+"""
+The model can also be drawn, via `af.ModelPlotter`. The figure is the **map** of the model, showing its structure,
+meaning which component owns which parameter, and the `info` above is the **legend**, naming the prior on each of
+them.
+
+Read against the formalism of this tutorial the map has a precise meaning: the pills on the card are the entries of
+the parameter vector, the footer's `3 unique sampled scalars` is its dimension, and the sum over j in the expression
+above runs over exactly those pills. The prior is one distribution per pill, and the legend is where their names and
+limits live.
+"""
+af.ModelPlotter(model).figure()
+
 print("Log prior of each parameter, theta = [50.0, 25.0, 10.0]:")
 print(model.log_prior_list_from_vector(vector=[50.0, 25.0, 10.0]))
 
