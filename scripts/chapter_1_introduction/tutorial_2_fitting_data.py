@@ -265,7 +265,7 @@ to ascertain.
 We can plot the residuals with error bars based on the noise map. The plot below reveals that the model is a poor fit, 
 as many residuals deviate significantly from zero even after accounting for the noise in each data point.
 
-A blue line through zero is included on the plot, to make it clear where residuals are not constent with zero
+A blue line through zero is included on the plot, to make it clear where residuals are not consistent with zero
 above the noise level.
 """
 residual_map = data - model_data
@@ -294,7 +294,9 @@ standardized residuals.
 
 The normalized residual map is computed as the residual map divided by the noise map:
 
-\[ \text{normalized\_residual} = \frac{\text{residual\_map}}{\text{noise\_map}} = \frac{\text{data} - \text{model\_data}}{\text{noise\_map}} \]
+$$
+\text{normalized\_residual} = \frac{\text{residual\_map}}{\text{noise\_map}} = \frac{\text{data} - \text{model\_data}}{\text{noise\_map}}
+$$
 
 If you're familiar with the concept of standard deviations (sigma) in statistics, the normalized residual map represents 
 how many standard deviations the residual is from zero. For instance, a normalized residual of 2.0 (corresponding 
@@ -320,7 +322,9 @@ measure of goodness of fit.
 
 The chi-squared map is calculated as:
 
-\[ \chi^2 = \left(\frac{\text{data} - \text{model\_data}}{\text{noise\_map}}\right)^2 \]
+$$
+\chi^2 = \left(\frac{\text{data} - \text{model\_data}}{\text{noise\_map}}\right)^2
+$$
 
 The purpose of squaring the normalized residual map is to ensure all values are positive. For instance, both a 
 normalized residual of -0.2 and 0.2 would square to 0.04, indicating the same level of fit in terms of `chi_squared`.
@@ -341,7 +345,9 @@ called `chi_squared`.
 
 It is defined as the sum of all values in the `chi_squared_map` and is computed as:
 
-\[ \chi^2 = \sum \left(\frac{\text{data} - \text{model\_data}}{\text{noise\_map}}\right)^2 \]
+$$
+\chi^2 = \sum \left(\frac{\text{data} - \text{model\_data}}{\text{noise\_map}}\right)^2
+$$
 
 This summing process highlights why ensuring all values in the chi-squared map are positive is crucial. If we 
 didn't square the values (making them positive), positive and negative residuals would cancel each other out, 
@@ -362,9 +368,9 @@ the `noise_normalization`.
 
 The `noise_normalization` is computed as the logarithm of the sum of squared noise values in our data: 
 
-\[
-\text{{noise\_normalization}} = \sum \log(2 \pi \text{{noise\_map}}^2)
-\]
+$$
+\text{noise\_normalization} = \sum \log(2 \pi \text{noise\_map}^2)
+$$
 
 This quantity is fixed because the noise-map remains constant throughout the fitting process. Despite this, 
 including the `noise_normalization` is considered good practice due to its statistical significance.
@@ -384,7 +390,9 @@ the `log_likelihood`.
 This measure is calculated by taking the sum of the `chi_squared` and `noise_normalization`, and then multiplying the 
 result by -0.5:
 
-\[ \text{log\_likelihood} = -0.5 \times \left( \chi^2 + \text{noise\_normalization} \right) \]
+$$
+\text{log\_likelihood} = -0.5 \times \left( \chi^2 + \text{noise\_normalization} \right)
+$$
 
 Why multiply by -0.5? The exact rationale behind this factor isn't critical for our current understanding.
 """
@@ -518,7 +526,7 @@ __Guess 1__
 
 The first guess correctly pinpoints that the Gaussian's peak is at 50.0, but the width and normalization are off.
 
-The `log_likelihood` is computed and printed, however because we don't have a value to compare it to yet, its hard
+The `log_likelihood` is computed and printed, however because we don't have a value to compare it to yet, it's hard
 to assess if it is a large or small value.
 """
 
@@ -540,7 +548,7 @@ print(f"Log Likelihood: {log_likelihood}")
 """
 __Guess 2__
 
-The second guess refines the width and normalization, but the size of the Gaussian is still off.
+The second guess refines the normalization, but the width of the Gaussian is still off.
 
 The `log_likelihood` is computed and printed, and increases a lot compared to the previous guess, indicating that
 the fit is better.
@@ -643,8 +651,8 @@ Can you imagine what a residual map would look like if you were to compare your 
 data? A residual map shows the differences between observed data and the model's predictions, often revealing 
 patterns or areas where the model fits well or poorly.
 
-Furthermore, can you foresee how you would calculate a log likelihood from this residual map? The log likelihood q
-uantifies how well your model fits the data, incorporating both the residual values and the noise characteristics of 
+Furthermore, can you foresee how you would calculate a log likelihood from this residual map? The log likelihood 
+quantifies how well your model fits the data, incorporating both the residual values and the noise characteristics of 
 your observations.
 
 If you find it challenging to visualize these aspects right now, that's perfectly fine. The first step is to 
