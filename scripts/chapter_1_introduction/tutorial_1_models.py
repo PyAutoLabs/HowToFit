@@ -250,7 +250,7 @@ answer to "and what values may each of those parts take?".
 
 Right now both views fit on one screen and the figure may look like a redundant restatement of the `info`. Draw it
 anyway, because the two views scale very differently. By the end of this chapter our models have five components, in
-chapter 3 they span five datasets at once, and at that point the `info` runs to hundreds of lines whilst the map
+the advanced chapter they span five datasets at once, and at that point the `info` runs to hundreds of lines whilst the map
 still fits in a glance.
 """
 af.ModelPlotter(model).figure()

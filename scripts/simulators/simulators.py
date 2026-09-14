@@ -234,10 +234,10 @@ af.ex.util.simulate_dataset_1d_via_gaussian_from(
 )
 
 """
-__Sample Datasets (Chapter 3)__
+__Sample Datasets (Advanced Chapter)__
 
 Chain-run the sample simulator so every tutorial's `simulators.py` subprocess
-call also produces the `dataset_*/` sample folders used by chapter 3.
+call also produces the `dataset_*/` sample folders used by the advanced chapter.
 
 The path is relative to the repository root, which every execution context sets as the working
 directory: scripts are run from the root, the notebook kernel is pinned there, and Colab chdirs

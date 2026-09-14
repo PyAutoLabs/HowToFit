@@ -238,7 +238,7 @@ We can now create a non-linear search and used it to the fit the hierarchical mo
 its `global_prior_model` property.
 """
 search = af.DynestyStatic(
-    path_prefix=path.join("chapter_3_graphical_models"),
+    path_prefix=path.join("chapter_advanced"),
     name="tutorial_4_hierarchical",
     sample="rwalk",
 )

@@ -25,7 +25,7 @@ The HowToFit lectures cover an introductory chapter and an advanced chapter:
 for scientific analysis and use gradients to fit models more efficiently, ending with an introduction to
 scientific workflows.
 
-**Chapter 3: Graphical Models**: Simultaneous model fitting of large datasets, scaling up to models with tens of
+**Advanced Chapter: Graphical Models**: Simultaneous model fitting of large datasets, scaling up to models with tens of
 thousands of parameters.
 
 After each chapter, it is advised that you apply what you've learned to your own model-fitting analysis based on

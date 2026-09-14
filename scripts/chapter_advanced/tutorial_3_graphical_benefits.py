@@ -173,7 +173,7 @@ for i, analysis in enumerate(analysis_list):
     search = af.DynestyStatic(
         name=f"individual_fit_{i}",
         path_prefix=path.join(
-            "chapter_3_graphical_models", "tutorial_3_graphical_benefits"
+            "chapter_advanced", "tutorial_3_graphical_benefits"
         ),
         nlive=200,
         dlogz=1e-4,
@@ -183,7 +183,7 @@ for i, analysis in enumerate(analysis_list):
 
     print(
         f"The non-linear search has begun running, checkout \n"
-        f"HowToFit/output/chapter_3_graphical_models/tutorial_3_graphical_benefits/{dataset_name} for live \n"
+        f"HowToFit/output/chapter_advanced/tutorial_3_graphical_benefits/{dataset_name} for live \n"
         f"output of the results. This Jupyter notebook cell with progress once search has completed, this could take a \n"
         f"few minutes!"
     )
@@ -376,7 +376,7 @@ We can now create a non-linear search and use it to the fit the factor graph, ag
 property.
 """
 search = af.DynestyStatic(
-    path_prefix=path.join("chapter_3_graphical_models"),
+    path_prefix=path.join("chapter_advanced"),
     name="tutorial_3_graphical_benefits",
     sample="rwalk",
 )

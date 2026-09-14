@@ -16,7 +16,7 @@ to being able to compose, fit, and interpret complex graphical and hierarchical 
 - Chapter 1: Introduction — what a model is, how we fit data, how non-linear searches work,
   why model fitting is hard, and how to inspect the results. The final tutorial introduces
   scientific workflows and links to the full guide and workspace example.
-- Chapter 3: Graphical models — fitting many datasets simultaneously with graphical models,
+- Advanced chapter: Graphical models — fitting many datasets simultaneously with graphical models,
   hierarchical models, and Expectation Propagation.
 
 Each chapter is organised into numbered tutorial files: `chapter_<N>_<name>/tutorial_<M>_<topic>.py`
@@ -31,7 +31,7 @@ We recommend working through the tutorials in order:
    continue through the rest of chapter 1.
 2. At this point you can start applying **PyAutoFit** to your own data using scripts in the
    separate `autofit_workspace` repository — you know enough to be productive.
-3. Come back for `chapter_3_graphical_models` when you need to fit many datasets simultaneously
+3. Come back for `chapter_advanced` when you need to fit many datasets simultaneously
    or build hierarchical inference pipelines.
 
 __Notebooks vs Scripts__
