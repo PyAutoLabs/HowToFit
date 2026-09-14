@@ -38,12 +38,35 @@ completed the earlier ones.
 ### Run in Google Colab (nothing to install)
 
 Every tutorial opens in Google Colab in one click. There is nothing to install and no local Python
-environment to set up — **PyAutoFit** installs itself in the notebook's first cell.
+environment to set up — **PyAutoFit** installs itself in the notebook's first cell. In Colab you *run*
+the tutorial: edit the code, change the model, and see the output for yourself.
 
-- **[Start here](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.9.14.1/start_here.ipynb)** — a one-page overview of the whole series.
-- **[Chapter 1, Tutorial 1: Models](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.9.14.1/notebooks/chapter_1_introduction/tutorial_1_models.ipynb)** — the first tutorial.
-- Every tutorial, chapter by chapter: **[chapter 1](scripts/chapter_1_introduction/README.md)** |
-  **[the advanced chapter](scripts/chapter_advanced/README.md)**
+The `markdown` links are the same tutorial already executed and rendered on GitHub, with its real
+output figures inline. Nothing runs and nothing installs — you just read it. They are good for
+skimming a tutorial before running it, or for reading on a phone. Markdown pages currently exist only
+for the chapter 1 tutorials listed with a `markdown` link below; every other tutorial is Colab-only.
+
+**[Start Here](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.9.14.1/start_here.ipynb)** — a one-page overview of the whole series.
+
+- **[Chapter 1: Introduction](scripts/chapter_1_introduction/README.md)** — Models, likelihoods, non-linear searches, why modeling is hard, and how to interpret the results of a fit, ending with a short guide to building a scientific workflow.
+  - Start Here: HowToFit Lectures — ([Colab](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.9.14.1/notebooks/chapter_1_introduction/start_here.ipynb) / [markdown](markdown/chapter_1_introduction/start_here.md))
+  - Tutorial 1: Models — ([Colab](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.9.14.1/notebooks/chapter_1_introduction/tutorial_1_models.ipynb) / [markdown](markdown/chapter_1_introduction/tutorial_1_models.md))
+  - Tutorial 2: Fitting Data — ([Colab](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.9.14.1/notebooks/chapter_1_introduction/tutorial_2_fitting_data.ipynb) / [markdown](markdown/chapter_1_introduction/tutorial_2_fitting_data.md))
+  - Tutorial 3: Non Linear Search — ([Colab](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.9.14.1/notebooks/chapter_1_introduction/tutorial_3_non_linear_search.ipynb) / [markdown](markdown/chapter_1_introduction/tutorial_3_non_linear_search.md))
+  - Tutorial 4: Why Modeling Is Hard — ([Colab](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.9.14.1/notebooks/chapter_1_introduction/tutorial_4_why_modeling_is_hard.ipynb) / [markdown](markdown/chapter_1_introduction/tutorial_4_why_modeling_is_hard.md))
+  - Tutorial 5: Results and Samples — ([Colab](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.9.14.1/notebooks/chapter_1_introduction/tutorial_5_results_and_samples.ipynb) / [markdown](markdown/chapter_1_introduction/tutorial_5_results_and_samples.md))
+  - Tutorial 6: Gradients — ([Colab](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.9.14.1/notebooks/chapter_1_introduction/tutorial_6_gradients.ipynb))
+  - Tutorial 7: The Details — ([Colab](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.9.14.1/notebooks/chapter_1_introduction/tutorial_7_the_details.ipynb))
+  - Tutorial 8: Scientific Workflow — ([Colab](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.9.14.1/notebooks/chapter_1_introduction/tutorial_8_scientific_workflow.ipynb) / [markdown](markdown/chapter_1_introduction/tutorial_8_scientific_workflow.md))
+  - Tutorial Optional: Bayesian Formalism — ([Colab](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.9.14.1/notebooks/chapter_1_introduction/tutorial_optional_bayesian_formalism.ipynb))
+- **[Advanced Chapter: Graphical & Hierarchical Models](scripts/chapter_advanced/README.md)** — Fitting many datasets simultaneously with graphical models, hierarchical models, and Expectation Propagation.
+  - Tutorial 1: Individual Models — ([Colab](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.9.14.1/notebooks/chapter_advanced/tutorial_1_individual_models.ipynb))
+  - Tutorial 2: Graphical Model — ([Colab](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.9.14.1/notebooks/chapter_advanced/tutorial_2_graphical_model.ipynb))
+  - Tutorial 3: Graphical Benefits — ([Colab](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.9.14.1/notebooks/chapter_advanced/tutorial_3_graphical_benefits.ipynb))
+  - Tutorial 4: Hierarchical Models — ([Colab](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.9.14.1/notebooks/chapter_advanced/tutorial_4_hierachical_models.ipynb))
+  - Tutorial 5: Expectation Propagation — ([Colab](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.9.14.1/notebooks/chapter_advanced/tutorial_5_expectation_propagation.ipynb))
+  - Tutorial Optional: Hierarchical Expectation Propagation — ([Colab](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.9.14.1/notebooks/chapter_advanced/tutorial_optional_hierarchical_ep.ipynb))
+  - Tutorial Optional: Hierarchical Individual — ([Colab](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.9.14.1/notebooks/chapter_advanced/tutorial_optional_hierarchical_individual.ipynb))
 
 Model-fits run considerably faster on a GPU. In Colab, enable one via *Runtime* → *Change runtime type*
 → *Hardware accelerator* before running a notebook.
