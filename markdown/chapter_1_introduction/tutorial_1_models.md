@@ -59,7 +59,7 @@ __Contents__
 This tutorial is split into the following sections:
 
 - **Paths**: Setting up the working directory path so the tutorial runs correctly on your computer.
-- **Model Parameterization**: An example of how a model is parameterized and is made up of free parameters.
+- **Model Parameterization**: The 1D dataset our model describes and an example of how a model is parameterized and is made up of free parameters.
 - **Model Composition**: Composing a model using PyAutoFit's model composition API.
 - **Model Creation**: Creating an instance of the model using PyAutoFit's `Model` python object.
 - **Model Mapping**: Mapping an input vector of parameters to the model to create an instance of the model.
@@ -74,18 +74,16 @@ performed by PyAutoFit.
 
 ```python
 
+from autofit import setup_notebook; setup_notebook()
+
 import numpy as np
 import matplotlib.pyplot as plt
+from os import path
 
 import autofit as af
 ```
 
-    .../PyAutoNerves/autonerves/workspace.py:206: UserWarning: Cannot verify the workspace at HowToFit/scripts/chapter_1_introduction is compatible with the installed library version (2026.7.6.649): no `version.minimum_library_version` or `version.workspace_version` key in config/general.yaml and no version.txt at the workspace root.
-    
-    If you cloned the workspace from `main` rather than a release tag, set `version.workspace_version_check: False` in config/general.yaml to silence this warning. The `main` branch updates more frequently than library releases, so version mismatches are expected and not actionable for `main`-branch users.
-    
-    You can also set the environment variable PYAUTO_SKIP_WORKSPACE_VERSION_CHECK=1 to disable temporarily.
-      warnings.warn(_missing_version_warning(root, library_version))
+    Working Directory has been set to `hf-detached`
 
 
 __Paths__
@@ -101,16 +99,74 @@ This setup allows PyAutoFit to:
 
 If you don't have a HowToFit clone, you can download it here:
  
- https://github.com/PyAutoLabs/autofit_workspace
+ https://github.com/PyAutoLabs/HowToFit
 
 __Model Parameterization__
 
 A model is a set of equations, numerical processes, and assumptions that describe a physical system and dataset.
 
-In this example, our model is one or more 1-dimensional Gaussians, defined by the following equation:
+In this example, our model is one or more 1-dimensional Gaussians, which describe the dataset plotted below: a 
+noisy 1D signal, shown in black with error bars given by its noise-map.
+
+
+```python
+dataset_path = path.join("dataset", "example_1d", "gaussian_x1")
+```
+
+__Dataset Auto-Simulation__
+
+If the dataset does not already exist on your system, it will be created by running the corresponding
+simulator script. This ensures that all example scripts can be run without manually simulating data first.
+
+
+```python
+if not path.exists(dataset_path):
+    import subprocess
+    import sys
+
+    subprocess.run(
+        [sys.executable, "scripts/simulators/simulators.py"],
+        check=True,
+    )
+
+data = af.util.numpy_array_from_json(file_path=path.join(dataset_path, "data.json"))
+noise_map = af.util.numpy_array_from_json(
+    file_path=path.join(dataset_path, "noise_map.json")
+)
+
+xvalues = np.arange(data.shape[0])
+
+plt.errorbar(
+    xvalues,
+    data,
+    yerr=noise_map,
+    linestyle="",
+    color="k",
+    ecolor="k",
+    elinewidth=1,
+    capsize=2,
+)
+plt.title("1D Gaussian dataset.")
+plt.xlabel("x values of profile")
+plt.ylabel("Profile Normalization")
+plt.show()
+plt.clf()
+```
+
+
+    
+![png](tutorial_1_models_files/tutorial_1_models_5_0.png)
+    
+
+
+
+    <Figure size 640x480 with 0 Axes>
+
+
+The 1D signal above was generated using a 1D Gaussian profile of the form:
 
 \begin{equation*}
-g(x, I, \sigma) = \frac{N}{\sigma\sqrt{2\pi}} \exp{(-0.5 (x / \sigma)^2)}
+g(x, N, \sigma) = \frac{N}{\sigma\sqrt{2\pi}} \exp{(-0.5 (x / \sigma)^2)}
 \end{equation*}
 
 Where:
@@ -119,15 +175,16 @@ Where:
 
 - `N`: The overall normalization of the Gaussian.
 
-
-- `\sigma`: The size of the Gaussian (Full Width Half Maximum, $\mathrm{FWHM}$, is $2{\sqrt{2\ln 2}}\;\sigma$).
+- $\sigma$: The size of the Gaussian (Full Width Half Maximum, $\mathrm{FWHM}$, is $2{\sqrt{2\ln 2}}\;\sigma$).
 
 While a 1D Gaussian might seem like a rudimentary model, it has many real-world applications in signal processing. 
 For example, 1D Gaussians are fitted to datasets to measure the size of an observed signal. Thus, this model has 
 practical real-world applications.
 
-We now have a model, expressed as a simple 1D Gaussian. The model has three parameters, $(x, N, \sigma)$. Using 
-different combinations of these parameters creates different realizations of the model, which we illustrate below.
+We now have a model, expressed as a simple 1D Gaussian. Note that `x` is not a free parameter: it is the coordinate 
+the equation is evaluated at. The three free parameters are the centre of the Gaussian, $N$ and $\sigma$, which the 
+`Gaussian` class written below calls `centre`, `normalization` and `sigma`. Using different combinations of these 
+parameters creates different realizations of the model, which we illustrate below.
 
 __Model Composition__
 
@@ -206,15 +263,15 @@ above `centre`, `normalization`, and `sigma`.
 - The default values and typing of the input arguments define whether a parameter is a single-valued float or a 
 multi-valued tuple. For the `Gaussian` class above, no input parameters are tuples, but later examples use tuples.
 
-- It includes functions associated with that model component, specifically the model_data function. When we create 
-instances of a `Gaussian` below, this function is used to generate a 1D representation of it as a NumPy array.
+- It includes functions associated with that model component, specifically the `model_data_from` function. When we 
+create instances of a `Gaussian` below, this function is used to generate a 1D representation of it as a NumPy array.
 
 __Model Creation__
 
 The `Gaussian` class above is a standard Python class. It does not yet act as a model component that can be used
 for model fitting with PyAutoFit.
 
-To transform the Gaussian class into a model component that can be used for model fitting with PyAutoFit, we use 
+To transform the `Gaussian` class into a model component that can be used for model fitting with PyAutoFit, we use 
 the `af.Model` object. This tells PyAutoFit to treat the input Python class as a model component.
 
 
@@ -229,7 +286,7 @@ print(model)
     Gaussian (centre, UniformPrior [0], lower_limit = 0.0, upper_limit = 100.0), (normalization, LogUniformPrior [1], lower_limit = 1e-06, upper_limit = 1000000.0), (sigma, UniformPrior [2], lower_limit = 0.0, upper_limit = 25.0)
 
 
-In PyAutoFit, a Model object encapsulates a model component that can be used for model fitting. It provides several 
+In PyAutoFit, a `Model` object encapsulates a model component that can be used for model fitting. It provides several 
 attributes that describe the model component, such as the `total_free_parameters` attribute, which indicates the 
 number of free parameters in the model:
 
@@ -270,16 +327,34 @@ print(model.info)
     sigma                                                                           UniformPrior [2], lower_limit = 0.0, upper_limit = 25.0
 
 
+The same model can also be visualized as a figure, making its structure easier to understand at a glance.
+
+The figure shows how the model is organized: which parameters belong to each component, and whether they are free,
+fixed, shared, linked by an expression, solved during the fit, or not configured. `model.info` provides the
+corresponding numerical details, including the prior assigned to each free parameter and the value of each fixed
+parameter.
+
+
+```python
+af.ModelPlotter(model).figure()
+```
+
+
+    
+![png](tutorial_1_models_files/tutorial_1_models_15_0.png)
+    
+
+
 __Model Mapping__
 
-In PyAutoFit, instances of model components created via the af.Model object can be instantiated by mapping an input 
+In PyAutoFit, instances of model components created via the `af.Model` object can be instantiated by mapping an input 
 vector of parameters to the Python class that the model object represents. The order of parameters in the model is 
 crucial for correctly defining the input vector.
 
-To determine the order of parameters in the model, PyAutoFit provides the paths attribute of the model object. 
+To determine the order of parameters in the model, PyAutoFit provides the `paths` attribute of the model object. 
 This attribute contains information about the parameter paths within the model.
 
-Here's how you can access the paths attribute to understand the order of parameters in the model:
+Here's how you can access the `paths` attribute to understand the order of parameters in the model:
 
 
 ```python
@@ -289,8 +364,8 @@ print(model.paths)
     [('centre',), ('normalization',), ('sigma',)]
 
 
-To create an instance of the Gaussian model component using PyAutoFit, following the order of parameters defined by 
-the paths attribute (`centre`, `normalization`, and `sigma`), you can initialize the instance as follows:
+To create an instance of the `Gaussian` model component using PyAutoFit, following the order of parameters defined by 
+the `paths` attribute (`centre`, `normalization`, and `sigma`), you can initialize the instance as follows:
 
 
 ```python
@@ -307,7 +382,7 @@ print(instance)
 
     Model Instance: 
     
-    <__main__.Gaussian object at 0x7fe0b75dbd40>
+    <__main__.Gaussian object at 0x7f48b43c9340>
 
 
 It has the parameters of the `Gaussian` with the values input above.
@@ -315,14 +390,14 @@ It has the parameters of the `Gaussian` with the values input above.
 
 ```python
 print("Instance Parameters \n")
-print("x = ", instance.centre)
+print("centre = ", instance.centre)
 print("normalization = ", instance.normalization)
 print("sigma = ", instance.sigma)
 ```
 
     Instance Parameters 
     
-    x =  30.0
+    centre =  30.0
     normalization =  2.0
     sigma =  3.0
 
@@ -352,7 +427,7 @@ plt.clf()
 
 
     
-![png](tutorial_1_models_files/tutorial_1_models_19_0.png)
+![png](tutorial_1_models_files/tutorial_1_models_25_0.png)
     
 
 
@@ -379,7 +454,7 @@ To demonstrate this capability, let's conclude the tutorial by composing a model
 component and another 1D profile, an `Exponential`, defined by the equation:
 
 \begin{equation*}
-g(x, I, \lambda) = N \lambda \exp{- \lambda x }
+g(x, N, \lambda) = N \lambda \exp{- \lambda x }
 \end{equation*}
 
 where:
@@ -415,8 +490,8 @@ class Exponential:
             The x coordinate of the profile centre.
         normalization
             Overall normalization of the profile.
-        ratw
-            The decay rate controlling has fast the Exponential declines.
+        rate
+            The decay rate controlling how fast the Exponential declines.
         """
         self.centre = centre
         self.normalization = normalization
@@ -424,7 +499,7 @@ class Exponential:
 
     def model_data_from(self, xvalues: np.ndarray):
         """
-        Returns a 1D Gaussian on an input list of Cartesian x coordinates.
+        Returns a 1D Exponential on an input list of Cartesian x coordinates.
 
         The input xvalues are translated to a coordinate system centred on the `Exponential`, via its `centre`.
 
@@ -435,6 +510,11 @@ class Exponential:
         ----------
         xvalues
             The x coordinates in the original reference frame of the data.
+
+        Returns
+        -------
+        np.array
+            The Exponential values at the input x coordinates.
         """
         transformed_xvalues = np.subtract(xvalues, self.centre)
         return self.normalization * np.multiply(
@@ -474,6 +554,21 @@ print(model.info)
         rate                                                                        UniformPrior [8], lower_limit = 0.0, upper_limit = 1.0
 
 
+A `Collection` holds the `gaussian` and the `exponential` side by side, giving 6 free parameters across the pair.
+Nothing yet joins the two components: their two `centre` parameters are separate parameters that happen to share a
+name.
+
+
+```python
+af.ModelPlotter(model).figure()
+```
+
+
+    
+![png](tutorial_1_models_files/tutorial_1_models_33_0.png)
+    
+
+
 When `Gaussian` and `Exponential` are added to a `Collection`, they are automatically assigned as `Model` objects.
 
 Therefore, there's no need to use the `af.Model` method when passing classes to a `Collection`, which makes the Python 
@@ -507,6 +602,24 @@ print(model.info)
         rate                                                                        UniformPrior [14], lower_limit = 0.0, upper_limit = 1.0
 
 
+The figure is identical to the previous example, because both ways of writing the model produce the same model 
+structure.
+
+This is a useful check when composing models in different ways: if the figure looks the same, the underlying structure 
+of the model is the same too. Any differences between the fits must therefore come from details such as the parameter 
+priors or fixed values, rather than how the model is composed.
+
+
+```python
+af.ModelPlotter(model).figure()
+```
+
+
+    
+![png](tutorial_1_models_files/tutorial_1_models_39_0.png)
+    
+
+
 A `Collection` functions analogously to a `Model`, but it includes multiple model components.
 
 This can be observed by examining its `paths` attribute, which displays paths to all 6 free parameters across both model components.
@@ -537,22 +650,22 @@ The argument names input into the `Collection` define the attribute names of the
 
 ```python
 print("Instance Parameters \n")
-print("x (Gaussian) = ", instance.gaussian.centre)
+print("centre (Gaussian) = ", instance.gaussian.centre)
 print("normalization (Gaussian) = ", instance.gaussian.normalization)
 print("sigma (Gaussian) = ", instance.gaussian.sigma)
-print("x (Exponential) = ", instance.exponential.centre)
+print("centre (Exponential) = ", instance.exponential.centre)
 print("normalization (Exponential) = ", instance.exponential.normalization)
-print("sigma (Exponential) = ", instance.exponential.rate)
+print("rate (Exponential) = ", instance.exponential.rate)
 ```
 
     Instance Parameters 
     
-    x (Gaussian) =  0.1
+    centre (Gaussian) =  0.1
     normalization (Gaussian) =  0.2
     sigma (Gaussian) =  0.3
-    x (Exponential) =  0.4
+    centre (Exponential) =  0.4
     normalization (Exponential) =  0.5
-    sigma (Exponential) =  0.01
+    rate (Exponential) =  0.01
 
 
 In the context of the model's equations, it is simply the sum of the equations defining the `Gaussian` 
@@ -582,7 +695,7 @@ plt.clf()
 
 
     
-![png](tutorial_1_models_files/tutorial_1_models_37_0.png)
+![png](tutorial_1_models_files/tutorial_1_models_47_0.png)
     
 
 
@@ -652,6 +765,21 @@ print(model.info)
     sigma                                                                           UniformPrior [18], lower_limit = 0.0, upper_limit = 25.0
 
 
+`centre` is one input argument of the `Gaussian2D` class, but because it is a tuple it contributes two free
+parameters rather than one, so this model has 4 free parameters rather than 3. The `paths` printed below unpack the
+tuple into its two entries, one per coordinate, which the input vector must supply.
+
+
+```python
+af.ModelPlotter(model).figure()
+```
+
+
+    
+![png](tutorial_1_models_files/tutorial_1_models_55_0.png)
+    
+
+
 The `paths` attribute provides information on the order of parameters in the model, illustrating how the
 `centre` tuple is split into two parameters.
 
@@ -697,6 +825,64 @@ classes to represent entirely new model components with additional parameters.
 
 These objects serve numerous other essential purposes that we will explore in subsequent tutorials.
 
+To see this extensibility in action, the model below is composed of two `Gaussian`'s and four `Exponential`'s. Each 
+component has 3 free parameters, meaning this model has 18 free parameters in total, but composing it requires just 
+a handful of extra lines of code:
+
+
+```python
+model = af.Collection(
+    gaussian_0=Gaussian,
+    gaussian_1=Gaussian,
+    exponential_0=Exponential,
+    exponential_1=Exponential,
+    exponential_2=Exponential,
+    exponential_3=Exponential,
+)
+
+print(model.info)
+
+af.ModelPlotter(model).figure()
+```
+
+    Total Free Parameters = 18
+    
+    model                                                                           Collection (N=18)
+        gaussian_0 - gaussian_1                                                     Gaussian (N=3)
+        exponential_0 - exponential_3                                               Exponential (N=3)
+    
+    gaussian_0
+        centre                                                                      UniformPrior [19], lower_limit = 0.0, upper_limit = 100.0
+        normalization                                                               LogUniformPrior [20], lower_limit = 1e-06, upper_limit = 1000000.0
+        sigma                                                                       UniformPrior [21], lower_limit = 0.0, upper_limit = 25.0
+    gaussian_1
+        centre                                                                      UniformPrior [22], lower_limit = 0.0, upper_limit = 100.0
+        normalization                                                               LogUniformPrior [23], lower_limit = 1e-06, upper_limit = 1000000.0
+        sigma                                                                       UniformPrior [24], lower_limit = 0.0, upper_limit = 25.0
+    exponential_0
+        centre                                                                      UniformPrior [25], lower_limit = 0.0, upper_limit = 100.0
+        normalization                                                               LogUniformPrior [26], lower_limit = 1e-06, upper_limit = 1000000.0
+        rate                                                                        UniformPrior [27], lower_limit = 0.0, upper_limit = 1.0
+    exponential_1
+        centre                                                                      UniformPrior [28], lower_limit = 0.0, upper_limit = 100.0
+        normalization                                                               LogUniformPrior [29], lower_limit = 1e-06, upper_limit = 1000000.0
+        rate                                                                        UniformPrior [30], lower_limit = 0.0, upper_limit = 1.0
+    exponential_2
+        centre                                                                      UniformPrior [31], lower_limit = 0.0, upper_limit = 100.0
+        normalization                                                               LogUniformPrior [32], lower_limit = 1e-06, upper_limit = 1000000.0
+        rate                                                                        UniformPrior [33], lower_limit = 0.0, upper_limit = 1.0
+    exponential_3
+        centre                                                                      UniformPrior [34], lower_limit = 0.0, upper_limit = 100.0
+        normalization                                                               LogUniformPrior [35], lower_limit = 1e-06, upper_limit = 1000000.0
+        rate                                                                        UniformPrior [36], lower_limit = 0.0, upper_limit = 1.0
+
+
+
+    
+![png](tutorial_1_models_files/tutorial_1_models_61_1.png)
+    
+
+
 **PyAutoFit** offers a comprehensive API for building models, which includes models constructed using NumPy arrays, 
 hierarchies of Python classes, and graphical models where parameters are interconnected. These advanced modeling 
 techniques are gradually introduced throughout the HowToFit lectures.
@@ -729,8 +915,3 @@ task, refer to the following script:
 autofit_workspace/scripts/overview/new_model_component/new_model_component.py
 
 This script provides guidance on setting up the PyAutoFit configuration files associated with your custom model.
-
-
-```python
-
-```

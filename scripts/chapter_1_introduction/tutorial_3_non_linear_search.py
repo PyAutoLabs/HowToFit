@@ -26,7 +26,7 @@ In this tutorial, we will use a non-linear search to fit a 1D Gaussian profile t
   model instance to the data.
 
 - Fit a 1D Gaussian model to 1D data with different non-linear searches, including a maximum likelihood estimator (MLE),
-  Markok Chain Monte Carlo (MCMC) and nested sampling.
+  Markov Chain Monte Carlo (MCMC) and nested sampling.
 
 All these steps utilize **PyAutoFit**'s API for model-fitting.
 
@@ -55,29 +55,34 @@ In mathematics, a function is defined by its parameters, which relate inputs to 
 
 For example, consider a simple function:
 
-\[ f(x) = x^2 \]
+$$
+f(x) = x^2
+$$
 
-Here, \( x \) is the parameter input into the function \( f \), and \( f(x) \) returns \( x^2 \). This
-mapping between \( x \) and \( f(x) \) defines the "parameter space" of the function, which in this case is a parabola.
+Here, $x$ is the parameter input into the function $f$, and $f(x)$ returns $x^2$. This
+mapping between $x$ and $f(x)$ defines the "parameter space" of the function, which in this case is a parabola.
 
-Functions can have multiple parameters, such as \( x \), \( y \), and \( z \):
+Functions can have multiple parameters, such as $x$, $y$, and $z$:
 
-\[ f(x, y, z) = x + y^2 - z^3 \]
+$$
+f(x, y, z) = x + y^2 - z^3
+$$
 
-Here, the mapping between \( x \), \( y \), \( z \), and \( f(x, y, z) \) defines a parameter space with three
+Here, the mapping between $x$, $y$, $z$, and $f(x, y, z)$ defines a parameter space with three
 dimensions.
 
 This concept of a parameter space relates closely to how we define and use instances of models in model-fitting.
 For instance, in our previous tutorial, we used instances of a 1D Gaussian profile with
-parameters \( (x, I, \sigma) \) to fit data and compute a log likelihood.
+parameters $(\mathrm{centre}, N, \sigma)$ to fit data and compute a log likelihood.
 
-This process can be thought of as complete analogous to a function \( f(x, y, z) \), where the output value is the
+This process can be thought of as completely analogous to a function $f(x, y, z)$, where the output value is the
 log likelihood. This key function, which maps parameter values to a log likelihood, is called the "likelihood function"
 in statistical inference, albeit we will refer to it hereafter as the `log_likelihood_function` to be explicit
 that it is the log of the likelihood function.
 
 By expressing the likelihood in this manner, we can consider our model as having a parameter space -— a
-multidimensional surface that spans all possible values of the model parameters \( x, I, \sigma \).
+multidimensional surface that spans all possible values of the model parameters $\mathrm{centre}$, $N$ and $\sigma$
+(the `centre`, `normalization` and `sigma` of the `Gaussian` class).
 
 This surface is often referred to as the "likelihood surface", and our objective during model-fitting is to find
 its peak.
@@ -132,7 +137,7 @@ We will provide more details on each of these searches below.
 
 __Deeper Background__
 
-**The descriptions of how searches work in this example are simplfied and phoenomenological and do not give a full
+**The descriptions of how searches work in this example are simplified and phenomenological and do not give a full
 description of how they work at a deep statistical level. The goal is to provide you with an intuition for how to use
 them and when different searches are appropriate for different problems. Later tutorials will provide a more formal
 description of how these searches work.**
@@ -327,10 +332,10 @@ model under consideration. Its primary responsibilities include:
  parameters, fits the observed data. 
 
 **Interface with Non-linear Search:** The `log_likelihood_function` is repeatedly called by the non-linear search 
- algorithm to assess the goodness of fit of different parameter combinations. The search algorithm call this function
+ algorithm to assess the goodness of fit of different parameter combinations. The search algorithm calls this function
  many times and maps out regions of parameter space that yield high likelihood solutions.
     
-Below is a suitable `Analysis` class for fitting a 1D gaussian to the data loaded above.
+Below is a suitable `Analysis` class for fitting a 1D Gaussian to the data loaded above.
 """
 
 
@@ -441,7 +446,7 @@ The fit will take a minute or so to run.
 print(
     """
     The non-linear search has begun running.
-    This Jupyter notebook cell with progress once the search has completed - this could take a few minutes!
+    This Jupyter notebook cell will progress once the search has completed - this could take a few minutes!
     """
 )
 
@@ -449,14 +454,14 @@ model = af.Model(Gaussian)
 
 result = search.fit(model=model, analysis=analysis)
 
-print("The search has finished run - you may now continue the notebook.")
+print("The search has finished running - you may now continue the notebook.")
 
 """
 Upon completion the non-linear search returns a `Result` object, which contains information about the model-fit.
 
 The `info` attribute shows the result in a readable format.
 
-[Above, we discussed that the `info_whitespace_length` parameter in the config files could b changed to make 
+[Above, we discussed that the `info_whitespace_length` parameter in the config files could be changed to make 
 the `model.info` attribute display optimally on your computer. This attribute also controls the whitespace of the
 `result.info` attribute.]
 """
@@ -489,7 +494,7 @@ plt.errorbar(
     capsize=2,
 )
 plt.plot(xvalues, model_data, color="r")
-plt.title("Dynesty model fit to 1D Gaussian dataset.")
+plt.title("LBFGS model fit to 1D Gaussian dataset.")
 plt.xlabel("x values of profile")
 plt.ylabel("Profile normalization")
 plt.show()
@@ -505,12 +510,18 @@ settled into a "local maximum," where it couldn't find a better solution.
 To achieve a better fit with MLE, the search needs to begin in a region of parameter space where the log likelihood 
 is higher. This process is known as "initialization," and it involves providing the search with an 
 appropriate "starting point" in parameter space.
+
+The starting point is defined per parameter, so we create the model first and use its parameters as the keys of 
+the initializer. The values below are a deliberately imperfect guess at the true solution (`centre=50.0`, 
+`normalization=25.0`, `sigma=10.0`), but they are close enough for the search to climb the likelihood gradient to it.
 """
+model = af.Model(Gaussian)
+
 initializer = af.InitializerParamStartPoints(
     {
-        model.centre: 55.0,
-        model.normalization: 20.0,
-        model.sigma: 8.0,
+        model.centre: 52.0,
+        model.normalization: 23.0,
+        model.sigma: 9.0,
     }
 )
 
@@ -519,15 +530,13 @@ search = af.LBFGS(initializer=initializer)
 print(
     """
     The non-linear search has begun running.
-    This Jupyter notebook cell with progress once the search has completed - this could take a few minutes!
+    This Jupyter notebook cell will progress once the search has completed - this could take a few minutes!
     """
 )
 
-model = af.Model(Gaussian)
-
 result = search.fit(model=model, analysis=analysis)
 
-print("The search has finished run - you may now continue the notebook.")
+print("The search has finished running - you may now continue the notebook.")
 
 """
 By printing `result.info` and looking at the maximum log likelihood model, we can confirm the search provided a
@@ -549,7 +558,7 @@ plt.errorbar(
     capsize=2,
 )
 plt.plot(xvalues, model_data, color="r")
-plt.title("Dynesty model fit to 1D Gaussian dataset.")
+plt.title("LBFGS model fit to 1D Gaussian dataset.")
 plt.xlabel("x values of profile")
 plt.ylabel("Profile normalization")
 plt.show()
@@ -596,7 +605,7 @@ search = af.Emcee(
 print(
     """
     The non-linear search has begun running.
-    This Jupyter notebook cell with progress once the search has completed - this could take a few minutes!
+    This Jupyter notebook cell will progress once the search has completed - this could take a few minutes!
     """
 )
 
@@ -604,7 +613,7 @@ model = af.Model(Gaussian)
 
 result = search.fit(model=model, analysis=analysis)
 
-print("The search has finished run - you may now continue the notebook.")
+print("The search has finished running - you may now continue the notebook.")
 
 print(result.info)
 
@@ -622,7 +631,7 @@ plt.errorbar(
     capsize=2,
 )
 plt.plot(xvalues, model_data, color="r")
-plt.title("Dynesty model fit to 1D Gaussian dataset.")
+plt.title("Emcee model fit to 1D Gaussian dataset.")
 plt.xlabel("x values of profile")
 plt.ylabel("Profile normalization")
 plt.show()
@@ -647,6 +656,8 @@ small "ball" in parameter space, requiring a defined range for each parameter fr
 2. We do not specify a starting point for the sigma parameter, allowing its initial values to be drawn from its 
 priors. This illustrates that with MCMC, it’s not necessary to know a good starting point for every parameter.
 """
+model = af.Model(Gaussian)
+
 initializer = af.InitializerParamBounds(
     {
         model.centre: (54.0, 56.0),
@@ -663,15 +674,13 @@ search = af.Emcee(
 print(
     """
     The non-linear search has begun running.
-    This Jupyter notebook cell with progress once the search has completed - this could take a few minutes!
+    This Jupyter notebook cell will progress once the search has completed - this could take a few minutes!
     """
 )
 
-model = af.Model(Gaussian)
-
 result = search.fit(model=model, analysis=analysis)
 
-print("The search has finished run - you may now continue the notebook.")
+print("The search has finished running - you may now continue the notebook.")
 
 print(result.info)
 
@@ -686,7 +695,7 @@ number of steps, especially if models of different complexity are being fitted o
 used. One often ends up having to perform "trial and error" to verify a sufficient number of steps are used.
 
 MCMC can perform badly in parameter spaces with certain types of complexity, for example when there are
-are local maxima "peaks" the walkers can become stuck walking around them.
+local maxima "peaks" the walkers can become stuck walking around them.
 
 __Nested Sampling__
 
@@ -719,7 +728,7 @@ The fit will take a minute or so to run.
 print(
     """
     The non-linear search has begun running.
-    This Jupyter notebook cell with progress once the search has completed - this could take a few minutes!
+    This Jupyter notebook cell will progress once the search has completed - this could take a few minutes!
     """
 )
 
@@ -727,7 +736,7 @@ model = af.Model(Gaussian)
 
 result = search.fit(model=model, analysis=analysis)
 
-print("The search has finished run - you may now continue the notebook.")
+print("The search has finished running - you may now continue the notebook.")
 
 print(result.info)
 
@@ -758,7 +767,7 @@ similar to MCMC. Additionally, it features a built-in stopping criterion, which 
 specify the number of steps the search should take. 
 
 This method also excels in handling complex parameter spaces, particularly those with multiple peaks. This is because
-the live points will identify each peak and converge around them, but then begin to be discard from a peak if higher
+the live points will identify each peak and converge around them, but then begin to be discarded from a peak if higher
 likelihood points are found elsewhere in parameter space. In MCMC, the walkers can get stuck indefinitely around a
 peak, causing the method to stall.
 
