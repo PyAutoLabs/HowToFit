@@ -4,6 +4,10 @@ root.log
 __pycache__/
 *.pyc
 **/images/
+# Exception: tutorial 4 embeds these six committed figures (bad/okay/good fit and
+# normalized residual maps) via raw GitHub URLs; without this they are silently
+# skipped by `git add` and the tutorial renders six broken images.
+!scripts/chapter_1_introduction/images/
 
 output/
 dataset/

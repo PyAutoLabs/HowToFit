@@ -42,6 +42,7 @@ This tutorial is split into the following sections:
 - **Comparing Searches**: Running the same problems with MCMC, nested sampling and gradient descent to see how each is affected, and why comparing searches is a diagnostic in itself.
 - **Clipping**: Parameter combinations that are unphysical even when every individual prior is sensible, the NaN likelihoods they produce, and the resample figure of merit each search substitutes.
 - **NaN Diagnostics**: Reading the value-NaN and gradient-NaN counters in `search.summary`, and why a finite likelihood does not guarantee a finite gradient.
+- **Hamiltonian Diagnostics**: Reading `n_divergent`, `ess_min` and `mean_acceptance` off a `BlackJAXNUTS` fit, and what each says about whether the samples can be trusted.
 - **Unit Cube Vs Physical**: How a search actually sees parameter space through the priors, and why that changes how it explores.
 - **Summary**: When these details matter, and what attending to them buys you.
 """
@@ -1061,7 +1062,80 @@ the value, because by the time it runs the damage to the derivative is already r
 the `nan` is created, not where it is detected.
 
 A good likelihood value does not mean a good gradient!
+"""
 
+r"""
+__Hamiltonian Diagnostics__
+
+Tutorial 6 introduced `BlackJAXNUTS`, the Hamiltonian sampler which follows the gradient along a trajectory instead
+of proposing a random step. Trajectories are a more elaborate machine than a random hop, and they come with their
+own ways of going wrong, so NUTS reports a set of diagnostics that no other search in this chapter produces.
+
+They matter here for the same reason the NaN counters did. A NUTS fit that has gone wrong still returns a result
+with error bars on it, and the error bars still look reasonable. The diagnostics are how you find out otherwise.
+
+Let's run a short NUTS fit on the single Gaussian dataset, which is well behaved, so we can see what healthy
+diagnostics look like before describing what unhealthy ones mean.
+"""
+model_nuts = af.Collection(gaussian=af.Model(Gaussian))
+
+model_nuts.gaussian.centre = af.UniformPrior(lower_limit=0.0, upper_limit=100.0)
+model_nuts.gaussian.normalization = af.UniformPrior(lower_limit=0.0, upper_limit=100.0)
+model_nuts.gaussian.sigma = af.UniformPrior(lower_limit=0.0, upper_limit=25.0)
+
+search = af.BlackJAXNUTS(
+    num_warmup=200,  # Steps used to tune the sampler, which are then discarded.
+    num_samples=300,  # Steps kept as samples of the posterior.
+)
+
+print(
+    """
+    The non-linear search has begun running.
+    This Jupyter notebook cell with progress once the search has completed - this could take a few minutes!
+    """
+)
+
+start = time.time()
+
+result_nuts = search.fit(model=model_nuts, analysis=analysis_x1_jax)
+
+print(f"BlackJAXNUTS run time: {time.time() - start} seconds")
+print("The search has finished run - you may now continue the notebook.")
+
+"""
+The diagnostics live in the `samples_info` dictionary. Three are worth knowing:
+
+- `n_divergent`: the number of trajectories which "diverged", meaning the trajectory left the region the likelihood
+  describes instead of following it, and had to be abandoned. A handful is tolerable; many means the steps along the
+  trajectory are too large and the samples cannot be trusted.
+
+- `ess_min`: the "effective sample size" of the worst constrained parameter. Consecutive samples are correlated, so
+  300 samples are worth fewer than 300 independent draws, and this says how many they are worth.
+
+- `mean_acceptance`: the fraction of proposed trajectories accepted, which for NUTS should sit high, around the 0.8
+  the warm up phase tunes towards. A low value means the sampler is struggling.
+"""
+samples_nuts = result_nuts.samples
+
+print("Diagnostics of the Hamiltonian Monte Carlo fit:\n")
+print(f"Number of divergent trajectories = {samples_nuts.samples_info.get('n_divergent')}")
+print(f"Minimum effective sample size    = {samples_nuts.samples_info.get('ess_min')}")
+print(
+    f"Mean acceptance rate             = {samples_nuts.samples_info.get('mean_acceptance')}"
+)
+
+"""
+On this dataset you should see few or no divergences, an effective sample size which is a decent fraction of the 300
+samples drawn, and an acceptance rate near 0.8. That is what a healthy gradient sampler looks like.
+
+The failure to watch for is the combination this tutorial has been building towards: divergences climbing while the
+acceptance rate falls, on a model whose parameter space has one of the pathologies we have studied. A degeneracy
+like the flip creates a long narrow ridge, and a trajectory following a ridge whose width changes along its length
+is exactly what makes a trajectory diverge. The diagnostics do not tell you the model is badly parameterized, but
+they are often the first sign of it, and unlike the result itself they do not quietly look fine.
+"""
+
+"""
 __Unit Cube Vs Physical__
 
 The last detail is the most fundamental, and it changes how you think about every prior you have written.
