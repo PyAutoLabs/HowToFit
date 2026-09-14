@@ -43,6 +43,25 @@ completed the earlier ones.
 
 ## Getting Started
 
+### Study with the assistant
+
+Use the [Jupyter notebooks](notebooks/) if you want to run the code (recommended), or read the
+available [Markdown lectures](markdown/README.md) directly on GitHub.
+
+For help alongside the lectures, open the [autofit_assistant](https://github.com/PyAutoLabs/autofit_assistant)
+repository in your AI coding agent, following its setup instructions, and paste:
+
+```text
+Enter HowToFit mode.
+
+I want to work through the HowToFit lectures. Show me where to find them
+and how to use Jupyter Notebook or Markdown, then help me with questions
+as I go.
+```
+
+The assistant will answer questions about concepts, equations, code and results as you study, and help with
+notebook errors. Share the lecture link and section or the cell you are working on; you choose when to move on.
+
 ### Run in Google Colab (nothing to install)
 
 Every tutorial opens in Google Colab in one click. There is nothing to install and no local Python
