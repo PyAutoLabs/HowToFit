@@ -26,8 +26,9 @@ With these foundations in place, **PyAutoFit** can be used through its natural-l
 models, choose searches, perform inference and interpret results conversationally.
 
 For experienced scientists who already know these concepts, the
-[autofit_workspace](https://github.com/PyAutoLabs/autofit_workspace) examples may be more appropriate: they
-are concise, application-focused and assume the principles taught in **HowToFit** as background.
+[natural-language inference page](https://pyautofit.readthedocs.io/en/latest/overview/natural_language.html)
+may be the better starting point: it walks a complete fit through **PyAutoFit** as a conversation with an AI
+coding agent, assuming the principles taught in **HowToFit** as background.
 
 ## Chapters
 
