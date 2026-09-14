@@ -252,7 +252,7 @@ class Analysis(af.Analysis):
         residual_map = self.data - model_data
         chi_squared_map = (residual_map / self.noise_map) ** 2.0
         chi_squared = sum(chi_squared_map)
-        noise_normalization = np.sum(np.log(2 * np.pi * noise_map**2.0))
+        noise_normalization = np.sum(np.log(2 * np.pi * self.noise_map**2.0))
         log_likelihood = -0.5 * (chi_squared + noise_normalization)
 
         return log_likelihood

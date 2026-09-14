@@ -848,7 +848,9 @@ That is not always true. Consider a different model of our two Gaussian data, in
 independent. Suppose the narrow component is an instrumental effect blurred into the broad one, so the width we
 want for the broad component is what is left after the narrow one is removed in quadrature:
 
-\[ \sigma_{\rm halo} = \sqrt{\sigma_{1}^2 - \sigma_{0}^2} \]
+$$
+\sigma_{\rm halo} = \sqrt{\sigma_{1}^2 - \sigma_{0}^2}
+$$
 
 Where:
 

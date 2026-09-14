@@ -268,15 +268,17 @@ direction and the log likelihood changes by some amount, walk the same distance 
 different amount. One such number per parameter gives the "gradient", a vector pointing in the direction the log
 likelihood increases fastest, whose length says how steeply.
 
-The gradient of a function \( f \) with respect to parameters \( x, y, z \) is written:
+The gradient of a function $f$ with respect to parameters $x, y, z$ is written:
 
-\[ \nabla f = \left( \frac{\partial f}{\partial x}, \frac{\partial f}{\partial y}, \frac{\partial f}{\partial z} \right) \]
+$$
+\nabla f = \left( \frac{\partial f}{\partial x}, \frac{\partial f}{\partial y}, \frac{\partial f}{\partial z} \right)
+$$
 
 Where:
 
-- \( \nabla f \): the gradient, a vector with one entry per parameter.
-- \( \partial f / \partial x \): the "partial derivative" of \( f \) with respect to \( x \), how much \( f \)
-  changes when \( x \) changes and everything else is held fixed.
+- $\nabla f$: the gradient, a vector with one entry per parameter.
+- $\partial f / \partial x$: the "partial derivative" of $f$ with respect to $x$, how much $f$
+  changes when $x$ changes and everything else is held fixed.
 
 The gradient is a list of slopes, one per parameter, measured at the same point. A search which knows it does not
 have to guess which way to move, it can simply walk uphill!
@@ -362,7 +364,9 @@ r"""
 Our model has three parameters, so its gradient has three entries, one per slice of the kind we just drew, ordered
 as the parameter names we printed earlier:
 
-\[ \left( \frac{\partial \log L}{\partial centre}, \frac{\partial \log L}{\partial normalization}, \frac{\partial \log L}{\partial \sigma} \right) \]
+$$
+\left( \frac{\partial \log L}{\partial centre}, \frac{\partial \log L}{\partial normalization}, \frac{\partial \log L}{\partial \sigma} \right)
+$$
 
 The five-Gaussian model of tutorial 4 has a gradient with 15 entries; a lens model in astronomy might have 50. It
 always has as many entries as the model has free parameters, and always belongs to one specific point. Move to a
@@ -371,16 +375,18 @@ new point and you get a new gradient!
 __Finite Differencing__
 
 So how do we compute a gradient? The most direct way is the one we just used for the tangent line: nudge a parameter
-by a small amount \( h \), evaluate the log likelihood, nudge it the other way, evaluate again, and take the
+by a small amount $h$, evaluate the log likelihood, nudge it the other way, evaluate again, and take the
 difference. This is "finite differencing", in the "central difference" form:
 
-\[ \frac{\partial f}{\partial x} \approx \frac{f(x + h) - f(x - h)}{2h} \]
+$$
+\frac{\partial f}{\partial x} \approx \frac{f(x + h) - f(x - h)}{2h}
+$$
 
 Where:
 
-- \( h \): the step size, a small number chosen by us.
-- \( f(x + h) \): the log likelihood with the parameter increased by \( h \), everything else held fixed.
-- \( f(x - h) \): the log likelihood with the parameter decreased by \( h \).
+- $h$: the step size, a small number chosen by us.
+- $f(x + h)$: the log likelihood with the parameter increased by $h$, everything else held fixed.
+- $f(x - h)$: the log likelihood with the parameter decreased by $h$.
 
 In words: measure how much the function changed over a small interval and divide by the width of that interval.
 Below we write this out for all three parameters, returning a list of three slopes: a gradient.
@@ -436,7 +442,7 @@ The signs tell a search to increase `centre`, decrease `normalization` and incre
 values of 50.0, 25.0 and 10.0 that is sensible in two of the three parameters: the gradient is a local instruction,
 under no obligation to point straight at the peak.
 
-There is a catch. We had to choose \( h \), and the answer depends on that choice. Below we compute the gradient
+There is a catch. We had to choose $h$, and the answer depends on that choice. Below we compute the gradient
 with respect to `centre` for step sizes spanning ten orders of magnitude.
 """
 print("Step size h        d(log likelihood) / d(centre)\n")
@@ -449,10 +455,10 @@ for h in [10.0, 1.0, 0.1, 1.0e-3, 1.0e-6, 1.0e-9]:
 r"""
 The table shows the two failure modes of finite differencing, one at each end.
 
-When \( h \) is too large, the two evaluations are so far apart that the line between them is not the slope at our
+When $h$ is too large, the two evaluations are so far apart that the line between them is not the slope at our
 point at all, it is the average slope over a wide interval. The answer is "biased".
 
-When \( h \) is too small, the two log likelihoods subtracted are almost identical numbers. A computer stores them
+When $h$ is too small, the two log likelihoods subtracted are almost identical numbers. A computer stores them
 to about sixteen significant figures, so subtracting them keeps mostly round-off noise, which dividing by a tiny
 number then amplifies. The answer becomes erratic.
 
@@ -460,8 +466,8 @@ Somewhere in the middle is a sweet spot, visible as the region where the answer 
 depends on the units of the parameter, the scale of the data and the model, so it must be found by trial and error
 for every new problem. That is not a comfortable position to be in!
 
-There is a second cost. Each parameter needs two evaluations, so a gradient for a model with \( N \) parameters
-costs \( 2N \) evaluations, which for a 50-parameter model whose likelihood takes a second is over a minute of
+There is a second cost. Each parameter needs two evaluations, so a gradient for a model with $N$ parameters
+costs $2N$ evaluations, which for a 50-parameter model whose likelihood takes a second is over a minute of
 computation to work out which way to take one step.
 
 This is exactly what the `LBFGS` search of tutorial 3 was doing, silently, on your behalf. It "evaluates the
@@ -516,7 +522,7 @@ print(gradient_finite_difference)
 r"""
 The two gradients agree to several decimal places, the sanity check that matters: autodiff computes the same
 quantity we computed by hand, exactly and in one pass rather than approximately and in six. Where they disagree it
-is the finite-difference answer that is wrong, because it carries the error we chose when we picked \( h \).
+is the finite-difference answer that is wrong, because it carries the error we chose when we picked $h$.
 
 JAX has a second trick. `jax.jit` compiles a function into optimised machine code the first time it is called and
 reuses that code on every subsequent call, so for a search calling the likelihood thousands of times a one-off
@@ -546,7 +552,7 @@ __Maximum Likelihood Estimation (MLE)__
 We now have gradients. Let us give them to the three families of search we met in tutorial 3.
 
 We start with `LBFGS`, passing it the NumPy analysis, because `LBFGS` cannot use JAX gradients: it estimates the
-gradient itself by finite differencing, exactly as we did by hand, so every iteration costs \( 2N + 1 \)
+gradient itself by finite differencing, exactly as we did by hand, so every iteration costs $2N + 1$
 evaluations. It also starts from a single point, the centre of the priors. In tutorial 3 that was enough to trap it
 in a local maximum; with the wider priors here it does better, but a single walker walking uphill can still only
 find the peak it happens to be standing on.
@@ -799,14 +805,16 @@ large error. The error is the curvature, read backwards.
 For several parameters the second derivatives form a matrix called the "Hessian", which `jax.hessian` computes by
 the same autodiff machinery as `jax.grad`. The errors follow from:
 
-\[ C = -H^{-1}, \qquad \sigma_{i} = \sqrt{C_{ii}} \]
+$$
+C = -H^{-1}, \qquad \sigma_{i} = \sqrt{C_{ii}}
+$$
 
 Where:
 
-- \( H \): the Hessian, the matrix of second derivatives of the log likelihood at the peak.
-- \( C \): the covariance matrix, the negative inverse of the Hessian.
-- \( \sigma_{i} \): the 1 sigma error on parameter \( i \), the square root of the \( i \)th diagonal entry
-  of \( C \).
+- $H$: the Hessian, the matrix of second derivatives of the log likelihood at the peak.
+- $C$: the covariance matrix, the negative inverse of the Hessian.
+- $\sigma_{i}$: the 1 sigma error on parameter $i$, the square root of the $i$th diagonal entry
+  of $C$.
 
 In words: invert the curvature, flip its sign, and the square roots of its diagonal are the errors. We evaluate this
 at the maximum likelihood vector found by `Nautilus`.
@@ -890,7 +898,7 @@ This tutorial took the one sentence tutorial 3 used to describe how an MLE searc
 point, pointing in the direction the likelihood increases fastest.
 
 2. **Finite differencing versus autodiff**: a gradient can be estimated by nudging each parameter and re-evaluating,
-but this costs \( 2N \) evaluations and forces a step size which is biased if too large and noisy if too small.
+but this costs $2N$ evaluations and forces a step size which is biased if too large and noisy if too small.
 Autodiff applies the chain rule to the operations the likelihood performs, giving the exact gradient for a small fixed
 multiple of the cost of one evaluation, whatever the number of parameters.
 

@@ -309,14 +309,25 @@ parameters. For instance, if we have previously fitted a similar model to anothe
 parameter values, we can incorporate this knowledge into our priors for a new dataset. This approach guides the 
 model fitting process towards parameter values that are more probable based on our prior understanding.
 
-While we are using `UniformPriors` in this tutorial due to their simplicity, **PyAutoFit** offers various other 
-priors like `TruncatedGaussianPrior` and `LogUniformPrior`. These priors are useful for encoding different forms of prior 
-information, such as normally distributed values around a mean (`TruncatedGaussianPrior`) or parameters spanning multiple 
-orders of magnitude (`LogUniformPrior`).
+Two of our three parameters use a `UniformPrior`, which says every value in the range is equally likely. The
+`normalization` instead uses a `LogUniformPrior`, which says every *order of magnitude* in the range is equally
+likely. This is the right choice for a parameter whose plausible values span many orders of magnitude: the
+brightness of a signal might be 0.001 or 1000, and we have no reason before fitting to prefer one scale over
+another. A `UniformPrior` from 0 to 1000000 would put essentially all of its probability above 100, whereas a
+`LogUniformPrior` gives the range 0.01 to 0.1 the same weight as the range 100 to 1000.
+
+**PyAutoFit** offers other priors too, for example the `TruncatedGaussianPrior`, which encodes normally distributed
+values around a mean and is useful when a previous fit has already told us roughly where a parameter lies.
+
+The three lines below set the priors explicitly on the model. They restate the `config/priors` defaults, so the
+parameter space the searches below explore is exactly the one the config file already described. We write them
+out anyway so that the API for changing a prior is visible, and so that the region of parameter space every fit
+in this tutorial explores is stated plainly in the script rather than hidden in a configuration file. Change a
+number below and every fit that follows searches a different space.
 """
 model.centre = af.UniformPrior(lower_limit=0.0, upper_limit=100.0)
-model.normalization = af.UniformPrior(lower_limit=0.0, upper_limit=10.0)
-model.sigma = af.UniformPrior(lower_limit=0.0, upper_limit=10.0)
+model.normalization = af.LogUniformPrior(lower_limit=1e-6, upper_limit=1e6)
+model.sigma = af.UniformPrior(lower_limit=0.0, upper_limit=25.0)
 
 """
 __Analysis__
@@ -389,7 +400,7 @@ class Analysis(af.Analysis):
         residual_map = self.data - model_data
         chi_squared_map = (residual_map / self.noise_map) ** 2.0
         chi_squared = sum(chi_squared_map)
-        noise_normalization = np.sum(np.log(2 * np.pi * noise_map**2.0))
+        noise_normalization = np.sum(np.log(2 * np.pi * self.noise_map**2.0))
         log_likelihood = -0.5 * (chi_squared + noise_normalization)
 
         return log_likelihood
@@ -450,8 +461,6 @@ print(
     """
 )
 
-model = af.Model(Gaussian)
-
 result = search.fit(model=model, analysis=analysis)
 
 print("The search has finished running - you may now continue the notebook.")
@@ -511,12 +520,11 @@ To achieve a better fit with MLE, the search needs to begin in a region of param
 is higher. This process is known as "initialization," and it involves providing the search with an 
 appropriate "starting point" in parameter space.
 
-The starting point is defined per parameter, so we create the model first and use its parameters as the keys of 
-the initializer. The values below are a deliberately imperfect guess at the true solution (`centre=50.0`, 
+The starting point is defined per parameter, so the keys of the initializer are the parameters of the `model` we
+composed above, the same model (and therefore the same priors and the same parameter space) that the failed fit
+used. The values below are a deliberately imperfect guess at the true solution (`centre=50.0`,
 `normalization=25.0`, `sigma=10.0`), but they are close enough for the search to climb the likelihood gradient to it.
 """
-model = af.Model(Gaussian)
-
 initializer = af.InitializerParamStartPoints(
     {
         model.centre: 52.0,
@@ -598,8 +606,8 @@ In the example below, we use the `Emcee` MCMC search to fit the 1D Gaussian mode
 initialized in a "ball" around the center of the model’s priors, similar to the MLE search that failed earlier.
 """
 search = af.Emcee(
-    nwalkers=10,  # The number of walkers we'll use to sample parameter space.
-    nsteps=200,  # The number of steps each walker takes, after which 10 * 200 = 2000 steps the non-linear search ends.
+    nwalkers=20,  # The number of walkers we'll use to sample parameter space, comfortably more than the model's 3 parameters.
+    nsteps=500,  # The number of steps each walker takes, after which 20 * 500 = 10000 samples the non-linear search ends.
 )
 
 print(
@@ -608,8 +616,6 @@ print(
     This Jupyter notebook cell will progress once the search has completed - this could take a few minutes!
     """
 )
-
-model = af.Model(Gaussian)
 
 result = search.fit(model=model, analysis=analysis)
 
@@ -655,9 +661,10 @@ small "ball" in parameter space, requiring a defined range for each parameter fr
    
 2. We do not specify a starting point for the sigma parameter, allowing its initial values to be drawn from its 
 priors. This illustrates that with MCMC, it’s not necessary to know a good starting point for every parameter.
-"""
-model = af.Model(Gaussian)
 
+As with the MLE initializer above, the keys are the parameters of the `model` composed at the start of the tutorial,
+so the priors set in the `__Priors__` section still define the space the walkers explore.
+"""
 initializer = af.InitializerParamBounds(
     {
         model.centre: (54.0, 56.0),
@@ -666,8 +673,8 @@ initializer = af.InitializerParamBounds(
 )
 
 search = af.Emcee(
-    nwalkers=10,  # The number of walkers we'll use to sample parameter space.
-    nsteps=200,  # The number of steps each walker takes, after which 10 * 200 = 2000 steps the non-linear search ends.
+    nwalkers=20,  # The number of walkers we'll use to sample parameter space, comfortably more than the model's 3 parameters.
+    nsteps=500,  # The number of steps each walker takes, after which 20 * 500 = 10000 samples the non-linear search ends.
     initializer=initializer,
 )
 
@@ -689,10 +696,16 @@ MCMC is a powerful tool for model-fitting, providing accurate parameter estimate
 without a starting point, MCMC can still find the correct solution, and if a good starting point is provided, it can
 efficiently scale to more complex models with more parameters.
 
-The main limitation of MCMC is that one has to supply the number of steps the walkers take (`nsteps`). If this value 
-is too low, the walkers may not explore the likelihood surface sufficiently. It can be challenging to know the right 
-number of steps, especially if models of different complexity are being fitted or if datasets of varying quality are 
-used. One often ends up having to perform "trial and error" to verify a sufficient number of steps are used.
+The main limitation of MCMC is that one has to supply the number of walkers (`nwalkers`) and the number of steps each 
+walker takes (`nsteps`). If either value is too low, the walkers may not explore the likelihood surface sufficiently. 
+It can be challenging to know the right values, especially if models of different complexity are being fitted or if 
+datasets of varying quality are used. One often ends up having to perform "trial and error" to verify that a 
+sufficient number of walkers and steps are used.
+
+The `nwalkers=20` and `nsteps=500` used in both fits above were chosen by exactly this process: they were raised from 
+smaller values until repeated runs of the uninitialized fit reliably converged on the correct solution. With fewer 
+walkers the search would sometimes finish trapped near a local maximum, in the same way the MLE search did, so a 
+budget that looks "big enough" is only ever confirmed by running the fit more than once.
 
 MCMC can perform badly in parameter spaces with certain types of complexity, for example when there are
 local maxima "peaks" the walkers can become stuck walking around them.
@@ -731,8 +744,6 @@ print(
     This Jupyter notebook cell will progress once the search has completed - this could take a few minutes!
     """
 )
-
-model = af.Model(Gaussian)
 
 result = search.fit(model=model, analysis=analysis)
 
