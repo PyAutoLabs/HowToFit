@@ -606,8 +606,8 @@ In the example below, we use the `Emcee` MCMC search to fit the 1D Gaussian mode
 initialized in a "ball" around the center of the model’s priors, similar to the MLE search that failed earlier.
 """
 search = af.Emcee(
-    nwalkers=10,  # The number of walkers we'll use to sample parameter space.
-    nsteps=200,  # The number of steps each walker takes, after which 10 * 200 = 2000 steps the non-linear search ends.
+    nwalkers=20,  # The number of walkers we'll use to sample parameter space, comfortably more than the model's 3 parameters.
+    nsteps=500,  # The number of steps each walker takes, after which 20 * 500 = 10000 samples the non-linear search ends.
 )
 
 print(
@@ -673,8 +673,8 @@ initializer = af.InitializerParamBounds(
 )
 
 search = af.Emcee(
-    nwalkers=10,  # The number of walkers we'll use to sample parameter space.
-    nsteps=200,  # The number of steps each walker takes, after which 10 * 200 = 2000 steps the non-linear search ends.
+    nwalkers=20,  # The number of walkers we'll use to sample parameter space, comfortably more than the model's 3 parameters.
+    nsteps=500,  # The number of steps each walker takes, after which 20 * 500 = 10000 samples the non-linear search ends.
     initializer=initializer,
 )
 
@@ -696,10 +696,16 @@ MCMC is a powerful tool for model-fitting, providing accurate parameter estimate
 without a starting point, MCMC can still find the correct solution, and if a good starting point is provided, it can
 efficiently scale to more complex models with more parameters.
 
-The main limitation of MCMC is that one has to supply the number of steps the walkers take (`nsteps`). If this value 
-is too low, the walkers may not explore the likelihood surface sufficiently. It can be challenging to know the right 
-number of steps, especially if models of different complexity are being fitted or if datasets of varying quality are 
-used. One often ends up having to perform "trial and error" to verify a sufficient number of steps are used.
+The main limitation of MCMC is that one has to supply the number of walkers (`nwalkers`) and the number of steps each 
+walker takes (`nsteps`). If either value is too low, the walkers may not explore the likelihood surface sufficiently. 
+It can be challenging to know the right values, especially if models of different complexity are being fitted or if 
+datasets of varying quality are used. One often ends up having to perform "trial and error" to verify that a 
+sufficient number of walkers and steps are used.
+
+The `nwalkers=20` and `nsteps=500` used in both fits above were chosen by exactly this process: they were raised from 
+smaller values until repeated runs of the uninitialized fit reliably converged on the correct solution. With fewer 
+walkers the search would sometimes finish trapped near a local maximum, in the same way the MLE search did, so a 
+budget that looks "big enough" is only ever confirmed by running the fit more than once.
 
 MCMC can perform badly in parameter spaces with certain types of complexity, for example when there are
 local maxima "peaks" the walkers can become stuck walking around them.
