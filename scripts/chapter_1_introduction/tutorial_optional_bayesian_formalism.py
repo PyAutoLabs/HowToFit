@@ -37,31 +37,33 @@ __Bayes Theorem__
 
 Here is the equation that every tutorial in this chapter has been solving without ever writing it down:
 
-\[ P(\theta \mid D) = \frac{P(D \mid \theta)\,P(\theta)}{P(D)} \]
+$$
+P(\theta \mid D) = \frac{P(D \mid \theta)\,P(\theta)}{P(D)}
+$$
 
 Where:
 
-- \( \theta \): the model parameters, for our 1D Gaussian the three numbers `centre`, `normalization` and `sigma`.
+- $\theta$: the model parameters, for our 1D Gaussian the three numbers `centre`, `normalization` and `sigma`.
 
-- \( D \): the data, for us the 1D array of 100 values loaded from `data.json` together with its noise-map.
+- $D$: the data, for us the 1D array of 100 values loaded from `data.json` together with its noise-map.
 
-- \( P(\theta \mid D) \): the "posterior", the probability of the parameters given the data, and the quantity we
+- $P(\theta \mid D)$: the "posterior", the probability of the parameters given the data, and the quantity we
   actually want.
 
-- \( P(D \mid \theta) \): the "likelihood", the probability of the data given the parameters, computed by the
+- $P(D \mid \theta)$: the "likelihood", the probability of the data given the parameters, computed by the
   `log_likelihood_function` of tutorial 3 before we take its logarithm.
 
-- \( P(\theta) \): the "prior", the probability we assign to parameter values before looking at the data, the
+- $P(\theta)$: the "prior", the probability we assign to parameter values before looking at the data, the
   `UniformPrior` and `LogUniformPrior` objects of tutorial 3.
 
-- \( P(D) \): the "evidence", a single number which normalizes the right hand side, the `log_evidence` of tutorial 5.
+- $P(D)$: the "evidence", a single number which normalizes the right hand side, the `log_evidence` of tutorial 5.
 
 In plain words: the answer we want is the goodness-of-fit multiplied by our prior beliefs, divided by a normalizing
 number. Every algorithm in this chapter is a strategy for evaluating the right hand side without ever computing the
-integral hiding inside \( P(D) \).
+integral hiding inside $P(D)$.
 
-Each tutorial supplied exactly one piece. Tutorial 1 built \( \theta \) and the forward model. Tutorial 2 built
-\( P(D \mid \theta) \), calling it the log likelihood. Tutorial 3 built \( P(\theta) \) and the searches which
+Each tutorial supplied exactly one piece. Tutorial 1 built $\theta$ and the forward model. Tutorial 2 built
+$P(D \mid \theta)$, calling it the log likelihood. Tutorial 3 built $P(\theta)$ and the searches which
 explore the product of the two. Tutorial 4 showed what goes wrong when the posterior has more than one peak,
 tutorial 5 read the answer back out, and tutorials 6 and 7 differentiated it and asked what the numbers mean.
 
@@ -110,12 +112,12 @@ xvalues = np.arange(data.shape[0])
 r"""
 __The Model__
 
-The symbol \( \theta \) is nothing more exotic than the list of numbers you passed to `instance_from_vector` in
+The symbol $\theta$ is nothing more exotic than the list of numbers you passed to `instance_from_vector` in
 tutorial 1. Bayes' theorem is a statement about a probability distribution over that list, and nothing else.
 
 We therefore begin as tutorial 1 did, by re-pasting the `Gaussian` class in full. Its constructor arguments are the
-entries of \( \theta \), and its `model_data_from` method is the forward model: the function which, given
-\( \theta \), predicts what the data should look like.
+entries of $\theta$, and its `model_data_from` method is the forward model: the function which, given
+$\theta$, predicts what the data should look like.
 """
 
 
@@ -172,7 +174,7 @@ class Gaussian:
 
 
 r"""
-Composing the model gives the two pieces of book-keeping which make \( \theta \) concrete. The `prior_count` is the
+Composing the model gives the two pieces of book-keeping which make $\theta$ concrete. The `prior_count` is the
 number of dimensions the posterior is a distribution over, and `paths` gives the order of the entries in the vector.
 """
 model = af.Model(Gaussian)
@@ -181,7 +183,7 @@ print("Number of parameters in theta:", model.prior_count)
 print("Order of the parameters in theta:", model.paths)
 
 r"""
-A specific \( \theta \) becomes a model, and the model becomes predicted data, in the two lines below. This is the
+A specific $\theta$ becomes a model, and the model becomes predicted data, in the two lines below. This is the
 forward modelling of tutorial 1, and it is what lets us ask "how probable is the data, given these parameters?".
 """
 instance = model.instance_from_vector(vector=[50.0, 25.0, 10.0])
@@ -215,25 +217,29 @@ not critical. Here it is.
 We assume each data point is its predicted value plus a random draw from a Gaussian of width equal to that point's
 noise. The probability of the whole dataset is then a product of one Gaussian probability per data point:
 
-\[ P(D \mid \theta) = \prod_i \frac{1}{\sqrt{2\pi\sigma_i^2}} \exp\left(-\frac{(d_i - m_i)^2}{2\sigma_i^2}\right) \]
+$$
+P(D \mid \theta) = \prod_i \frac{1}{\sqrt{2\pi\sigma_i^2}} \exp\left(-\frac{(d_i - m_i)^2}{2\sigma_i^2}\right)
+$$
 
 Taking the logarithm turns that product into a sum:
 
-\[ \ln P(D \mid \theta) = -\frac{1}{2} \sum_i \frac{(d_i - m_i)^2}{\sigma_i^2} - \frac{1}{2} \sum_i \ln(2\pi\sigma_i^2) \]
+$$
+\ln P(D \mid \theta) = -\frac{1}{2} \sum_i \frac{(d_i - m_i)^2}{\sigma_i^2} - \frac{1}{2} \sum_i \ln(2\pi\sigma_i^2)
+$$
 
 Where:
 
-- \( d_i \): the value of the data at point \( i \), the `data` array.
+- $d_i$: the value of the data at point $i$, the `data` array.
 
-- \( m_i \): the value of the model data at point \( i \), computed by `model_data_from` for this \( \theta \).
+- $m_i$: the value of the model data at point $i$, computed by `model_data_from` for this $\theta$.
 
-- \( \sigma_i \): the noise at point \( i \), the `noise_map` array.
+- $\sigma_i$: the noise at point $i$, the `noise_map` array.
 
 Compare the second equation with tutorial 2 line by line. The first sum is the `chi_squared`, and the second is the
 `noise_normalization`, the log of the product of the Gaussian prefactors. Both are multiplied by -0.5, which is
 where the mysterious factor comes from: it is not a convention, it is the 2 in the denominator of the exponent of a
 Gaussian. The noise normalization really is a constant, because it depends only on the noise-map and never on
-\( \theta \), so it shifts every log likelihood equally and can never change which model wins.
+$\theta$, so it shifts every log likelihood equally and can never change which model wins.
 
 Below we compute the log likelihood twice: by tutorial 2's chi-squared route, and by summing the log of a Gaussian
 probability density at every data point using `scipy`. They are the same number.
@@ -255,14 +261,14 @@ r"""
 __The Prior__
 
 The priors of tutorial 3 were introduced as a way of telling the search where to look. Formally they are
-\( P(\theta) \), a probability distribution over the parameters written down before we look at the data. Because our
+$P(\theta)$, a probability distribution over the parameters written down before we look at the data. Because our
 parameters are independent, the prior is a product of one distribution per parameter and its logarithm is a sum,
-\( \ln P(\theta) = \sum_j \ln P(\theta_j) \).
+$\ln P(\theta) = \sum_j \ln P(\theta_j)$.
 
 The two priors on the default `Gaussian` model have simple forms. A `UniformPrior` is constant inside its limits and
 zero outside them, so its log is a constant we may set to zero inside and negative infinity outside. A
-`LogUniformPrior` is proportional to \( 1 / \theta_j \), the statement "every order of magnitude is equally likely",
-so its log falls off as \( -\ln \theta_j \).
+`LogUniformPrior` is proportional to $1 / \theta_j$, the statement "every order of magnitude is equally likely",
+so its log falls off as $-\ln \theta_j$.
 
 **PyAutoFit** hands you those numbers directly. Below we print the priors of the model, then evaluate the log prior
 of each parameter inside the prior limits, and then for a `centre` of 150.0 which lies outside the `UniformPrior`
@@ -293,7 +299,7 @@ r"""
 The first entry of the second list is `-inf`, an infinitely improbable model. This is the formal version of tutorial
 3's statement that priors define the valid parameter space: a model outside the priors is not penalised, it is
 excluded. The middle entry is not zero, because the `LogUniformPrior` on `normalization` prefers smaller values and
-\( -\ln(25) \) is about -3.2.
+$-\ln(25)$ is about -3.2.
 
 Priors enter a fit a second way, and it is how nested sampling works. Every prior can be inverted: instead of asking
 "how probable is this value?", we ask "which value sits at this fraction of the distribution?". That inverse is the
@@ -320,7 +326,7 @@ r"""
 This is the key to a sentence in tutorial 3 which may have seemed arbitrary: nested sampling "draws live points from
 the priors". A search which picks unit values uniformly at random between 0 and 1 and passes them through
 `value_for` is drawing samples from the prior distribution itself. It is also why a nested sampling search cannot be
-given a starting point: its first step is defined to be a draw from \( P(\theta) \).
+given a starting point: its first step is defined to be a draw from $P(\theta)$.
 
 __The Posterior__
 
@@ -384,14 +390,16 @@ result = search.fit(model=model, analysis=analysis)
 print("The search has finished run - you may now continue the notebook.")
 
 r"""
-The `Samples` object of tutorial 5 is the posterior. Each entry of `parameter_lists` is a \( \theta \) the search
+The `Samples` object of tutorial 5 is the posterior. Each entry of `parameter_lists` is a $\theta$ the search
 accepted, and each entry of `weight_list` says how much that sample counts when the posterior is summed up. Together
-they approximate \( P(\theta \mid D) \): a cloud of points, denser where the posterior is higher.
+they approximate $P(\theta \mid D)$: a cloud of points, denser where the posterior is higher.
 
 Tutorial 5 also told you, without justification, that the log posterior is the log likelihood plus the log prior.
 That is Bayes' theorem logged, with the evidence dropped because it is the same number for every sample:
 
-\[ \ln P(\theta \mid D) = \ln P(D \mid \theta) + \ln P(\theta) - \ln P(D) \]
+$$
+\ln P(\theta \mid D) = \ln P(D \mid \theta) + \ln P(\theta) - \ln P(D)
+$$
 
 Below we check the first few samples, printing the log likelihood, log prior, log posterior, and the difference
 between the log posterior and the sum of the first two.
@@ -425,10 +433,10 @@ __Maximum Likelihood Vs Maximum A Posteriori__
 There are two "best-fit" models hiding in a set of samples, and tutorial 5 printed both without saying they could
 disagree:
 
-- The "maximum likelihood" model, `samples.max_log_likelihood()`, is the \( \theta \) fitting the data best,
+- The "maximum likelihood" model, `samples.max_log_likelihood()`, is the $\theta$ fitting the data best,
   ignoring the priors entirely.
 
-- The "maximum a posteriori" model, usually shortened to MAP, `samples.max_log_posterior()`, is the \( \theta \)
+- The "maximum a posteriori" model, usually shortened to MAP, `samples.max_log_posterior()`, is the $\theta$
   which maximizes likelihood times prior.
 
 If every prior is uniform the log prior is the same constant inside the limits, so the two are the same model. They
@@ -453,13 +461,15 @@ Tutorial 5 quoted a value and an error for each parameter individually, and plot
 `aplt.corner_cornerpy`. That requires an operation with a formal name, "marginalization", which means integrating
 the posterior over the parameters you are not currently interested in:
 
-\[ P(\theta_1 \mid D) = \int P(\theta \mid D) \, d\theta_2 \, d\theta_3 \ldots \]
+$$
+P(\theta_1 \mid D) = \int P(\theta \mid D) \, d\theta_2 \, d\theta_3 \ldots
+$$
 
 Where:
 
-- \( \theta_1 \): the parameter we want a one-dimensional answer for, for example `centre`.
+- $\theta_1$: the parameter we want a one-dimensional answer for, for example `centre`.
 
-- \( \theta_2, \theta_3, \ldots \): every other parameter of the model, integrated away.
+- $\theta_2, \theta_3, \ldots$: every other parameter of the model, integrated away.
 
 That integral looks intimidating, and done analytically it would be. This is the greatest practical advantage of
 having samples: marginalizing them means ignoring the columns you do not care about and histogramming the one you
@@ -489,16 +499,18 @@ print(samples.values_at_sigma(sigma=1.0, as_instance=False))
 r"""
 __The Evidence__
 
-The one term of Bayes' theorem we have ignored is the denominator, \( P(D) \), the evidence. It is the integral of
+The one term of Bayes' theorem we have ignored is the denominator, $P(D)$, the evidence. It is the integral of
 the numerator over the whole of parameter space:
 
-\[ P(D) = \int P(D \mid \theta) \, P(\theta) \, d\theta \]
+$$
+P(D) = \int P(D \mid \theta) \, P(\theta) \, d\theta
+$$
 
 Where:
 
 - The integral runs over every value of every parameter the priors allow.
 
-Two facts about this integral explain a lot of what you have seen. First, it does not depend on \( \theta \), which
+Two facts about this integral explain a lot of what you have seen. First, it does not depend on $\theta$, which
 is why MCMC never needs it: a walker deciding whether to move compares posteriors as a ratio and the evidence
 cancels. Second, it is genuinely hard, an integral over a many-dimensional space in which almost all of the volume
 contributes almost nothing.
@@ -524,14 +536,16 @@ Tutorial 6 introduced the gradient: the direction in which the log likelihood in
 automatic differentiation. In this notation, what the gradient searches climb is the derivative of the log
 posterior:
 
-\[ \nabla_\theta \ln P(\theta \mid D) = \nabla_\theta \ln P(D \mid \theta) + \nabla_\theta \ln P(\theta) \]
+$$
+\nabla_\theta \ln P(\theta \mid D) = \nabla_\theta \ln P(D \mid \theta) + \nabla_\theta \ln P(\theta)
+$$
 
 Where:
 
-- \( \nabla_\theta \): the vector of derivatives with respect to each parameter in turn.
+- $\nabla_\theta$: the vector of derivatives with respect to each parameter in turn.
 
-The evidence has vanished, and its disappearance is the point. Because \( \ln P(D) \) does not depend on
-\( \theta \), differentiating it gives zero: the hardest term in Bayes' theorem is invisible to any method which
+The evidence has vanished, and its disappearance is the point. Because $\ln P(D)$ does not depend on
+$\theta$, differentiating it gives zero: the hardest term in Bayes' theorem is invisible to any method which
 only ever looks at slopes.
 
 This is the formal reason gradient methods scale so well. Hamiltonian Monte Carlo and its self-tuning variant NUTS,
