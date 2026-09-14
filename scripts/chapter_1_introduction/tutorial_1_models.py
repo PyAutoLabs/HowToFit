@@ -234,24 +234,12 @@ appear in a notebook).]
 print(model.info)
 
 """
-The same model can also be drawn, via `af.ModelPlotter`.
+The same model can also be visualized as a figure, making its structure easier to understand at a glance.
 
-The figure and the `info` are two views of the same object, and it is worth being precise about the division of
-labour between them. The figure is the **map**: it shows the structure of the model, meaning which component owns
-which parameter and, in the models we build later, which parameters are fixed, shared between components, related to
-one another by an expression or constrained by an assertion. The `info` is the **legend**: it lists the priors and
-values themselves, the numbers that the map has no room for.
-
-For this first model the map is about as simple as a map gets. There is a single card, titled `model` and `Gaussian`
-after the class it was composed from, holding one pill per parameter: `centre`, `normalization` and `sigma`. The
-footer counts them for you, `3 unique sampled scalars`, which is the same number the `total_free_parameters`
-attribute printed above. Read the card as the answer to "what is this model made of?", and the `info` above it as the
-answer to "and what values may each of those parts take?".
-
-Right now both views fit on one screen and the figure may look like a redundant restatement of the `info`. Draw it
-anyway, because the two views scale very differently. By the end of this chapter our models have five components, in
-the advanced chapter they span five datasets at once, and at that point the `info` runs to hundreds of lines whilst the map
-still fits in a glance.
+The figure shows how the model is organized: which parameters belong to each component, and whether they are free,
+fixed, shared, linked by an expression, solved during the fit, or not configured. `model.info` provides the
+corresponding numerical details, including the prior assigned to each free parameter and the value of each fixed
+parameter.
 """
 af.ModelPlotter(model).figure()
 
@@ -403,10 +391,9 @@ in one go:
 print(model.info)
 
 """
-Drawing the model shows what a `Collection` does to the map. There are now two cards side by side,
-`gaussian` and `exponential`, each titled with the class it was composed from and each owning its own pills, and the
-footer counts `6 unique sampled scalars` across the pair. Components sit beside one another, and nothing yet joins
-them: the two `centre` parameters are separate parameters that happen to share a name.
+A `Collection` holds the `gaussian` and the `exponential` side by side, giving 6 free parameters across the pair.
+Nothing yet joins the two components: their two `centre` parameters are separate parameters that happen to share a
+name.
 """
 af.ModelPlotter(model).figure()
 
@@ -424,10 +411,8 @@ The `model.info` is identical to the previous example.
 print(model.info)
 
 """
-The figure is identical to the previous one too, and that is the point worth taking from this example. The two ways
-of writing the composition look different on the page, but they build the same structure, and structure is all the
-map draws. Whenever you change how a model is written, draw it: if the map does not move then nothing about the model
-moved either, and any difference between the two fits has to be hiding in the legend rather than in the model.
+The two ways of writing the composition look different on the page, but they build exactly the same model, with the
+same components and the same free parameters.
 """
 af.ModelPlotter(model).figure()
 
@@ -524,10 +509,9 @@ print("\nInfo:")
 print(model.info)
 
 """
-The map shows how a tuple is handled. `centre` is still drawn as one pill, because it is one input argument of the
-`Gaussian2D` class, but it now carries a `2D` badge marking it as a tuple, and the footer counts `4 unique sampled
-scalars` rather than 3. The `paths` printed below unpack that badge into the two entries, one per coordinate, which
-the input vector must supply.
+`centre` is one input argument of the `Gaussian2D` class, but because it is a tuple it contributes two free
+parameters rather than one, so this model has 4 free parameters rather than 3. The `paths` printed below unpack the
+tuple into its two entries, one per coordinate, which the input vector must supply.
 """
 af.ModelPlotter(model).figure()
 

@@ -271,14 +271,15 @@ limits of 0.0 to 100.0.
 print(model.info)
 
 """
-The model can also be drawn, via `af.ModelPlotter`. The figure is the **map** of the model, showing its structure,
-meaning which component owns which parameter, and the `info` above is the **legend**, naming the prior on each of
-them.
+The same model can also be visualized as a figure, making its structure easier to understand at a glance.
 
-Read against the formalism of this tutorial the map has a precise meaning: the pills on the card are the entries of
-the parameter vector, the footer's `3 unique sampled scalars` is its dimension, and the sum over j in the expression
-above runs over exactly those pills. The prior is one distribution per pill, and the legend is where their names and
-limits live.
+The figure shows how the model is organized: which parameters belong to each component, and whether they are free,
+fixed, shared, linked by an expression, solved during the fit, or not configured. `model.info` provides the
+corresponding numerical details, including the prior assigned to each free parameter and the value of each fixed
+parameter.
+
+The three free parameters are the entries of the parameter vector, their number is its dimension, and the sum over j
+in the expression above runs over exactly those parameters, with one prior distribution for each of them.
 """
 af.ModelPlotter(model).figure()
 
