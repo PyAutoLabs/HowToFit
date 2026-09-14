@@ -10,17 +10,24 @@
 
 <img src="https://github.com/Jammy2211/PyAutoLogo/blob/main/gifs/pyautofit.gif?raw=true" width="900" />
 
-Welcome to **HowToFit** — the tutorial lecture series for [PyAutoFit](https://github.com/PyAutoLabs/PyAutoFit),
-an open-source probabilistic programming library for Bayesian model fitting.
+Welcome to **HowToFit**, the tutorial lecture series for [PyAutoFit](https://github.com/PyAutoLabs/PyAutoFit),
+an open-source framework for scientific inference.
 
-**HowToFit** teaches new users how to compose, fit, and interpret probabilistic models with **PyAutoFit**.
-It assumes minimal prior knowledge of statistics and takes you from first principles — what a model is,
-what a non-linear search does, how a likelihood function is built — through to graphical and hierarchical
-models for fitting large datasets simultaneously.
+**PyAutoFit** is designed so scientists can bring their models, data and likelihood code, then fit models,
+explore results and develop analyses using natural language with an AI coding agent. **HowToFit** teaches
+the core principles behind this workflow, so you understand the inference being performed rather than
+treating it as a black box.
 
-For experienced scientists who already know the fundamentals of Bayesian modeling, the
-[autofit_workspace](https://github.com/PyAutoLabs/autofit_workspace) examples will be more appropriate —
-they are concise, API-focused, and assume the concepts taught in **HowToFit** as background.
+The tutorials assume minimal prior knowledge of statistics and begin from first principles: models, priors,
+likelihood functions and non-linear searches. They then progress to model comparison, graphical models and
+hierarchical inference across large datasets.
+
+With these foundations in place, **PyAutoFit** can be used through its natural-language workflow to compose
+models, choose searches, perform inference and interpret results conversationally.
+
+For experienced scientists who already know these concepts, the
+[autofit_workspace](https://github.com/PyAutoLabs/autofit_workspace) examples may be more appropriate: they
+are concise, application-focused and assume the principles taught in **HowToFit** as background.
 
 ## Chapters
 
