@@ -271,13 +271,12 @@ for gaussian in [model.gaussian_0, model.gaussian_1]:
 print(model.info)
 
 """
-Draw the model and the problem is already on the page. The figure is the **map** of the model, showing its structure,
-and the `info` above is the **legend**, listing the priors.
+The same model can also be visualized as a figure, making its structure easier to understand at a glance.
 
-The two `Gaussian`'s do not get a card each. Because they are the same component carrying identical priors, they
-collapse into a single dashed frame badged `2 components` and subtitled `gaussian_0 - gaussian_1`, with one
-`independent` pill per parameter. The figure is drawn that way because there is genuinely nothing in the model that
-tells the two apart, which is exactly the property the next few cells are about to exploit.
+The figure shows how the model is organized: which parameters belong to each component, and whether they are free,
+fixed, shared, linked by an expression, solved during the fit, or not configured. `model.info` provides the
+corresponding numerical details, including the prior assigned to each free parameter and the value of each fixed
+parameter.
 """
 af.ModelPlotter(model).figure()
 

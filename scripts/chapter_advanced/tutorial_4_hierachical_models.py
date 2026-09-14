@@ -215,19 +215,21 @@ The factor graph model `info` attribute shows that the hierarchical factor's par
 print(factor_graph.global_prior_model.info)
 
 """
-Drawing this model with `af.ModelPlotter` and putting it next to the figure from tutorial 2 is the fastest way to see
-what changed, because the two models say opposite things with almost the same words.
+The same model can also be visualized as a figure, making its structure easier to understand at a glance.
 
-In tutorial 2 the `centre` was hoisted into a card of its own and the plate pointed back at it: one prior object, one
-number, shared. Here every dataset keeps its own `centre`, so it stays inside the plate as a `drawn` pill badged with
-the hierarchical factor it came from, and the violet arrow comes from that factor's card and lands on the pill. There
-is no shared badge anywhere on this figure. The arrow is making the weaker and more realistic claim: these centres
-were drawn from a common population, they are not the same number.
+The figure shows how the model is organized: which parameters belong to each component, and whether they are free,
+fixed, shared, linked by an expression, solved during the fit, or not configured. `model.info` provides the
+corresponding numerical details, including the prior assigned to each free parameter and the value of each fixed
+parameter.
 
-The footer makes the accounting explicit too, counting the parent distribution's `mean` and `sigma` as
-hyper-parameters separately from the parameters belonging to each dataset. That is the split that matters when you
-ask what a hierarchical model actually buys you: the hyper-parameters are the handful of numbers the whole sample
-informs, and the figure is where you can see how few of them there are.
+The hierarchical model says something different from tutorial 2's shared model, in almost the same words. In
+tutorial 2 the `centre` was a single shared prior: one object, one number, common to every dataset. Here every
+dataset keeps its own `centre`, and those centres are drawn from a parent distribution whose `mean` and `sigma` are
+themselves parameters of the fit. That is the weaker and more realistic claim: these centres came from a common
+population, they are not the same number.
+
+Those two hyper-parameters are counted separately from the parameters belonging to each dataset, and that split is
+what a hierarchical model buys you: the hyper-parameters are the handful of numbers the whole sample informs.
 """
 af.ModelPlotter(factor_graph.global_prior_model).figure()
 

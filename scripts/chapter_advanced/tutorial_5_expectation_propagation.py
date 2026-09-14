@@ -221,18 +221,15 @@ not use `global_prior_model` below when performing the fit).
 print(factor_graph.global_prior_model.info)
 
 """
-Drawing the model shows the graph that EP is about to sweep. The figure is the **map**, showing which dataset gets
-which components and what joins them, and the `info` above is the **legend** of priors.
+The same model can also be visualized as a figure, making its structure easier to understand at a glance.
 
-There are four cards. The first three, `0` to `2`, are the `AnalysisFactor`'s, one per dataset, each holding a
-`gaussian` card with its `centre`, `normalization` and `sigma` pills. The fourth card, numbered `3`, is the
-`linear_regression` factor, and its pills are drawn in orange rather than as plain free priors because they are not
-free parameters at all: each one shows the expression it is computed from, a constant times that dataset's
-`gaussian.sigma`, which is the FWHM we built out of `fwhm_list` above. The legend names this kind of pill,
-`relation (expression shown)`, and a line runs from each dataset's `sigma` into the relation built on it.
+The figure shows how the model is organized: which parameters belong to each component, and whether they are free,
+fixed, shared, linked by an expression, solved during the fit, or not configured. `model.info` provides the
+corresponding numerical details, including the prior assigned to each free parameter and the value of each fixed
+parameter.
 
-Those lines are the thing to hold on to for the rest of the tutorial. EP never fits this whole map in one go. It
-visits one card at a time, and the lines drawn here are the paths its messages travel along.
+EP never fits this whole model in one go. It visits one factor at a time, passing messages along the links between
+the factors, and those messages are what the rest of this tutorial follows.
 """
 af.ModelPlotter(factor_graph.global_prior_model).figure()
 
@@ -304,8 +301,8 @@ __Seeing the EP run__
 Until that `info` exists, the figure is how we read an EP fit back. `af.EPPlotter` draws the same factor graph as
 before, but now with the state of the run painted onto it.
 
-The graph it draws is not the map we drew earlier, it is the factor graph itself, and its legend says how to read
-it: `box = factor`, `pill = variable`, `dashed frame = repeated structure`. Every `AnalysisFactor` is a box, every
+The graph it draws is not the model figure we drew earlier, it is the factor graph itself, and its legend says how
+to read it: `box = factor`, `pill = variable`, `dashed frame = repeated structure`. Every `AnalysisFactor` is a box, every
 parameter it touches is a pill, and an edge between them means "this factor has something to say about this
 variable". That is the picture the message passing above lives on: a message leaves a box, arrives at a pill, and is
 read by every other box attached to it. The three datasets sit inside a dashed plate badged `3 datasets`, drawn once

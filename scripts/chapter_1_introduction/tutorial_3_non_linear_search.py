@@ -265,15 +265,16 @@ model = af.Model(Gaussian)
 print(model.info)
 
 """
-As in tutorial 1, the model can also be drawn via `af.ModelPlotter`. The figure is the **map** of the model, showing
-its structure, meaning which component owns which parameter, and the `info` above is its **legend**, listing the
-prior placed on each of those parameters.
+The same model can also be visualized as a figure, making its structure easier to understand at a glance.
 
-The map here is the single card we drew in tutorial 1, with a pill for `centre`, `normalization` and `sigma` and a
-footer counting `3 unique sampled scalars`. Those three scalars are exactly the three dimensions of the parameter
-space that the non-linear search is about to explore, so the card is a picture of how large the search's job is. The
-priors discussed below are the legend for that map: they do not change its shape, they set how far along each of its
-three axes the search is allowed to wander.
+The figure shows how the model is organized: which parameters belong to each component, and whether they are free,
+fixed, shared, linked by an expression, solved during the fit, or not configured. `model.info` provides the
+corresponding numerical details, including the prior assigned to each free parameter and the value of each fixed
+parameter.
+
+The model's three free parameters are the three dimensions of the parameter space that the non-linear search is
+about to explore, which is a measure of how large the search's job is. The priors discussed below do not change that
+dimensionality, they set how far along each of those three axes the search is allowed to wander.
 """
 af.ModelPlotter(model).figure()
 
