@@ -14,7 +14,7 @@ Welcome to **HowToFit**, the tutorial lecture series for [PyAutoFit](https://git
 an open-source framework for scientific inference.
 
 **PyAutoFit** is designed so scientists can bring their models, data and likelihood code, then fit models,
-explore results and develop analyses using natural language with an AI coding agent. **HowToFit** teaches
+explore results and develop analyses **using natural language** with an AI coding agent. **HowToFit** teaches
 the core principles behind this workflow, so you understand the inference being performed rather than
 treating it as a black box.
 
