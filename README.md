@@ -1,5 +1,8 @@
 # HowToFit
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.9.14.1/start_here.ipynb)
+
+[Start Here on Colab](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.9.14.1/start_here.ipynb) |
 [Installation Guide](https://pyautofit.readthedocs.io/en/latest/installation/overview.html) |
 [PyAutoFit readthedocs](https://pyautofit.readthedocs.io/en/latest/index.html) |
 [Browse Chapter 1 With Images](markdown/README.md) |
@@ -23,26 +26,38 @@ they are concise, API-focused, and assume the concepts taught in **HowToFit** as
 
 - `chapter_1_introduction` — Models, likelihoods, non-linear searches, why modeling is hard, and how to
   interpret the results of a fit, ending with a short guide to building a scientific workflow.
-- `chapter_3_graphical_models` — Fitting many datasets simultaneously with graphical models,
+- `chapter_advanced` — Fitting many datasets simultaneously with graphical models,
   hierarchical models, and Expectation Propagation.
 
-Each chapter is organised into numbered tutorial files: `chapter_<N>_<name>/tutorial_<M>_<topic>.py`
-(Python script) or the matching `.ipynb` in `notebooks/`. Tutorials build on each other within a
-chapter and assume you have completed the earlier ones.
+Each chapter is a folder of numbered tutorial files — `tutorial_<M>_<topic>.py` (Python script) or the
+matching `.ipynb` in `notebooks/`. Tutorials build on each other within a chapter and assume you have
+completed the earlier ones.
 
 ## Getting Started
 
-You can run the tutorials on your own machine by following the
+### Run in Google Colab (nothing to install)
+
+Every tutorial opens in Google Colab in one click. There is nothing to install and no local Python
+environment to set up — **PyAutoFit** installs itself in the notebook's first cell.
+
+- **[Start here](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.9.14.1/start_here.ipynb)** — a one-page overview of the whole series.
+- **[Chapter 1, Tutorial 1: Models](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.9.14.1/notebooks/chapter_1_introduction/tutorial_1_models.ipynb)** — the first tutorial.
+- Every tutorial, chapter by chapter: **[chapter 1](scripts/chapter_1_introduction/README.md)** |
+  **[the advanced chapter](scripts/chapter_advanced/README.md)**
+
+Model-fits run considerably faster on a GPU. In Colab, enable one via *Runtime* → *Change runtime type*
+→ *Hardware accelerator* before running a notebook.
+
+### Run on your own machine
+
+Follow the
 [PyAutoFit installation guide](https://pyautofit.readthedocs.io/en/latest/installation/overview.html),
-then cloning this repository:
+then clone this repository:
 
 ```bash
 git clone https://github.com/PyAutoLabs/HowToFit.git
 cd HowToFit
 ```
-
-Alternatively, every tutorial can be opened directly in Google Colab via the links in each chapter's
-`README.md`.
 
 The tutorials are distributed as both Jupyter notebooks (`notebooks/`) and Python scripts (`scripts/`).
 We recommend the notebooks for reading — figures render inline, and you can step through small code blocks

@@ -178,7 +178,7 @@ for dataset_name in dataset_name_list:
     dynesty = af.DynestyStatic(
         name="global_model",
         path_prefix=path.join(
-            "chapter_3_graphical_models", "tutorial_1_individual_models"
+            "chapter_advanced", "tutorial_1_individual_models"
         ),
         unique_tag=dataset_name,
         nlive=200,
@@ -189,7 +189,7 @@ for dataset_name in dataset_name_list:
 
     print(
         f"The non-linear search has begun running, checkout \n"
-        f"HowToFit/output/chapter_3_graphical_models/tutorial_1_individual_models/{dataset_name} for live \n"
+        f"HowToFit/output/chapter_advanced/tutorial_1_individual_models/{dataset_name} for live \n"
         f"output of the results. This Jupyter notebook cell with progress once search has completed, this could take a \n"
         f"few minutes!"
     )

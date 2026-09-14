@@ -3,7 +3,7 @@ The `scripts` folder contains **HowToFit** lectures, which teach a new user how 
 # Folders
 
 - `chapter_1_introduction`: Introduction lectures describing how to compose and fit models in **PyAutoFit**, use gradients to fit them more efficiently and handle the details that make a fit succeed or fail, ending with a prose-only introduction to scientific workflows and an optional tutorial on the Bayesian formalism.
-- `chapter_3_graphical_models`: How to compose and fit graphical models which fit many datasets simultaneously, including hierarchical models and Expectation Propagation.
+- `chapter_advanced`: How to compose and fit graphical models which fit many datasets simultaneously, including hierarchical models and Expectation Propagation.
 - `simulators`: Simulator scripts that generate the tutorial 1D datasets at runtime.
 
 # Jupyter Notebooks
@@ -20,7 +20,7 @@ This makes them an ideal way for us to present the **HowToFit** lecture series. 
 `notebooks/` and are auto-generated from the Python scripts in `scripts/` — **edit the Python scripts,
 not the notebooks.**
 
-For actual **PyAutoFit** use we recommend the Python scripts. Chapter 3 onwards assumes that transition.
+For actual **PyAutoFit** use we recommend the Python scripts. The advanced chapter assumes that transition.
 
 # Code Style and Formatting
 
@@ -33,14 +33,14 @@ is auto-formatted with `black` — see <https://github.com/python/black>.
 
 # How to Approach HowToFit
 
-**HowToFit** consists of the introductory chapter 1 and advanced chapter 3. Chapter 1 will take a couple of
-hours to work through. The concepts in chapter 3 are challenging, and familiarity with **PyAutoFit** and
+**HowToFit** consists of the introductory chapter 1 and the advanced chapter. Chapter 1 will take a couple of
+hours to work through. The concepts in the advanced chapter are challenging, and familiarity with **PyAutoFit** and
 model fitting is desirable before tackling them.
 
 We recommend that you complete chapter 1 and then apply what you've learnt to a model-fitting problem you
 are interested in, building on the scripts found in the
 [autofit_workspace](https://github.com/PyAutoLabs/autofit_workspace) repository. Once you're confident
-with your use of **PyAutoFit**, return for chapter 3.
+with your use of **PyAutoFit**, return for the advanced chapter.
 
 # Overview of Chapter 1 (Beginner)
 
@@ -58,11 +58,11 @@ able to:
 7. Use gradients of the log likelihood, computed with JAX automatic differentiation, to fit models with gradient based searches.
 8. Recognise and fix the details that make a fit fail: degenerate parameterizations, plateaus, clipping and NaNs, and the unit cube.
 
-# Overview of Chapter 3 (Advanced)
+# Overview of the Advanced Chapter
 
 **Fitting Graphical Models to Large Datasets**
 
-Chapter 3 covers how to compose and fit graphical models to extremely large datasets. You'll learn:
+The advanced chapter covers how to compose and fit graphical models to extremely large datasets. You'll learn:
 
 1. Why fitting a model to many datasets one-by-one is suboptimal.
 2. How to fit a graphical model to all datasets simultaneously and why this improves the model results.

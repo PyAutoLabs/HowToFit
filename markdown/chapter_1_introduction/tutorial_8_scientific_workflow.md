@@ -27,4 +27,4 @@ For the corresponding Python implementation, follow the
 
 __Wrap Up__
 
-Apply the workflow to your own data before returning to chapter 3 for graphical and hierarchical models.
+Apply the workflow to your own data before returning to the advanced chapter for graphical and hierarchical models.

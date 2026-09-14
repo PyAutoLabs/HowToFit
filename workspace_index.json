@@ -229,8 +229,8 @@
       "Wrap Up"
     ],
     "cross_refs": [],
-    "notebook": "notebooks/chapter_3_graphical_models/tutorial_1_individual_models.ipynb",
-    "path": "scripts/chapter_3_graphical_models/tutorial_1_individual_models.py",
+    "notebook": "notebooks/chapter_advanced/tutorial_1_individual_models.ipynb",
+    "path": "scripts/chapter_advanced/tutorial_1_individual_models.py",
     "summary": "In many examples, we fit one model to one dataset. For many problems, we may have a large dataset and are not interested in how well the model fits each individual dataset. Instead, we want to know how the model fits the full dataset, so that we can determine \"global\" trends of how the model fits the data.",
     "title": "Tutorial 1: Individual Models"
   },
@@ -247,8 +247,8 @@
       "Wrap Up"
     ],
     "cross_refs": [],
-    "notebook": "notebooks/chapter_3_graphical_models/tutorial_2_graphical_model.ipynb",
-    "path": "scripts/chapter_3_graphical_models/tutorial_2_graphical_model.py",
+    "notebook": "notebooks/chapter_advanced/tutorial_2_graphical_model.ipynb",
+    "path": "scripts/chapter_advanced/tutorial_2_graphical_model.py",
     "summary": "We have fitted a dataset containing 5 noisy 1D Gaussian which had a shared `centre` value. We estimated the `centre` by fitting each dataset individually and combining the value of the `centre` inferred by each fit into an overall estimate, using a weighted average.",
     "title": "Tutorial 2: Graphical Models"
   },
@@ -272,8 +272,8 @@
       "Wrap Up"
     ],
     "cross_refs": [],
-    "notebook": "notebooks/chapter_3_graphical_models/tutorial_3_graphical_benefits.ipynb",
-    "path": "scripts/chapter_3_graphical_models/tutorial_3_graphical_benefits.py",
+    "notebook": "notebooks/chapter_advanced/tutorial_3_graphical_benefits.ipynb",
+    "path": "scripts/chapter_advanced/tutorial_3_graphical_benefits.py",
     "summary": "In the previous tutorials, we fitted a dataset containing 5 noisy 1D Gaussian which had a shared `centre` value and compared different approaches to estimate the shared `centre`. This included a simple approach fitting each dataset one-by-one and estimating the centre via a weighted average or posterior multiplication and a more complicated approach using a graphical model.",
     "title": "Tutorial 3: Graphical Benefits"
   },
@@ -295,8 +295,8 @@
     "cross_refs": [
       "tutorial_optional_hierarchical_individual.py"
     ],
-    "notebook": "notebooks/chapter_3_graphical_models/tutorial_4_hierachical_models.ipynb",
-    "path": "scripts/chapter_3_graphical_models/tutorial_4_hierachical_models.py",
+    "notebook": "notebooks/chapter_advanced/tutorial_4_hierachical_models.ipynb",
+    "path": "scripts/chapter_advanced/tutorial_4_hierachical_models.py",
     "summary": "In the previous tutorial, we fitted a graphical model with the aim of determining an estimate of shared parameters, the `centre`'s of a dataset of 1D Gaussians. We did this by fitting all datasets simultaneously. When there are shared parameters in a model, this is a powerful and effective tool, but things may not always be so simple.",
     "title": "Tutorial 4: Hierarchical"
   },
@@ -315,8 +315,8 @@
       "Results"
     ],
     "cross_refs": [],
-    "notebook": "notebooks/chapter_3_graphical_models/tutorial_5_expectation_propagation.ipynb",
-    "path": "scripts/chapter_3_graphical_models/tutorial_5_expectation_propagation.py",
+    "notebook": "notebooks/chapter_advanced/tutorial_5_expectation_propagation.ipynb",
+    "path": "scripts/chapter_advanced/tutorial_5_expectation_propagation.py",
     "summary": "In the previous tutorials, we fitted graphical models to dataset comprising many noisy 1D Gaussians. These had a shared and global value of their `centre`, or assumed their centres were hierarchically drawn from a parent Gaussian distribution. This provides the basis of composing and fitting complex graphical models to large datasets.",
     "title": "Tutorial 5: Expectation Propagation"
   },
@@ -332,8 +332,8 @@
       "Model Fit"
     ],
     "cross_refs": [],
-    "notebook": "notebooks/chapter_3_graphical_models/tutorial_optional_hierarchical_ep.ipynb",
-    "path": "scripts/chapter_3_graphical_models/tutorial_optional_hierarchical_ep.py",
+    "notebook": "notebooks/chapter_advanced/tutorial_optional_hierarchical_ep.ipynb",
+    "path": "scripts/chapter_advanced/tutorial_optional_hierarchical_ep.py",
     "summary": "This optional tutorial gives an example of fitting a hierarchical model using EP.",
     "title": "Tutorial Optional: Hierarchical Expectation Propagation (EP)"
   },
@@ -350,8 +350,8 @@
       "Analysis + Search"
     ],
     "cross_refs": [],
-    "notebook": "notebooks/chapter_3_graphical_models/tutorial_optional_hierarchical_individual.ipynb",
-    "path": "scripts/chapter_3_graphical_models/tutorial_optional_hierarchical_individual.py",
+    "notebook": "notebooks/chapter_advanced/tutorial_optional_hierarchical_individual.ipynb",
+    "path": "scripts/chapter_advanced/tutorial_optional_hierarchical_individual.py",
     "summary": "In tutorial 4, we fit a hierarchical model using a graphical model, whereby all datasets are fitted simultaneously and the hierarchical parameters are fitted for simultaneously with the model parameters of each 1D Gaussian in each dataset.",
     "title": "Tutorial Optional: Hierarchical Individual"
   },

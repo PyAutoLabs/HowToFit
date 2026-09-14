@@ -9,7 +9,7 @@ interpret probabilistic models from first principles. It is the teaching compani
 
 - `scripts/` — Runnable Python tutorial scripts:
   - `chapter_1_introduction/` — Models, fitting data, non-linear searches, results and samples, gradients and JAX autodiff, the details that make a fit succeed or fail, a prose-only scientific workflow closing tutorial, and an optional Bayesian formalism tutorial
-  - `chapter_3_graphical_models/` — Individual / graphical / hierarchical models, Expectation Propagation
+  - `chapter_advanced/` — Individual / graphical / hierarchical models, Expectation Propagation
   - `simulators/` — Simulator scripts that generate the tutorial 1D datasets at runtime
 - `notebooks/` — Jupyter versions, generated from `scripts/` (do not edit directly)
 - `config/` — PyAutoFit configuration YAML

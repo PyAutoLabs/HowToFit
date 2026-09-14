@@ -28,7 +28,7 @@ analysis?" below).
 ## The learning path (chapters in order)
 
 - **Chapter 1 — Introduction** → [scripts/chapter_1_introduction/](scripts/chapter_1_introduction/): The foundations of model-fitting — defining models, fitting data (residuals / chi-squared / likelihood), the non-linear search, why modeling is hard, and reading results & samples.
-- **Chapter 3 — Graphical Models** → [scripts/chapter_3_graphical_models/](scripts/chapter_3_graphical_models/): Fitting one model across a large dataset — individual fits vs graphical models, shared parameters, hierarchical models, and Expectation Propagation for scaling to many datasets.
+- **Advanced Chapter — Graphical Models** → [scripts/chapter_advanced/](scripts/chapter_advanced/): Fitting one model across a large dataset — individual fits vs graphical models, shared parameters, hierarchical models, and Expectation Propagation for scaling to many datasets.
 
 ## I want to understand…
 
@@ -40,8 +40,8 @@ analysis?" below).
 - **How does a search know which way is "up" / what is a gradient?** → [scripts/chapter_1_introduction/tutorial_6_gradients.py](scripts/chapter_1_introduction/tutorial_6_gradients.py): Gradients of the log likelihood, finite differencing, JAX autodiff, gradient vs non-gradient searches, errors from curvature.
 - **My fit looks reasonable but the answer is wrong — what am I missing?** → [scripts/chapter_1_introduction/tutorial_7_the_details.py](scripts/chapter_1_introduction/tutorial_7_the_details.py): Parameterization and mirror solutions, assertions, plateaus, clipping, NaN diagnostics, the unit cube.
 - **Where is the Bayesian maths behind all of this?** → [scripts/chapter_1_introduction/tutorial_optional_bayesian_formalism.py](scripts/chapter_1_introduction/tutorial_optional_bayesian_formalism.py): Bayes' theorem, likelihood, prior, posterior, marginalization and evidence, mapped onto what chapter 1 already computed.
-- **I have many datasets with a shared parameter — what's the right tool?** → [scripts/chapter_3_graphical_models/tutorial_2_graphical_model.py](scripts/chapter_3_graphical_models/tutorial_2_graphical_model.py): Factor graphs and graphical models vs one-by-one fits.
-- **What is a hierarchical model / Expectation Propagation?** → [scripts/chapter_3_graphical_models/tutorial_4_hierachical_models.py](scripts/chapter_3_graphical_models/tutorial_4_hierachical_models.py) then [tutorial_5_expectation_propagation.py](scripts/chapter_3_graphical_models/tutorial_5_expectation_propagation.py).
+- **I have many datasets with a shared parameter — what's the right tool?** → [scripts/chapter_advanced/tutorial_2_graphical_model.py](scripts/chapter_advanced/tutorial_2_graphical_model.py): Factor graphs and graphical models vs one-by-one fits.
+- **What is a hierarchical model / Expectation Propagation?** → [scripts/chapter_advanced/tutorial_4_hierachical_models.py](scripts/chapter_advanced/tutorial_4_hierachical_models.py) then [tutorial_5_expectation_propagation.py](scripts/chapter_advanced/tutorial_5_expectation_propagation.py).
 
 ## Ready for real analysis?
 

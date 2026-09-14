@@ -240,7 +240,7 @@ __Search__
 We can now create a non-linear search and use it to the fit the factor graph, using its `global_prior_model` property.
 """
 search = af.DynestyStatic(
-    path_prefix=path.join("chapter_3_graphical_models"),
+    path_prefix=path.join("chapter_advanced"),
     name="tutorial_2_graphical_model",
     nlive=200,
     dlogz=1e-4,
