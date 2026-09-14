@@ -166,8 +166,8 @@ __Analysis__
 To define the Analysis class for this model-fit, we need to ensure that the `log_likelihood_function` can handle an 
 instance containing multiple 1D profiles. Below is an expanded explanation and the corresponding class definition:
 
-The log_likelihood_function will now assume that the instance it receives consists of multiple Gaussian profiles. 
-For each Gaussian in the instance, it will compute the model_data and then sum these to create the overall `model_data` 
+The `log_likelihood_function` will now assume that the instance it receives consists of multiple Gaussian profiles. 
+For each Gaussian in the instance, it will compute the `model_data` and then sum these to create the overall `model_data` 
 that is compared to the observed data.
 """
 
@@ -395,7 +395,7 @@ plt.errorbar(
 plt.plot(range(data.shape[0]), model_data, color="r")
 for model_data_1d_individual in model_data_list:
     plt.plot(range(data.shape[0]), model_data_1d_individual, "--")
-plt.title(f"Fit (log likelihood = {result.log_likelihood})")
+plt.title(f"Fit (log likelihood = {result.log_likelihood:.2f})")
 plt.xlabel("x values of profile")
 plt.ylabel("Profile normalization")
 plt.show()
@@ -424,7 +424,7 @@ plt.errorbar(
     capsize=2,
     linestyle="",
 )
-plt.title(f"Residuals (log likelihood = {result.log_likelihood})")
+plt.title(f"Residuals (log likelihood = {result.log_likelihood:.2f})")
 plt.xlabel("x values of profile")
 plt.ylabel("Residuals")
 plt.show()
@@ -445,7 +445,7 @@ to it being a noise fluctuation.
 residual_map = data - model_data
 normalized_residual_map = residual_map / noise_map
 plt.plot(xvalues, normalized_residual_map, color="k")
-plt.title(f"Normalized Residuals (log likelihood = {result.log_likelihood})")
+plt.title(f"Normalized Residuals (log likelihood = {result.log_likelihood:.2f})")
 plt.xlabel("x values of profile")
 plt.ylabel(r"Normalized Residuals ($\sigma$)")
 plt.show()
@@ -608,7 +608,7 @@ plt.errorbar(
 plt.plot(range(data.shape[0]), model_data, color="r")
 for model_data_1d_individual in model_data_list:
     plt.plot(range(data.shape[0]), model_data_1d_individual, "--")
-plt.title(f"Fit (log likelihood = {result.log_likelihood})")
+plt.title(f"Fit (log likelihood = {result.log_likelihood:.2f})")
 plt.xlabel("x values of profile")
 plt.ylabel("Profile normalization")
 plt.show()
@@ -618,7 +618,7 @@ plt.close()
 residual_map = data - model_data
 normalized_residual_map = residual_map / noise_map
 plt.plot(xvalues, normalized_residual_map, color="k")
-plt.title(f"Normalized Residuals (log likelihood = {result.log_likelihood})")
+plt.title(f"Normalized Residuals (log likelihood = {result.log_likelihood:.2f})")
 plt.xlabel("x values of profile")
 plt.ylabel(r"Normalized Residuals ($\sigma$)")
 plt.show()
@@ -725,7 +725,7 @@ plt.errorbar(
 plt.plot(range(data.shape[0]), model_data, color="r")
 for model_data_1d_individual in model_data_list:
     plt.plot(range(data.shape[0]), model_data_1d_individual, "--")
-plt.title(f"Fit (log likelihood = {result.log_likelihood})")
+plt.title(f"Fit (log likelihood = {result.log_likelihood:.2f})")
 plt.xlabel("x values of profile")
 plt.ylabel("Profile normalization")
 plt.show()
@@ -735,7 +735,7 @@ plt.close()
 residual_map = data - model_data
 normalized_residual_map = residual_map / noise_map
 plt.plot(xvalues, normalized_residual_map, color="k")
-plt.title(f"Normalized Residuals (log likelihood = {result.log_likelihood})")
+plt.title(f"Normalized Residuals (log likelihood = {result.log_likelihood:.2f})")
 plt.xlabel("x values of profile")
 plt.ylabel(r"Normalized Residuals ($\sigma$)")
 plt.show()
@@ -840,7 +840,7 @@ plt.errorbar(
 plt.plot(range(data.shape[0]), model_data, color="r")
 for model_data_1d_individual in model_data_list:
     plt.plot(range(data.shape[0]), model_data_1d_individual, "--")
-plt.title(f"Fit (log likelihood = {result.log_likelihood})")
+plt.title(f"Fit (log likelihood = {result.log_likelihood:.2f})")
 plt.xlabel("x values of profile")
 plt.ylabel("Profile normalization")
 plt.show()
@@ -850,7 +850,7 @@ plt.close()
 residual_map = data - model_data
 normalized_residual_map = residual_map / noise_map
 plt.plot(xvalues, normalized_residual_map, color="k")
-plt.title(f"Normalized Residuals (log likelihood = {result.log_likelihood})")
+plt.title(f"Normalized Residuals (log likelihood = {result.log_likelihood:.2f})")
 plt.xlabel("x values of profile")
 plt.ylabel(r"Normalized Residuals ($\sigma$)")
 plt.show()

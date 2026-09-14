@@ -587,7 +587,7 @@ exact autodiff gradient and adapts its step size per parameter. Because the grad
 advanced together in one compiled call using `vmap`, so twelve lanes cost far less than twelve times one lane.
 
 This search is given a `name` and `path_prefix`, so its results are written to the `output` folder as tutorial 5
-did, because there is a file in there we are about to read.
+did, where you can inspect them once the fit completes.
 """
 search = af.MultiStartAdam(
     name="tutorial_6_gradients_adam",
@@ -639,29 +639,6 @@ plt.show()
 plt.close()
 
 """
-Because this search wrote its results to hard disk, its output folder contains a file called `search.summary`: how
-long the search took, how long one log likelihood evaluation took and, for gradient searches, diagnostics on how
-often things went wrong. We read it back below.
-"""
-search_summary_path = path.join(str(search.paths.output_path), "search.summary")
-
-if path.exists(search_summary_path):
-    with open(search_summary_path) as f:
-        print(f.read())
-
-"""
-The block at the bottom, headed `Resampling Info`, contains two entries only a gradient search can report:
-
-- `Value-NaN Lane-Steps`: the number of times a lane stepped somewhere the log likelihood could not be computed at
-  all, most often because it stepped outside the priors.
-
-- `Gradient-NaN Lane-Steps`: the number of times the log likelihood *was* computable but its gradient was not. This
-  is the sneakier of the two, because such a lane does not crash or die, it simply stops moving while continuing to
-  look perfectly healthy.
-
-Both counters are usually small and harmless, but they are the vocabulary you need to diagnose a gradient fit that
-has gone quietly wrong. Tutorial 7 explains where they come from and what to do about them.
-
 __Markov Chain Monte Carlo (MCMC)__
 
 In tutorial 3 we used `Emcee`, whose walkers propose a step, compute the likelihood there and accept or reject the
@@ -691,18 +668,19 @@ print(f"Emcee run time: {time.time() - start} seconds")
 print(result.info)
 
 """
-Now the gradient-aware alternative, `BlackJAXNUTS`, which is Hamiltonian Monte Carlo. The physical picture behind it
-is genuinely helpful.
+Now the gradient-aware alternative, `BlackJAXNUTS`, which is Hamiltonian Monte Carlo. It is still MCMC, with walkers
+moving through parameter space and proposals accepted or rejected, but the walker now knows which way to step,
+because autodiff hands it the gradient at every point it visits.
 
-Imagine the likelihood surface turned upside down, so its peak becomes a valley, and place a ball on the resulting
-landscape. Give it a random flick and let it roll: it accelerates down slopes, coasts up the other side and travels
-a long way while staying in regions the landscape favours. That trajectory is computed from the gradient at each
-moment, which is what autodiff hands us for free. Where the ball stops becomes the next sample, and because it
-travelled a long, informed distance rather than a small random hop, consecutive samples are far less similar.
+That changes how far one proposal can usefully travel. Instead of a single small random hop, the walker follows the
+gradient along a trajectory of many small steps, staying in the regions the likelihood favours the whole way, and
+ends up somewhere genuinely far from where it started. Consecutive samples are therefore far less correlated than
+`Emcee`'s.
 
-"NUTS" stands for the No U-Turn Sampler, which solves the awkward choice here: how long to let the ball roll. Roll
-too briefly and you wasted the gradient; roll too long and the ball curves back on itself. NUTS stops the trajectory
-when it starts doubling back. Being a gradient method, it needs the JAX analysis.
+The one thing left to choose is how long to follow that trajectory. Stop too early and the gradient was wasted;
+carry on too long and the path curves back on itself and returns to where it began. "NUTS" stands for the No U-Turn
+Sampler, which watches for that doubling back and ends the trajectory there. Being a gradient method, it needs the
+JAX analysis.
 """
 search = af.BlackJAXNUTS(
     num_warmup=200,  # Steps used to tune the sampler, which are then discarded.
@@ -724,29 +702,6 @@ print("The search has finished run - you may now continue the notebook.")
 print(f"BlackJAXNUTS run time: {time.time() - start} seconds")
 
 print(result.info)
-
-"""
-Hamiltonian sampling comes with its own diagnostics, stored in the `samples_info` dictionary. Three are worth
-knowing:
-
-- `n_divergent`: the number of trajectories which "diverged", meaning the ball flew off to infinity instead of
-  following the landscape. A handful is tolerable; many means the steps are too large and the samples cannot be
-  trusted.
-
-- `ess_min`: the "effective sample size" of the worst constrained parameter. Consecutive samples are correlated, so
-  300 samples are worth fewer than 300 independent draws, and this says how many they are worth.
-
-- `mean_acceptance`: the fraction of proposed trajectories accepted, which for NUTS should sit high, around the 0.8
-  the warm up phase tunes towards. A low value means the sampler is struggling.
-"""
-samples = result.samples
-
-print("Diagnostics of the Hamiltonian Monte Carlo fit:\n")
-print(f"Number of divergent trajectories = {samples.samples_info.get('n_divergent')}")
-print(f"Minimum effective sample size    = {samples.samples_info.get('ess_min')}")
-print(
-    f"Mean acceptance rate             = {samples.samples_info.get('mean_acceptance')}"
-)
 
 """
 Because NUTS maps out the posterior, we can plot the Probability Density Functions of its samples with `corner.py`,
@@ -892,7 +847,7 @@ plt.close()
 r"""
 __Wrap Up__
 
-This tutorial took the one sentence tutorial 3 used to describe how an MLE search moves and unpacked it:
+Tutorial 3 described how an MLE search moves in a single sentence. This tutorial unpacked that sentence:
 
 1. **Gradients**: the gradient of the log likelihood is a vector with one entry per free parameter, evaluated at a
 point, pointing in the direction the likelihood increases fastest.
@@ -907,8 +862,8 @@ fragile. `MultiStartAdam` follows exact gradients from many starting points at o
 compiled call, making it far harder to trap in a local maximum.
 
 4. **MCMC**: `Emcee` proposes random steps and accepts or rejects them, never asking which way is up.
-`BlackJAXNUTS` rolls a ball across the landscape using the gradient to shape its trajectory, producing far less
-correlated samples for the same number of steps.
+`BlackJAXNUTS` follows the gradient along a trajectory before taking each sample, producing far less correlated
+samples for the same number of steps.
 
 5. **Nested sampling**: `Nautilus` replaces low likelihood live points with higher likelihood ones drawn from the
 priors, a procedure with no direction of travel for a gradient to inform. JAX speeds it up by evaluating batches of

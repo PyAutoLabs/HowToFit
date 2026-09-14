@@ -56,6 +56,12 @@ import matplotlib.pyplot as plt
 import autofit as af
 ```
 
+    .../PyAutoNerves/autonerves/workspace.py:31: UserWarning: Cannot verify the workspace at HowToFit/scripts/chapter_1_introduction is compatible with the installed library version (2026.8.17.1): no `version.minimum_library_version` or `version.workspace_version` key in config/general.yaml and no version.txt at the workspace root.
+    
+    If you cloned the workspace from `main` rather than a release tag, set `version.workspace_version_check: False` in config/general.yaml to silence this warning. The `main` branch updates more frequently than library releases, so version mismatches are expected and not actionable for `main`-branch users.
+    
+    You can also set the environment variable PYAUTO_SKIP_WORKSPACE_VERSION_CHECK=1 to disable temporarily.
+      warnings.warn(message)
     Working Directory has been set to `HowToFit`
 
 
@@ -91,6 +97,19 @@ noise_map = af.util.numpy_array_from_json(
     file_path=path.join(dataset_path, "noise_map.json")
 )
 ```
+
+    .../PyAutoNerves/autonerves/workspace.py:31: UserWarning: The workspace at HowToFit records library version 2026.7.9.1, but the installed library is 2026.8.17.1 — more than 30 days newer. The workspace examples and configs may lag the installed API. Pull the latest workspace:
+    
+        cd HowToFit && git pull origin main
+    
+    To bypass this check, edit config/general.yaml:
+    
+        version:
+          workspace_version_check: False
+    
+    You can also set the environment variable PYAUTO_SKIP_WORKSPACE_VERSION_CHECK=1 to disable temporarily.
+      warnings.warn(message)
+
 
 Plotting the data reveals that the signal is more complex than a simple 1D Gaussian, as the wings to the left and 
 right are more extended than what a single Gaussian profile can account for.
@@ -188,8 +207,8 @@ __Analysis__
 To define the Analysis class for this model-fit, we need to ensure that the `log_likelihood_function` can handle an 
 instance containing multiple 1D profiles. Below is an expanded explanation and the corresponding class definition:
 
-The log_likelihood_function will now assume that the instance it receives consists of multiple Gaussian profiles. 
-For each Gaussian in the instance, it will compute the model_data and then sum these to create the overall `model_data` 
+The `log_likelihood_function` will now assume that the instance it receives consists of multiple Gaussian profiles. 
+For each Gaussian in the instance, it will compute the `model_data` and then sum these to create the overall `model_data` 
 that is compared to the observed data.
 
 
@@ -276,7 +295,7 @@ class Analysis(af.Analysis):
         residual_map = self.data - model_data
         chi_squared_map = (residual_map / self.noise_map) ** 2.0
         chi_squared = sum(chi_squared_map)
-        noise_normalization = np.sum(np.log(2 * np.pi * noise_map**2.0))
+        noise_normalization = np.sum(np.log(2 * np.pi * self.noise_map**2.0))
         log_likelihood = -0.5 * (chi_squared + noise_normalization)
 
         return log_likelihood
@@ -364,6 +383,27 @@ print(model.info)
         sigma                                                                       UniformPrior [14], lower_limit = 0.0, upper_limit = 25.0
 
 
+The same model can also be visualized as a figure, making its structure easier to understand at a glance.
+
+The figure shows how the model is organized: which parameters belong to each component, and whether they are free,
+fixed, shared, linked by an expression, solved during the fit, or not configured. `model.info` provides the
+corresponding numerical details, including the prior assigned to each free parameter and the value of each fixed
+parameter.
+
+Tutorial 3 searched 3 dimensions, whereas this model has 15 of them. Parameter space grows in volume so quickly with
+that number that the same search which comfortably found the single `Gaussian` is about to struggle.
+
+
+```python
+af.ModelPlotter(model).figure()
+```
+
+
+    
+![png](tutorial_4_why_modeling_is_hard_files/tutorial_4_why_modeling_is_hard_17_0.png)
+    
+
+
 __Search__
 
 We again use the nested sampling algorithm Dynesty to fit the model to the data.
@@ -404,39 +444,18 @@ print("The search has finished run - you may now continue the notebook.")
         The non-linear search has begun running.
         This Jupyter notebook cell with progress once the search has completed - this could take a few minutes!
         
-    2026-07-11 16:23:05,069 - autofit.non_linear.search.abstract_search - INFO - Starting non-linear search with 1 cores.
-
-
-    2026-07-11 16:23:05,079 - root - INFO - Output to hard-disk disabled, input a search name to enable.
-
-
-    2026-07-11 16:23:05,080 - root - INFO - Starting new Dynesty non-linear search (no previous samples found).
-
-
-    2026-07-11 16:23:05,289 - autofit.non_linear.initializer - INFO - Generating initial samples of model using JAX LH Function cores
-
-
-    2026-07-11 16:23:05,324 - autofit.non_linear.initializer - INFO - Initial samples generated, starting non-linear search
-
-
+    2026-09-15 00:25:56,691 - autofit.non_linear.search.abstract_search - INFO - Starting non-linear search with 1 cores.
+    2026-09-15 00:25:56,692 - autofit.non_linear.search.abstract_search - INFO - On-the-fly updates of the maximum likelihood model are disabled. Set `updates: iterations_per_quick_update` in config/general.yaml to a finite number of iterations to enable them.
+    2026-09-15 00:25:56,703 - root - INFO - Output to hard-disk disabled, input a search name to enable.
+    2026-09-15 00:25:56,705 - root - INFO - Starting new Dynesty non-linear search (no previous samples found).
+    2026-09-15 00:25:56,956 - autofit.non_linear.initializer - INFO - Generating initial samples of model using JAX LH Function cores
+    2026-09-15 00:25:56,993 - autofit.non_linear.initializer - INFO - Initial samples generated, starting non-linear search
     ~/venv/PyAuto/lib/python3.12/site-packages/dynesty/dynesty.py:194: UserWarning: Specifying slice option while using rwalk sampler does not make sense
       warnings.warn('Specifying slice option while using rwalk sampler'
-
-
-    9039it [00:44, 201.70it/s, +50 | bound: 1188 | nc: 1 | ncall: 46185 | eff(%): 19.701 | loglstar:   -inf < 181.115 <    inf | logz:  2.376 +/-  1.690 | dlogz:  0.001 >  0.059]
-
-    
-
-
-    2026-07-11 16:23:51,837 - autofit.non_linear.search.updater - INFO - Creating latent samples by drawing 100 from the PDF.
-
-
-    2026-07-11 16:23:52,602 - root - INFO - Removing search internal folder.
-
-
-    2026-07-11 16:23:52,655 - root - INFO - Search complete, returning result
-
-
+    10227it [00:58, 176.00it/s, +50 | bound: 1347 | nc: 1 | ncall: 52117 | eff(%): 19.738 | loglstar:   -inf < 117.335 <    inf | logz: -85.584 +/-  1.726 | dlogz:  0.001 >  0.059]
+    2026-09-15 00:26:57,999 - autofit.non_linear.search.updater - INFO - Creating latent samples by drawing 100 from the PDF.
+    2026-09-15 00:26:59,473 - root - INFO - Removing search internal folder.
+    2026-09-15 00:26:59,545 - root - INFO - Search complete, returning result
     The search has finished run - you may now continue the notebook.
 
 
@@ -450,8 +469,8 @@ of all 5 model components.
 print(result.info)
 ```
 
-    Bayesian Evidence                                                               2.37555245
-    Maximum Log Likelihood                                                          181.11496469
+    Bayesian Evidence                                                               -85.58424959
+    Maximum Log Likelihood                                                          117.33513924
     
     model                                                                           Collection (N=15)
         gaussian_0 - gaussian_4                                                     Gaussian (N=3)
@@ -459,23 +478,23 @@ print(result.info)
     Maximum Log Likelihood Model:
     
     gaussian_0
-        centre                                                                      49.879
+        centre                                                                      50.001
     ... [51 lines of output truncated] ...
-        centre                                                                      51.71 (41.37, 60.03)
-        normalization                                                               0.00 (0.00, 0.00)
-        sigma                                                                       18.81 (16.40, 21.77)
+        centre                                                                      50.02 (50.00, 50.04)
+        normalization                                                               74.01 (73.19, 74.79)
+        sigma                                                                       6.30 (6.26, 6.34)
     gaussian_2
-        centre                                                                      50.00 (49.99, 50.00)
-        normalization                                                               20.50 (20.32, 20.65)
-        sigma                                                                       1.01 (1.01, 1.02)
+        centre                                                                      7.43 (3.57, 15.65)
+        normalization                                                               0.00 (0.00, 0.06)
+        sigma                                                                       1.66 (0.88, 2.43)
     gaussian_3
-        centre                                                                      50.21 (50.11, 50.29)
-        normalization                                                               125.71 (121.73, 129.59)
-        sigma                                                                       13.44 (13.28, 13.61)
+        centre                                                                      49.98 (49.94, 50.02)
+        normalization                                                               204.21 (203.37, 204.96)
+        sigma                                                                       16.87 (16.80, 16.92)
     gaussian_4
-        centre                                                                      49.96 (49.93, 50.00)
-        normalization                                                               55.27 (54.46, 56.10)
-        sigma                                                                       5.58 (5.53, 5.62)
+        centre                                                                      82.16 (67.91, 97.41)
+        normalization                                                               0.00 (0.00, 0.00)
+        sigma                                                                       20.89 (17.43, 23.49)
     
     instances
     
@@ -517,7 +536,7 @@ plt.errorbar(
 plt.plot(range(data.shape[0]), model_data, color="r")
 for model_data_1d_individual in model_data_list:
     plt.plot(range(data.shape[0]), model_data_1d_individual, "--")
-plt.title(f"Fit (log likelihood = {result.log_likelihood})")
+plt.title(f"Fit (log likelihood = {result.log_likelihood:.2f})")
 plt.xlabel("x values of profile")
 plt.ylabel("Profile normalization")
 plt.show()
@@ -526,7 +545,7 @@ plt.close()
 
 
     
-![png](tutorial_4_why_modeling_is_hard_files/tutorial_4_why_modeling_is_hard_23_0.png)
+![png](tutorial_4_why_modeling_is_hard_files/tutorial_4_why_modeling_is_hard_25_0.png)
     
 
 
@@ -554,7 +573,7 @@ plt.errorbar(
     capsize=2,
     linestyle="",
 )
-plt.title(f"Residuals (log likelihood = {result.log_likelihood})")
+plt.title(f"Residuals (log likelihood = {result.log_likelihood:.2f})")
 plt.xlabel("x values of profile")
 plt.ylabel("Residuals")
 plt.show()
@@ -564,7 +583,7 @@ plt.close()
 
 
     
-![png](tutorial_4_why_modeling_is_hard_files/tutorial_4_why_modeling_is_hard_25_0.png)
+![png](tutorial_4_why_modeling_is_hard_files/tutorial_4_why_modeling_is_hard_27_0.png)
     
 
 
@@ -583,23 +602,17 @@ to it being a noise fluctuation.
 residual_map = data - model_data
 normalized_residual_map = residual_map / noise_map
 plt.plot(xvalues, normalized_residual_map, color="k")
-plt.title(f"Normalized Residuals (log likelihood = {result.log_likelihood})")
+plt.title(f"Normalized Residuals (log likelihood = {result.log_likelihood:.2f})")
 plt.xlabel("x values of profile")
-plt.ylabel("Normalized Residuals ($\sigma$)")
+plt.ylabel(r"Normalized Residuals ($\sigma$)")
 plt.show()
 plt.clf()
 plt.close()
 ```
 
-    <>:6: SyntaxWarning: invalid escape sequence '\s'
-    <>:6: SyntaxWarning: invalid escape sequence '\s'
-    /tmp/ipykernel_20726/582017931.py:6: SyntaxWarning: invalid escape sequence '\s'
-      plt.ylabel("Normalized Residuals ($\sigma$)")
-
-
 
     
-![png](tutorial_4_why_modeling_is_hard_files/tutorial_4_why_modeling_is_hard_27_1.png)
+![png](tutorial_4_why_modeling_is_hard_files/tutorial_4_why_modeling_is_hard_29_0.png)
     
 
 
@@ -745,6 +758,20 @@ print(model.info)
         sigma                                                                       UniformPrior [37], lower_limit = 0.0, upper_limit = 25.0
 
 
+Tuning the priors changed no part of the model itself: it is still the same 5 `Gaussian`'s and the same 15 free
+parameters. We have simply told the search a smaller region of parameter space to look in.
+
+
+```python
+af.ModelPlotter(model).figure()
+```
+
+
+    
+![png](tutorial_4_why_modeling_is_hard_files/tutorial_4_why_modeling_is_hard_35_0.png)
+    
+
+
 We now repeat the model-fit using these updated priors.
 
 First, you should note that the run time of the fit is significantly faster than the previous fit. This is because
@@ -772,39 +799,18 @@ print("The search has finished run - you may now continue the notebook.")
         The non-linear search has begun running.
         This Jupyter notebook cell with progress once the search has completed - this could take a few minutes!
         
-    2026-07-11 16:23:53,402 - autofit.non_linear.search.abstract_search - INFO - Starting non-linear search with 1 cores.
-
-
-    2026-07-11 16:23:53,412 - root - INFO - Output to hard-disk disabled, input a search name to enable.
-
-
-    2026-07-11 16:23:53,412 - root - INFO - Starting new Dynesty non-linear search (no previous samples found).
-
-
-    2026-07-11 16:23:53,418 - autofit.non_linear.initializer - INFO - Generating initial samples of model using JAX LH Function cores
-
-
-    2026-07-11 16:23:53,453 - autofit.non_linear.initializer - INFO - Initial samples generated, starting non-linear search
-
-
+    2026-09-15 00:27:01,163 - autofit.non_linear.search.abstract_search - INFO - Starting non-linear search with 1 cores.
+    2026-09-15 00:27:01,165 - autofit.non_linear.search.abstract_search - INFO - On-the-fly updates of the maximum likelihood model are disabled. Set `updates: iterations_per_quick_update` in config/general.yaml to a finite number of iterations to enable them.
+    2026-09-15 00:27:01,183 - root - INFO - Output to hard-disk disabled, input a search name to enable.
+    2026-09-15 00:27:01,185 - root - INFO - Starting new Dynesty non-linear search (no previous samples found).
+    2026-09-15 00:27:01,197 - autofit.non_linear.initializer - INFO - Generating initial samples of model using JAX LH Function cores
+    2026-09-15 00:27:01,260 - autofit.non_linear.initializer - INFO - Initial samples generated, starting non-linear search
     ~/venv/PyAuto/lib/python3.12/site-packages/dynesty/dynesty.py:194: UserWarning: Specifying slice option while using rwalk sampler does not make sense
       warnings.warn('Specifying slice option while using rwalk sampler'
-
-
-    2731it [00:15, 178.52it/s, +50 | bound: 350 | nc: 1 | ncall: 14675 | eff(%): 19.015 | loglstar:   -inf < 125.941 <    inf | logz: 73.841 +/-  0.861 | dlogz:  0.001 >  0.059]
-
-    
-
-
-    2026-07-11 16:24:09,309 - autofit.non_linear.search.updater - INFO - Creating latent samples by drawing 100 from the PDF.
-
-
-    2026-07-11 16:24:09,531 - root - INFO - Removing search internal folder.
-
-
-    2026-07-11 16:24:09,590 - root - INFO - Search complete, returning result
-
-
+    4440it [00:45, 96.87it/s, +50 | bound: 560 | nc: 1 | ncall: 23317 | eff(%): 19.298 | loglstar:   -inf < 176.353 <    inf | logz: 90.086 +/-  1.157 | dlogz:  0.001 >  0.059]
+    2026-09-15 00:27:48,582 - autofit.non_linear.search.updater - INFO - Creating latent samples by drawing 100 from the PDF.
+    2026-09-15 00:27:49,401 - root - INFO - Removing search internal folder.
+    2026-09-15 00:27:49,493 - root - INFO - Search complete, returning result
     The search has finished run - you may now continue the notebook.
 
 
@@ -827,7 +833,7 @@ plt.errorbar(
 plt.plot(range(data.shape[0]), model_data, color="r")
 for model_data_1d_individual in model_data_list:
     plt.plot(range(data.shape[0]), model_data_1d_individual, "--")
-plt.title(f"Fit (log likelihood = {result.log_likelihood})")
+plt.title(f"Fit (log likelihood = {result.log_likelihood:.2f})")
 plt.xlabel("x values of profile")
 plt.ylabel("Profile normalization")
 plt.show()
@@ -837,16 +843,16 @@ plt.close()
 residual_map = data - model_data
 normalized_residual_map = residual_map / noise_map
 plt.plot(xvalues, normalized_residual_map, color="k")
-plt.title(f"Normalized Residuals (log likelihood = {result.log_likelihood})")
+plt.title(f"Normalized Residuals (log likelihood = {result.log_likelihood:.2f})")
 plt.xlabel("x values of profile")
-plt.ylabel("Normalized Residuals ($\sigma$)")
+plt.ylabel(r"Normalized Residuals ($\sigma$)")
 plt.show()
 plt.clf()
 plt.close()
 ```
 
-    Bayesian Evidence                                                               73.84079536
-    Maximum Log Likelihood                                                          125.94072461
+    Bayesian Evidence                                                               90.08597221
+    Maximum Log Likelihood                                                          176.35326867
     
     model                                                                           Collection (N=15)
         gaussian_0 - gaussian_4                                                     Gaussian (N=3)
@@ -854,44 +860,38 @@ plt.close()
     Maximum Log Likelihood Model:
     
     gaussian_0
-        sigma                                                                       6.053
+        sigma                                                                       23.970
     ... [51 lines of output truncated] ...
-        sigma                                                                       1.03 (1.03, 1.04)
-        centre                                                                      50.00 (49.99, 50.00)
-        normalization                                                               20.93 (20.81, 21.08)
+        sigma                                                                       1.91 (1.13, 2.67)
+        centre                                                                      52.57 (52.11, 53.05)
+        normalization                                                               0.13 (0.12, 0.15)
     gaussian_2
-        sigma                                                                       10.35 (9.05, 19.85)
-        centre                                                                      52.24 (51.07, 52.39)
-        normalization                                                               2.46 (0.46, 3.09)
+        sigma                                                                       14.46 (14.22, 14.59)
+        centre                                                                      50.06 (49.99, 50.12)
+        normalization                                                               169.14 (166.98, 171.78)
     gaussian_3
-        sigma                                                                       16.61 (16.57, 16.64)
-        centre                                                                      49.98 (49.94, 50.01)
-        normalization                                                               206.37 (205.66, 206.90)
+        sigma                                                                       5.69 (5.60, 5.77)
+        centre                                                                      50.02 (49.99, 50.05)
+        normalization                                                               57.79 (55.90, 59.21)
     gaussian_4
-        sigma                                                                       4.02 (2.66, 5.25)
-        centre                                                                      48.04 (47.53, 48.52)
-        normalization                                                               0.45 (0.35, 0.60)
+        sigma                                                                       1.01 (1.00, 1.01)
+        centre                                                                      50.00 (50.00, 50.01)
+        normalization                                                               20.32 (20.16, 20.50)
     
     instances
     
     
 
 
-    <>:28: SyntaxWarning: invalid escape sequence '\s'
-    <>:28: SyntaxWarning: invalid escape sequence '\s'
-    /tmp/ipykernel_20726/2299532750.py:28: SyntaxWarning: invalid escape sequence '\s'
-      plt.ylabel("Normalized Residuals ($\sigma$)")
-
-
 
     
-![png](tutorial_4_why_modeling_is_hard_files/tutorial_4_why_modeling_is_hard_35_2.png)
+![png](tutorial_4_why_modeling_is_hard_files/tutorial_4_why_modeling_is_hard_39_1.png)
     
 
 
 
     
-![png](tutorial_4_why_modeling_is_hard_files/tutorial_4_why_modeling_is_hard_35_3.png)
+![png](tutorial_4_why_modeling_is_hard_files/tutorial_4_why_modeling_is_hard_39_2.png)
     
 
 
@@ -977,6 +977,23 @@ print(model.info)
         sigma                                                                       UniformPrior [54], lower_limit = 0.0, upper_limit = 25.0
 
 
+This time the model itself changes. The `centre` is now shared across the five `Gaussian`'s instead of being
+independent, so there are 11 free parameters and 1 shared prior where before there were 15 and none.
+
+That is the difference between the two approaches. Tuning the priors narrowed where the search looks, whereas
+assuming a shared `centre` shrinks the model itself, because four of its parameters have stopped existing.
+
+
+```python
+af.ModelPlotter(model).figure()
+```
+
+
+    
+![png](tutorial_4_why_modeling_is_hard_files/tutorial_4_why_modeling_is_hard_45_0.png)
+    
+
+
 We now repeat the model-fit using this updated model where the `centre` of each `Gaussian` is the same.
 
 You should again note that the run time of the fit is significantly faster than the previous fits
@@ -1001,39 +1018,18 @@ print("The search has finished run - you may now continue the notebook.")
         The non-linear search has begun running.
         This Jupyter notebook cell with progress once the search has completed - this could take a few minutes!
         
-    2026-07-11 16:24:09,915 - autofit.non_linear.search.abstract_search - INFO - Starting non-linear search with 1 cores.
-
-
-    2026-07-11 16:24:09,924 - root - INFO - Output to hard-disk disabled, input a search name to enable.
-
-
-    2026-07-11 16:24:09,924 - root - INFO - Starting new Dynesty non-linear search (no previous samples found).
-
-
-    2026-07-11 16:24:09,930 - autofit.non_linear.initializer - INFO - Generating initial samples of model using JAX LH Function cores
-
-
-    2026-07-11 16:24:09,961 - autofit.non_linear.initializer - INFO - Initial samples generated, starting non-linear search
-
-
+    2026-09-15 00:27:50,332 - autofit.non_linear.search.abstract_search - INFO - Starting non-linear search with 1 cores.
+    2026-09-15 00:27:50,333 - autofit.non_linear.search.abstract_search - INFO - On-the-fly updates of the maximum likelihood model are disabled. Set `updates: iterations_per_quick_update` in config/general.yaml to a finite number of iterations to enable them.
+    2026-09-15 00:27:50,351 - root - INFO - Output to hard-disk disabled, input a search name to enable.
+    2026-09-15 00:27:50,353 - root - INFO - Starting new Dynesty non-linear search (no previous samples found).
+    2026-09-15 00:27:50,365 - autofit.non_linear.initializer - INFO - Generating initial samples of model using JAX LH Function cores
+    2026-09-15 00:27:50,438 - autofit.non_linear.initializer - INFO - Initial samples generated, starting non-linear search
     ~/venv/PyAuto/lib/python3.12/site-packages/dynesty/dynesty.py:194: UserWarning: Specifying slice option while using rwalk sampler does not make sense
       warnings.warn('Specifying slice option while using rwalk sampler'
-
-
-    2891it [00:16, 175.08it/s, +50 | bound: 355 | nc: 1 | ncall: 15423 | eff(%): 19.131 | loglstar:   -inf < 183.400 <    inf | logz: 128.070 +/-  0.872 | dlogz:  0.001 >  0.059]
-
-    
-
-
-    2026-07-11 16:24:27,006 - autofit.non_linear.search.updater - INFO - Creating latent samples by drawing 100 from the PDF.
-
-
-    2026-07-11 16:24:27,245 - root - INFO - Removing search internal folder.
-
-
-    2026-07-11 16:24:27,341 - root - INFO - Search complete, returning result
-
-
+    3811it [00:39, 96.54it/s, +50 | bound: 475 | nc: 1 | ncall: 19896 | eff(%): 19.455 | loglstar:   -inf < 111.574 <    inf | logz: 37.693 +/-  1.007 | dlogz:  0.001 >  0.059]
+    2026-09-15 00:28:31,346 - autofit.non_linear.search.updater - INFO - Creating latent samples by drawing 100 from the PDF.
+    2026-09-15 00:28:32,168 - root - INFO - Removing search internal folder.
+    2026-09-15 00:28:32,261 - root - INFO - Search complete, returning result
     The search has finished run - you may now continue the notebook.
 
 
@@ -1057,7 +1053,7 @@ plt.errorbar(
 plt.plot(range(data.shape[0]), model_data, color="r")
 for model_data_1d_individual in model_data_list:
     plt.plot(range(data.shape[0]), model_data_1d_individual, "--")
-plt.title(f"Fit (log likelihood = {result.log_likelihood})")
+plt.title(f"Fit (log likelihood = {result.log_likelihood:.2f})")
 plt.xlabel("x values of profile")
 plt.ylabel("Profile normalization")
 plt.show()
@@ -1067,16 +1063,16 @@ plt.close()
 residual_map = data - model_data
 normalized_residual_map = residual_map / noise_map
 plt.plot(xvalues, normalized_residual_map, color="k")
-plt.title(f"Normalized Residuals (log likelihood = {result.log_likelihood})")
+plt.title(f"Normalized Residuals (log likelihood = {result.log_likelihood:.2f})")
 plt.xlabel("x values of profile")
-plt.ylabel("Normalized Residuals ($\sigma$)")
+plt.ylabel(r"Normalized Residuals ($\sigma$)")
 plt.show()
 plt.clf()
 plt.close()
 ```
 
-    Bayesian Evidence                                                               128.06963951
-    Maximum Log Likelihood                                                          183.39954200
+    Bayesian Evidence                                                               37.69286198
+    Maximum Log Likelihood                                                          111.57406728
     
     model                                                                           Collection (N=11)
         gaussian_0 - gaussian_4                                                     Gaussian (N=3)
@@ -1084,44 +1080,38 @@ plt.close()
     Maximum Log Likelihood Model:
     
     gaussian_0 - gaussian_4
-        centre                                                                      49.999
+        centre                                                                      50.002
     ... [42 lines of output truncated] ...
-    gaussian_0
+    gaussian_0 - gaussian_2
         normalization                                                               0.00 (0.00, 0.00)
-        sigma                                                                       18.66 (16.22, 21.61)
+    gaussian_0
+        sigma                                                                       8.16 (3.55, 13.13)
     gaussian_1
-        normalization                                                               99.47 (91.47, 107.33)
-        sigma                                                                       12.09 (11.90, 12.30)
+        normalization                                                               205.17 (204.08, 206.36)
+        sigma                                                                       16.80 (16.70, 16.88)
     gaussian_2
-        normalization                                                               129.93 (124.16, 136.62)
-        sigma                                                                       19.42 (19.11, 19.79)
+        sigma                                                                       15.45 (8.11, 20.96)
     gaussian_3
-        normalization                                                               49.48 (47.84, 51.33)
-        sigma                                                                       5.33 (5.26, 5.43)
+        normalization                                                               20.70 (20.57, 20.86)
+        sigma                                                                       1.02 (1.01, 1.02)
     gaussian_4
-        normalization                                                               20.24 (20.11, 20.40)
-        sigma                                                                       1.01 (1.01, 1.02)
+        normalization                                                               72.72 (71.62, 73.86)
+        sigma                                                                       6.24 (6.18, 6.29)
     
     instances
     
     
 
 
-    <>:28: SyntaxWarning: invalid escape sequence '\s'
-    <>:28: SyntaxWarning: invalid escape sequence '\s'
-    /tmp/ipykernel_20726/2299532750.py:28: SyntaxWarning: invalid escape sequence '\s'
-      plt.ylabel("Normalized Residuals ($\sigma$)")
-
-
 
     
-![png](tutorial_4_why_modeling_is_hard_files/tutorial_4_why_modeling_is_hard_43_2.png)
+![png](tutorial_4_why_modeling_is_hard_files/tutorial_4_why_modeling_is_hard_49_1.png)
     
 
 
 
     
-![png](tutorial_4_why_modeling_is_hard_files/tutorial_4_why_modeling_is_hard_43_3.png)
+![png](tutorial_4_why_modeling_is_hard_files/tutorial_4_why_modeling_is_hard_49_2.png)
     
 
 
@@ -1198,6 +1188,21 @@ print(model.info)
         sigma                                                                       UniformPrior [69], lower_limit = 0.0, upper_limit = 25.0
 
 
+The model is back where it started: five `Gaussian`'s with independent parameters and 15 free parameters.
+Approaches 1 and 2 each changed the model or its priors, whereas this third approach changes neither, because
+searching parameter space more thoroughly is a property of the search and not of the model.
+
+
+```python
+af.ModelPlotter(model).figure()
+```
+
+
+    
+![png](tutorial_4_why_modeling_is_hard_files/tutorial_4_why_modeling_is_hard_55_0.png)
+    
+
+
 __Search__
 
 We again use the nested sampling algorithm Dynesty to fit the model to the data, but now increase the number of live 
@@ -1236,39 +1241,18 @@ print("The search has finished run - you may now continue the notebook.")
         The non-linear search has begun running.
         This Jupyter notebook cell with progress once the search has completed - this could take a few minutes!
         
-    2026-07-11 16:24:27,728 - autofit.non_linear.search.abstract_search - INFO - Starting non-linear search with 1 cores.
-
-
-    2026-07-11 16:24:27,740 - root - INFO - Output to hard-disk disabled, input a search name to enable.
-
-
-    2026-07-11 16:24:27,741 - root - INFO - Starting new Dynesty non-linear search (no previous samples found).
-
-
-    2026-07-11 16:24:27,748 - autofit.non_linear.initializer - INFO - Generating initial samples of model using JAX LH Function cores
-
-
-    2026-07-11 16:24:27,986 - autofit.non_linear.initializer - INFO - Initial samples generated, starting non-linear search
-
-
+    2026-09-15 00:28:33,065 - autofit.non_linear.search.abstract_search - INFO - Starting non-linear search with 1 cores.
+    2026-09-15 00:28:33,066 - autofit.non_linear.search.abstract_search - INFO - On-the-fly updates of the maximum likelihood model are disabled. Set `updates: iterations_per_quick_update` in config/general.yaml to a finite number of iterations to enable them.
+    2026-09-15 00:28:33,083 - root - INFO - Output to hard-disk disabled, input a search name to enable.
+    2026-09-15 00:28:33,086 - root - INFO - Starting new Dynesty non-linear search (no previous samples found).
+    2026-09-15 00:28:33,098 - autofit.non_linear.initializer - INFO - Generating initial samples of model using JAX LH Function cores
+    2026-09-15 00:28:33,435 - autofit.non_linear.initializer - INFO - Initial samples generated, starting non-linear search
     ~/venv/PyAuto/lib/python3.12/site-packages/dynesty/dynesty.py:194: UserWarning: Specifying slice option while using rwalk sampler does not make sense
       warnings.warn('Specifying slice option while using rwalk sampler'
-
-
-    53790it [04:36, 194.73it/s, +300 | bound: 1197 | nc: 1 | ncall: 274714 | eff(%): 19.711 | loglstar:   -inf < 181.059 <    inf | logz:  2.310 +/-  0.729 | dlogz:  0.001 >  0.309]
-
-    
-
-
-    2026-07-11 16:29:15,166 - autofit.non_linear.search.updater - INFO - Creating latent samples by drawing 100 from the PDF.
-
-
-    2026-07-11 16:29:21,761 - root - INFO - Removing search internal folder.
-
-
-    2026-07-11 16:29:21,853 - root - INFO - Search complete, returning result
-
-
+    41278it [05:42, 120.67it/s, +300 | bound: 933 | nc: 1 | ncall: 211999 | eff(%): 19.640 | loglstar:   -inf < 185.495 <    inf | logz: 48.341 +/-  0.632 | dlogz:  0.001 >  0.309]
+    2026-09-15 00:34:24,612 - autofit.non_linear.search.updater - INFO - Creating latent samples by drawing 100 from the PDF.
+    2026-09-15 00:34:29,444 - root - INFO - Removing search internal folder.
+    2026-09-15 00:34:29,509 - root - INFO - Search complete, returning result
     The search has finished run - you may now continue the notebook.
 
 
@@ -1292,7 +1276,7 @@ plt.errorbar(
 plt.plot(range(data.shape[0]), model_data, color="r")
 for model_data_1d_individual in model_data_list:
     plt.plot(range(data.shape[0]), model_data_1d_individual, "--")
-plt.title(f"Fit (log likelihood = {result.log_likelihood})")
+plt.title(f"Fit (log likelihood = {result.log_likelihood:.2f})")
 plt.xlabel("x values of profile")
 plt.ylabel("Profile normalization")
 plt.show()
@@ -1302,22 +1286,16 @@ plt.close()
 residual_map = data - model_data
 normalized_residual_map = residual_map / noise_map
 plt.plot(xvalues, normalized_residual_map, color="k")
-plt.title(f"Normalized Residuals (log likelihood = {result.log_likelihood})")
+plt.title(f"Normalized Residuals (log likelihood = {result.log_likelihood:.2f})")
 plt.xlabel("x values of profile")
-plt.ylabel("Normalized Residuals ($\sigma$)")
+plt.ylabel(r"Normalized Residuals ($\sigma$)")
 plt.show()
 plt.clf()
 plt.close()
 ```
 
-    <>:28: SyntaxWarning: invalid escape sequence '\s'
-    <>:28: SyntaxWarning: invalid escape sequence '\s'
-    /tmp/ipykernel_20726/2299532750.py:28: SyntaxWarning: invalid escape sequence '\s'
-      plt.ylabel("Normalized Residuals ($\sigma$)")
-
-
-    Bayesian Evidence                                                               2.31047815
-    Maximum Log Likelihood                                                          181.05850686
+    Bayesian Evidence                                                               48.34113705
+    Maximum Log Likelihood                                                          185.49517157
     
     model                                                                           Collection (N=15)
         gaussian_0 - gaussian_4                                                     Gaussian (N=3)
@@ -1325,23 +1303,23 @@ plt.close()
     Maximum Log Likelihood Model:
     
     gaussian_0
-        centre                                                                      49.241
+        centre                                                                      49.607
     ... [51 lines of output truncated] ...
         centre                                                                      50.00 (49.99, 50.00)
-        normalization                                                               20.40 (20.23, 20.62)
-        sigma                                                                       1.01 (1.01, 1.02)
+        normalization                                                               19.98 (19.79, 20.16)
+        sigma                                                                       1.00 (0.99, 1.00)
     gaussian_2
-        centre                                                                      78.99 (72.92, 86.73)
-        normalization                                                               5.85 (4.39, 7.93)
-        sigma                                                                       20.31 (16.88, 23.43)
+        centre                                                                      50.02 (49.96, 50.09)
+        normalization                                                               55.91 (52.53, 58.98)
+        sigma                                                                       5.51 (5.38, 5.64)
     gaussian_3
-        centre                                                                      49.89 (49.85, 49.93)
-        normalization                                                               53.26 (49.45, 57.62)
-        sigma                                                                       5.49 (5.35, 5.68)
+        centre                                                                      50.56 (50.33, 50.82)
+        normalization                                                               123.80 (118.58, 129.69)
+        sigma                                                                       13.18 (12.84, 13.50)
     gaussian_4
-        centre                                                                      51.10 (50.62, 52.22)
-        normalization                                                               71.07 (65.35, 76.17)
-        sigma                                                                       11.90 (11.45, 12.53)
+        centre                                                                      37.85 (36.72, 39.34)
+        normalization                                                               2.13 (1.43, 3.09)
+        sigma                                                                       4.74 (3.73, 5.78)
     
     instances
     
@@ -1350,13 +1328,13 @@ plt.close()
 
 
     
-![png](tutorial_4_why_modeling_is_hard_files/tutorial_4_why_modeling_is_hard_53_2.png)
+![png](tutorial_4_why_modeling_is_hard_files/tutorial_4_why_modeling_is_hard_61_1.png)
     
 
 
 
     
-![png](tutorial_4_why_modeling_is_hard_files/tutorial_4_why_modeling_is_hard_53_3.png)
+![png](tutorial_4_why_modeling_is_hard_files/tutorial_4_why_modeling_is_hard_61_2.png)
     
 
 
@@ -1468,8 +1446,3 @@ representation of the data?
 
 These are all questions you should be asking yourself before beginning your model-fitting task, but they will
 become easier to answer as you gain experience with model-fitting and **PyAutoFit**.
-
-
-```python
-
-```
