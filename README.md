@@ -68,6 +68,11 @@ Every tutorial opens in Google Colab in one click. There is nothing to install a
 environment to set up — **PyAutoFit** installs itself in the notebook's first cell. In Colab you *run*
 the tutorial: edit the code, change the model, and see the output for yourself.
 
+Whilst in Colab, we recommend opening **Gemini** — the button at the bottom of the notebook — and using it
+as a study assistant alongside the lecture. It can see the notebook you have open, so you can ask it to
+explain an equation, unpack what a cell is doing, or interpret the output of a fit, without leaving the
+tutorial.
+
 The `markdown` links are the same tutorial already executed and rendered on GitHub, with its real
 output figures inline. Nothing runs and nothing installs — you just read it. They are good for
 skimming a tutorial before running it, or for reading on a phone. Markdown pages currently exist only
