@@ -1,4 +1,4 @@
 autofit
 numba
-blackjax
-nautilus-sampler
+blackjax>=1.6.2
+nautilus-sampler==1.0.5
