@@ -1,2 +1,11 @@
 autofit
 numba
+
+# `blackjax` and `nautilus-sampler` sit in PyAutoFit's `optional` extra, not its
+# base dependencies, so `pip install autofit` does not bring them. Chapter 1
+# tutorial 6 runs `af.BlackJAXNUTS` and `af.Nautilus`, and tutorial 7 runs
+# `af.BlackJAXNUTS`; without these both die with `ModuleNotFoundError` at the
+# fit. CI does not catch it because the smoke profile runs PYAUTO_TEST_MODE=2,
+# which bypasses the sampler and never constructs the search.
+blackjax>=1.6.2
+nautilus-sampler==1.0.5
