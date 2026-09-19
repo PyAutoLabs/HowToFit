@@ -8,16 +8,16 @@ and 'global' parameters that fit for global trends across the whole dataset.
 
 The chapter contains the following tutorials:
 
-- [Tutorial 1: Individual Models](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.9.15.1/notebooks/chapter_advanced/tutorial_1_individual_models.ipynb) — Inferring global parameters from a dataset by fitting the model to each individual dataset one-by-one.
+- [Tutorial 1: Individual Models](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.9.19.1/notebooks/chapter_advanced/tutorial_1_individual_models.ipynb) — Inferring global parameters from a dataset by fitting the model to each individual dataset one-by-one.
 
-- [Tutorial 2: Graphical Model](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.9.15.1/notebooks/chapter_advanced/tutorial_2_graphical_model.ipynb) — Fitting the dataset with a graphical model that fits all datasets simultaneously to infer the global parameters.
+- [Tutorial 2: Graphical Model](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.9.19.1/notebooks/chapter_advanced/tutorial_2_graphical_model.ipynb) — Fitting the dataset with a graphical model that fits all datasets simultaneously to infer the global parameters.
 
-- [Tutorial 3: Graphical Benefits](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.9.15.1/notebooks/chapter_advanced/tutorial_3_graphical_benefits.ipynb) — Illustrating the benefits of graphical modeling over fitting individual datasets one-by-one.
+- [Tutorial 3: Graphical Benefits](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.9.19.1/notebooks/chapter_advanced/tutorial_3_graphical_benefits.ipynb) — Illustrating the benefits of graphical modeling over fitting individual datasets one-by-one.
 
-- [Tutorial 4: Hierarchical Models](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.9.15.1/notebooks/chapter_advanced/tutorial_4_hierachical_models.ipynb) — Fitting hierarchical models using the graphical modeling framework.
+- [Tutorial 4: Hierarchical Models](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.9.19.1/notebooks/chapter_advanced/tutorial_4_hierachical_models.ipynb) — Fitting hierarchical models using the graphical modeling framework.
 
-- [Tutorial 5: Expectation Propagation](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.9.15.1/notebooks/chapter_advanced/tutorial_5_expectation_propagation.ipynb) — Scaling graphical models up to fit extremely large datasets using Expectation Propagation (EP).
+- [Tutorial 5: Expectation Propagation](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.9.19.1/notebooks/chapter_advanced/tutorial_5_expectation_propagation.ipynb) — Scaling graphical models up to fit extremely large datasets using Expectation Propagation (EP).
 
-- [Tutorial Optional: Hierarchical Expectation Propagation](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.9.15.1/notebooks/chapter_advanced/tutorial_optional_hierarchical_ep.ipynb) — Fitting a hierarchical model with Expectation Propagation, scaling the hierarchical approach to large datasets.
+- [Tutorial Optional: Hierarchical Expectation Propagation](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.9.19.1/notebooks/chapter_advanced/tutorial_optional_hierarchical_ep.ipynb) — Fitting a hierarchical model with Expectation Propagation, scaling the hierarchical approach to large datasets.
 
-- [Tutorial Optional: Hierarchical Individual](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.9.15.1/notebooks/chapter_advanced/tutorial_optional_hierarchical_individual.ipynb) — Estimating a hierarchical model's parent distribution from one-by-one fits, and why the graphical approach improves on it.
+- [Tutorial Optional: Hierarchical Individual](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.9.19.1/notebooks/chapter_advanced/tutorial_optional_hierarchical_individual.ipynb) — Estimating a hierarchical model's parent distribution from one-by-one fits, and why the graphical approach improves on it.
