@@ -1118,7 +1118,9 @@ The diagnostics live in the `samples_info` dictionary. Three are worth knowing:
 samples_nuts = result_nuts.samples
 
 print("Diagnostics of the Hamiltonian Monte Carlo fit:\n")
-print(f"Number of divergent trajectories = {samples_nuts.samples_info.get('n_divergent')}")
+print(
+    f"Number of divergent trajectories = {samples_nuts.samples_info.get('n_divergent')}"
+)
 print(f"Minimum effective sample size    = {samples_nuts.samples_info.get('ess_min')}")
 print(
     f"Mean acceptance rate             = {samples_nuts.samples_info.get('mean_acceptance')}"

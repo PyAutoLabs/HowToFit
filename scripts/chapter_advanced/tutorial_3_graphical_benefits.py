@@ -172,9 +172,7 @@ for i, analysis in enumerate(analysis_list):
     """
     search = af.DynestyStatic(
         name=f"individual_fit_{i}",
-        path_prefix=path.join(
-            "chapter_advanced", "tutorial_3_graphical_benefits"
-        ),
+        path_prefix=path.join("chapter_advanced", "tutorial_3_graphical_benefits"),
         nlive=200,
         dlogz=1e-4,
         sample="rwalk",

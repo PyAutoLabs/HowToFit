@@ -177,9 +177,7 @@ for dataset_name in dataset_name_list:
     """
     dynesty = af.DynestyStatic(
         name="global_model",
-        path_prefix=path.join(
-            "chapter_advanced", "tutorial_1_individual_models"
-        ),
+        path_prefix=path.join("chapter_advanced", "tutorial_1_individual_models"),
         unique_tag=dataset_name,
         nlive=200,
         dlogz=1e-4,
