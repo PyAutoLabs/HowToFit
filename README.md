@@ -151,12 +151,12 @@ probabilistic modeling. **HowToFit** is the teaching companion. Tutorials in cha
 If you use **HowToFit** or **PyAutoFit** in your research, please cite the references listed in
 `CITATIONS.rst`.
 
-## Community & Support
+## Community & Contributing
 
-Support for **PyAutoFit** is available via our Slack workspace. Slack is invitation-only; send an email
-if you'd like an invite.
+**PyAutoFit** is built in the open by its users: everyone is welcome to ask questions,
+share what they have made with it, and contribute.
 
-For installation issues, bug reports, or feature requests, raise an issue on the
-[PyAutoFit GitHub issues page](https://github.com/PyAutoLabs/PyAutoFit/issues) (for library issues)
-or the [HowToFit GitHub issues page](https://github.com/PyAutoLabs/HowToFit/issues) (for tutorial
-content issues).
+Questions, ideas and bug reports: the [PyAutoLabs Discussions](https://github.com/orgs/PyAutoLabs/discussions).
+Chat with us on [Slack](https://join.slack.com/t/pyautolens/shared_invite/zt-2cufp4eyf-fXfgMxRGuvg~bMrI3uOAxg).
+
+Community-built tools and tutorials, and how to contribute: the [**PyAutoFit** community page](https://pyautofit.readthedocs.io/en/latest/general/community.html).
