@@ -27,6 +27,7 @@ This tutorial is split into the following sections:
 - **Analysis**: Create Analysis objects for each dataset.
 - **Model**: Set up the model with a shared centre prior across all datasets.
 - **Analysis Factors**: Create Analysis Factors with individual searches for each dataset.
+- **A Width Relation**: Connect the inferred widths with an explicitly assumed linear relation.
 - **Factor Graph**: Compose the factor graph for the EP framework.
 - **Expectation Propagation**: Explain the EP message passing algorithm.
 - **Cyclic Fitting**: Describe the iterative EP convergence process.
@@ -142,7 +143,7 @@ model_list = []
 for model_index in range(len(data_list)):
     gaussian = af.Model(af.ex.Gaussian)
 
-    gaussian.centre = af.GaussianPrior(mean=50.0, sigma=30.0)
+    gaussian.centre = centre_shared_prior
     gaussian.normalization = af.TruncatedGaussianPrior(
         mean=3.0, sigma=5.0, lower_limit=0.0
     )
@@ -186,20 +187,43 @@ for model, analysis in zip(model_list, analysis_list):
     analysis_factor_list.append(analysis_factor)
 
 
+"""
+__A Width Relation__
+
+To show how another factor can connect to the same datasets, we also model their full widths at half maximum
+(FWHMs). For this teaching example, assume the widths scatter around a line `m * x + c`, where `x` is the
+dataset index (0, 1 or 2). The scatter is fixed at 5 pixels. This is an additional modelling assumption, not
+a second set of measured widths: the widths remain parameters inferred from the noisy profiles above.
+
+The regression factor evaluates a normalized Gaussian density for each width about that line. It therefore
+passes information about the widths between datasets, while the shared centre connects the profile factors
+directly. The simulated widths are similar, so a slope near zero is plausible; we do not fix it to zero.
+"""
+
+
 class LinearRegressionAnalysis(af.Analysis):
+    def __init__(self, xvalues, scatter):
+        self.xvalues = xvalues
+        self.scatter = scatter
+
     def log_likelihood_function(self, instance, xp=np):
-        return -1
+        widths = xp.asarray(list(instance.fwhm))
+        prediction = instance.m * xp.asarray(self.xvalues) + instance.c
+        residuals = (widths - prediction) / self.scatter
+        return -0.5 * xp.sum(
+            residuals**2 + xp.log(2.0 * xp.pi * self.scatter**2)
+        )
 
 
 fwhm_list = [2 * np.sqrt(2 * np.log(2)) * model.gaussian.sigma for model in model_list]
 
 linear_regression_factor = af.AnalysisFactor(
     prior_model=af.Collection(
-        m=af.GaussianPrior(mean=0.0, sigma=1.0),
-        c=af.GaussianPrior(mean=0.0, sigma=1.0),
-        *fwhm_list,
+        m=af.GaussianPrior(mean=0.0, sigma=5.0),
+        c=af.GaussianPrior(mean=2 * np.sqrt(2 * np.log(2)) * 10.0, sigma=10.0),
+        fwhm=af.Collection(*fwhm_list),
     ),
-    analysis=LinearRegressionAnalysis(),
+    analysis=LinearRegressionAnalysis(xvalues=np.arange(total_datasets), scatter=5.0),
     optimiser=search,
     name="linear_regression",
 )
@@ -245,7 +269,7 @@ simply a fit of the `Gaussian` model to the first 1D Gaussian dataset, the model
 
 2) Once the model-fit is complete, inspect the model for parameters that are shared with other nodes on the factor
 graph. In this example, the `centre` of the `Gaussian` fitted to the first dataset is global, and therefore connects
-to the other nodes on the factor graph (the `AnalysisFactor`'s) of the second and first `Gaussian` datasets.
+to the other nodes on the factor graph (the `AnalysisFactor`'s) of the second and third `Gaussian` datasets.
 
 3) The EP framework now creates a 'message' that is to be passed to the connecting nodes on the factor graph. This
 message informs them of the results of the model-fit, so they can update their priors on the `Gaussian`'s centre 
@@ -257,7 +281,7 @@ thereby updating our overall inference on this shared parameter. This is termed 
 
 __Cyclic Fitting__
 
-After every `AnalysisFactor` has been fitted (e.g. after each fit to each of the 5 datasets in this example), we have a 
+After every `AnalysisFactor` has been fitted (the three datasets and the width relation in this example), we have a
 new estimate of the shared parameter `centre`. This updates our priors on the shared parameter `centre`, which needs 
 to be reflected in each model-fit we perform on each `AnalysisFactor`. 
 
@@ -287,6 +311,24 @@ factor_graph_result = factor_graph.optimise(
 )
 
 """
+Five sweeps demonstrate message passing, but do not guarantee convergence. Before interpreting the result,
+check that every data or regression factor contributed at least one update. A run that exits normally can
+still contain a stale factor; the guard below makes that failure explicit, including in automated smoke tests.
+An update can also reject an individual marginal projection, which the state figure below marks separately.
+"""
+factor_updates = {
+    factor.name: len(history.updates)
+    for factor, history in factor_graph_result.ep_history.items()
+}
+stale_factors = [
+    name
+    for name in [*dataset_name_list, "linear_regression"]
+    if factor_updates.get(name, 0) == 0
+]
+if stale_factors:
+    raise RuntimeError(f"EP factors never updated: {', '.join(stale_factors)}")
+
+"""
 __Result__
 
 An `info` attribute for the result of a factor graph fitted via EP does not exist yet, its on the to do list!
@@ -305,9 +347,9 @@ The graph it draws is not the model figure we drew earlier, it is the factor gra
 to read it: `box = factor`, `pill = variable`, `dashed frame = repeated structure`. Every `AnalysisFactor` is a box, every
 parameter it touches is a pill, and an edge between them means "this factor has something to say about this
 variable". That is the picture the message passing above lives on: a message leaves a box, arrives at a pill, and is
-read by every other box attached to it. The three datasets sit inside a dashed plate badged `3 datasets`, drawn once
-as an aggregate `AnalysisFactor` box, with the individual `dataset_0`, `dataset_1` and `dataset_2` boxes expanded
-alongside it because their states differ from one another.
+read by every other box attached to it. Follow the shared `centre` pill to see the connection between the three
+dataset factors. The width relation connects their `sigma` parameters through the FWHM expressions. Repeated
+structure may be grouped into a plate; individual factors are expanded when their run states differ.
 
 Onto that structure the `ep_history` paints what the sweeps actually did. Every box carries a status:
 

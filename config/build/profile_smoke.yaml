@@ -31,6 +31,10 @@ defaults:
 # tutorials. Never leave the `overrides:` key with an empty value — a bare
 # `overrides:` loads as None; write `overrides: []` if every entry is removed.)
 overrides:
+  # Exercise the EP factor likelihoods with real sampling: mode 2 concealed
+  # the former constant regression likelihood and unshared centre.
+  - pattern: "tutorial_5_expectation_propagation"
+    set: {PYAUTO_TEST_MODE: "0"}
   # The gradient tutorials teach JAX autodiff searches (MultiStartAdam, BlackJAXNUTS),
   # which refuse to run with use_jax=False, so JAX stays on for them.
   - pattern: "tutorial_6_gradients"
