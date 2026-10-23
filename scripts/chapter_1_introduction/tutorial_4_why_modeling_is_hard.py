@@ -338,14 +338,17 @@ Perform the fit using our five `Gaussian` model, which has 15 free parameters.
 This means the non-linear parameter space has a dimensionality of N=15, making it significantly more complex 
 than the simpler model we fitted in the previous tutorial.
 
-Consequently, the non-linear search takes slightly longer to run but still completes in under a minute.
+Consequently, this 15-parameter search can take several minutes. A measured run on a four-core machine took
+about six and a half minutes; your runtime will depend on the hardware, available cores and sampling trajectory.
+The progress display below lets you follow the search while it runs.
 """
 analysis = Analysis(data=data, noise_map=noise_map)
 
 print(
     """
     The non-linear search has begun running.
-    This Jupyter notebook cell with progress once the search has completed - this could take a few minutes!
+    This Jupyter notebook cell will progress once the search has completed - allow several minutes
+    (about six and a half minutes in one measured run; your runtime may differ).
     """
 )
 
