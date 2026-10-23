@@ -7,4 +7,9 @@
 set -e
 
 pip install ./PyAutoNerves ./PyAutoFit
-pip install numba
+# The gradient tutorials use BlackJAXNUTS. BlackJAX is a PyAutoFit optional
+# dependency, so the base install above does not provide it.
+pip install numba "blackjax>=1.6.2"
+# tutorial_6_gradients.py also runs Nautilus, another PyAutoFit optional
+# dependency; pin it as PyAutoFit's `optional` extra does.
+pip install "nautilus-sampler==1.0.5"
