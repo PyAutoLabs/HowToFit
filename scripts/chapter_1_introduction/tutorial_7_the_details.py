@@ -805,7 +805,7 @@ print("The search has finished run - you may now continue the notebook.")
 
 print(result_adam.info)
 
-"""
+r"""
 Put the results side by side. I want to separate two things carefully here: what these particular short runs
 actually showed, and what we know about the mechanisms independently of them.
 
@@ -838,9 +838,7 @@ run, that is almost never a statement about which search is better. It is a stat
 and the degeneracies and flat regions you have accidentally put in it.
 
 Running more than one search tells you about your model, not just your searches!
-"""
 
-r"""
 __Clipping__
 
 So far every model has been computable everywhere: any combination of values inside the priors gave a number.
@@ -1054,7 +1052,7 @@ print("Safe function at x = -1.0:")
 print(f"value    = {safe(-1.0)}")
 print(f"gradient = {jax.grad(safe)(-1.0)}")
 
-"""
+r"""
 Same value, and now a finite gradient.
 
 The lesson generalizes far beyond this function. A guard that checks the result of a calculation can only protect
@@ -1062,9 +1060,7 @@ the value, because by the time it runs the damage to the derivative is already r
 the `nan` is created, not where it is detected.
 
 A good likelihood value does not mean a good gradient!
-"""
 
-r"""
 __Hamiltonian Diagnostics__
 
 Tutorial 6 introduced `BlackJAXNUTS`, the Hamiltonian sampler which follows the gradient along a trajectory instead
@@ -1126,7 +1122,7 @@ print(
     f"Mean acceptance rate             = {samples_nuts.samples_info.get('mean_acceptance')}"
 )
 
-"""
+r"""
 On this dataset you should see few or no divergences, an effective sample size which is a decent fraction of the 300
 samples drawn, and an acceptance rate near 0.8. That is what a healthy gradient sampler looks like.
 
@@ -1135,9 +1131,7 @@ acceptance rate falls, on a model whose parameter space has one of the pathologi
 like the flip creates a long narrow ridge, and a trajectory following a ridge whose width changes along its length
 is exactly what makes a trajectory diverge. The diagnostics do not tell you the model is badly parameterized, but
 they are often the first sign of it, and unlike the result itself they do not quietly look fine.
-"""
 
-"""
 __Unit Cube Vs Physical__
 
 The last detail is the most fundamental, and it changes how you think about every prior you have written.
