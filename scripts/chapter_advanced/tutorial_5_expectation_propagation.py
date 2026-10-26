@@ -210,9 +210,7 @@ class LinearRegressionAnalysis(af.Analysis):
         widths = xp.asarray(list(instance.fwhm))
         prediction = instance.m * xp.asarray(self.xvalues) + instance.c
         residuals = (widths - prediction) / self.scatter
-        return -0.5 * xp.sum(
-            residuals**2 + xp.log(2.0 * xp.pi * self.scatter**2)
-        )
+        return -0.5 * xp.sum(residuals**2 + xp.log(2.0 * xp.pi * self.scatter**2))
 
 
 fwhm_list = [2 * np.sqrt(2 * np.log(2)) * model.gaussian.sigma for model in model_list]
