@@ -559,12 +559,10 @@ find the peak it happens to be standing on.
 """
 search = af.LBFGS()
 
-print(
-    """
+print("""
     The non-linear search has begun running.
     This Jupyter notebook cell with progress once the search has completed - this could take a few minutes!
-    """
-)
+    """)
 
 start = time.time()
 
@@ -598,14 +596,12 @@ search = af.MultiStartAdam(
     batch_size=None,  # None evaluates every lane in one compiled call; pass an integer to cap memory on large models.
 )
 
-print(
-    """
+print("""
     The non-linear search has begun running.
     Checkout the HowToFit/output/chapter_1_introduction/tutorial_6_gradients_adam
     folder for live output of the results.
     This Jupyter notebook cell with progress once the search has completed - this could take a few minutes!
-    """
-)
+    """)
 
 start = time.time()
 
@@ -651,12 +647,10 @@ search = af.Emcee(
     nsteps=500,  # The number of steps each walker takes.
 )
 
-print(
-    """
+print("""
     The non-linear search has begun running.
     This Jupyter notebook cell with progress once the search has completed - this could take a few minutes!
-    """
-)
+    """)
 
 start = time.time()
 
@@ -687,12 +681,10 @@ search = af.BlackJAXNUTS(
     num_samples=300,  # Steps kept as samples of the posterior.
 )
 
-print(
-    """
+print("""
     The non-linear search has begun running.
     This Jupyter notebook cell with progress once the search has completed - this could take a few minutes!
-    """
-)
+    """)
 
 start = time.time()
 
@@ -729,12 +721,10 @@ search = af.Nautilus(
     n_eff=200,  # The effective sample size the search runs until it reaches.
 )
 
-print(
-    """
+print("""
     The non-linear search has begun running.
     This Jupyter notebook cell with progress once the search has completed - this could take a few minutes!
-    """
-)
+    """)
 
 start = time.time()
 

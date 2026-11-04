@@ -344,13 +344,11 @@ The progress display below lets you follow the search while it runs.
 """
 analysis = Analysis(data=data, noise_map=noise_map)
 
-print(
-    """
+print("""
     The non-linear search has begun running.
     This Jupyter notebook cell will progress once the search has completed - allow several minutes
     (about six and a half minutes in one measured run; your runtime may differ).
-    """
-)
+    """)
 
 result = search.fit(model=model, analysis=analysis)
 
@@ -582,12 +580,10 @@ and spends less time searching regions of parameter space that do not contain so
 Second, the model-fit consistently produces a good model-fit more often, because our tuned priors are centred
 on the global maxima solution ensuring the non-linear search is less likely to converge on a local maxima.
 """
-print(
-    """
+print("""
     The non-linear search has begun running.
     This Jupyter notebook cell with progress once the search has completed - this could take a few minutes!
-    """
-)
+    """)
 
 result = search.fit(model=model, analysis=analysis)
 
@@ -698,12 +694,10 @@ You should again note that the run time of the fit is significantly faster than 
 and that it consistently produces a good model-fit more often. This is because the model is less complex,
 non-linear parameter space is less difficult to sample and the search is less likely to converge on a local maxima.
 """
-print(
-    """
+print("""
     The non-linear search has begun running.
     This Jupyter notebook cell with progress once the search has completed - this could take a few minutes!
-    """
-)
+    """)
 
 result = search.fit(model=model, analysis=analysis)
 
@@ -812,12 +806,10 @@ Perform the fit using our five `Gaussian` model, which has 15 free parameters.
 """
 analysis = Analysis(data=data, noise_map=noise_map)
 
-print(
-    """
+print("""
     The non-linear search has begun running.
     This Jupyter notebook cell with progress once the search has completed - this could take a few minutes!
-    """
-)
+    """)
 
 result = search.fit(model=model, analysis=analysis)
 

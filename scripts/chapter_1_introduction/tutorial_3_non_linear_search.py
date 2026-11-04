@@ -454,12 +454,10 @@ To begin the model-fit via the non-linear search, we pass it our model and analy
 
 The fit will take a minute or so to run.
 """
-print(
-    """
+print("""
     The non-linear search has begun running.
     This Jupyter notebook cell will progress once the search has completed - this could take a few minutes!
-    """
-)
+    """)
 
 result = search.fit(model=model, analysis=analysis)
 
@@ -535,12 +533,10 @@ initializer = af.InitializerParamStartPoints(
 
 search = af.LBFGS(initializer=initializer)
 
-print(
-    """
+print("""
     The non-linear search has begun running.
     This Jupyter notebook cell will progress once the search has completed - this could take a few minutes!
-    """
-)
+    """)
 
 result = search.fit(model=model, analysis=analysis)
 
@@ -610,12 +606,10 @@ search = af.Emcee(
     nsteps=500,  # The number of steps each walker takes, after which 20 * 500 = 10000 samples the non-linear search ends.
 )
 
-print(
-    """
+print("""
     The non-linear search has begun running.
     This Jupyter notebook cell will progress once the search has completed - this could take a few minutes!
-    """
-)
+    """)
 
 result = search.fit(model=model, analysis=analysis)
 
@@ -678,12 +672,10 @@ search = af.Emcee(
     initializer=initializer,
 )
 
-print(
-    """
+print("""
     The non-linear search has begun running.
     This Jupyter notebook cell will progress once the search has completed - this could take a few minutes!
-    """
-)
+    """)
 
 result = search.fit(model=model, analysis=analysis)
 
@@ -738,12 +730,10 @@ To begin the model-fit via the non-linear search, we pass it our model and analy
 
 The fit will take a minute or so to run.
 """
-print(
-    """
+print("""
     The non-linear search has begun running.
     This Jupyter notebook cell will progress once the search has completed - this could take a few minutes!
-    """
-)
+    """)
 
 result = search.fit(model=model, analysis=analysis)
 

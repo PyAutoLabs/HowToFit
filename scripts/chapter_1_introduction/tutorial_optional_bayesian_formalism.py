@@ -376,12 +376,10 @@ search = af.DynestyStatic(
     sample="rwalk",  # This makes dynesty run faster, dont worry about what it means for now!
 )
 
-print(
-    """
+print("""
     The non-linear search has begun running.
     This Jupyter notebook cell with progress once the search has completed - this could take a few minutes!
-    """
-)
+    """)
 
 model = af.Model(Gaussian)
 

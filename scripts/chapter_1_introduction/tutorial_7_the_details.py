@@ -323,12 +323,10 @@ search = af.DynestyStatic(
     sample="rwalk",  # This makes dynesty run faster, dont worry about what it means for now!
 )
 
-print(
-    """
+print("""
     The non-linear search has begun running.
     This Jupyter notebook cell with progress once the search has completed - this could take a few minutes!
-    """
-)
+    """)
 
 start = time.time()
 
@@ -439,12 +437,10 @@ values.
 
 Let's refit with the assertion in place.
 """
-print(
-    """
+print("""
     The non-linear search has begun running.
     This Jupyter notebook cell with progress once the search has completed - this could take a few minutes!
-    """
-)
+    """)
 
 search = af.DynestyStatic(
     sample="rwalk",
@@ -637,12 +633,10 @@ search = af.Emcee(
     nsteps=500,  # The number of steps each walker takes.
 )
 
-print(
-    """
+print("""
     The non-linear search has begun running.
     This Jupyter notebook cell with progress once the search has completed - this could take a few minutes!
-    """
-)
+    """)
 
 start = time.time()
 
@@ -692,12 +686,10 @@ search = af.DynestyStatic(
     sample="rwalk",
 )
 
-print(
-    """
+print("""
     The non-linear search has begun running.
     This Jupyter notebook cell with progress once the search has completed - this could take a few minutes!
-    """
-)
+    """)
 
 start = time.time()
 
@@ -750,12 +742,10 @@ search = af.Emcee(
     nsteps=500,
 )
 
-print(
-    """
+print("""
     The non-linear search has begun running.
     This Jupyter notebook cell with progress once the search has completed - this could take a few minutes!
-    """
-)
+    """)
 
 start = time.time()
 
@@ -789,12 +779,10 @@ search = af.MultiStartAdam(
     batch_size=None,  # None evaluates every lane in one compiled call, as in tutorial 6.
 )
 
-print(
-    """
+print("""
     The non-linear search has begun running.
     This Jupyter notebook cell with progress once the search has completed - this could take a few minutes!
-    """
-)
+    """)
 
 start = time.time()
 
@@ -984,14 +972,12 @@ search = af.MultiStartAdam(
     clipper=clipper,
 )
 
-print(
-    """
+print("""
     The non-linear search has begun running.
     Checkout the HowToFit/output/chapter_1_introduction/tutorial_7_the_details_nan
     folder for live output of the results.
     This Jupyter notebook cell with progress once the search has completed - this could take a few minutes!
-    """
-)
+    """)
 
 start = time.time()
 
@@ -1084,12 +1070,10 @@ search = af.BlackJAXNUTS(
     num_samples=300,  # Steps kept as samples of the posterior.
 )
 
-print(
-    """
+print("""
     The non-linear search has begun running.
     This Jupyter notebook cell with progress once the search has completed - this could take a few minutes!
-    """
-)
+    """)
 
 start = time.time()
 

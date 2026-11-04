@@ -297,14 +297,12 @@ search = af.Emcee(
     path_prefix="chapter_1_introduction",
 )
 
-print(
-    """
+print("""
     The non-linear search has begun running.
     Checkout the HowToFit/output/chapter_1_introduction/tutorial_5_results_and_samples
     folder for live output of the results.
     This Jupyter notebook cell with progress once the search has completed - this could take a few minutes!
-    """
-)
+    """)
 
 result = search.fit(model=model, analysis=analysis)
 
