@@ -1,162 +1,56 @@
 # HowToFit
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.11.9.1/start_here.ipynb)
-
-[Start Here on Colab](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.11.9.1/start_here.ipynb) |
-[Installation Guide](https://pyautofit.readthedocs.io/en/latest/installation/overview.html) |
-[PyAutoFit readthedocs](https://pyautofit.readthedocs.io/en/latest/index.html) |
-[Browse Chapter 1 With Images](markdown/README.md) |
-[autofit_workspace](https://github.com/PyAutoLabs/autofit_workspace)
-
 <img src="https://github.com/Jammy2211/PyAutoLogo/blob/main/gifs/pyautofit.gif?raw=true" width="900" />
 
-Welcome to **HowToFit**, the tutorial lecture series for [PyAutoFit](https://github.com/PyAutoLabs/PyAutoFit),
-an open-source framework for scientific inference.
+Learn scientific model fitting and Bayesian inference through worked examples with **PyAutoFit**. HowToFit starts from first principles and guides you from defining a model and fitting data to interpreting results and combining information across datasets.
 
-**PyAutoFit** is designed so scientists can bring their models, data and likelihood code, then fit models,
-explore results and develop analyses **using natural language** with an AI coding agent. **HowToFit** teaches
-the core principles behind this workflow, so you understand the inference being performed rather than
-treating it as a black box.
-
-The tutorials assume minimal prior knowledge of statistics and begin from first principles: models, priors,
-likelihood functions and non-linear searches. They then progress to model comparison, graphical models and
-hierarchical inference across large datasets.
-
-With these foundations in place, **PyAutoFit** can be used through its natural-language workflow to compose
-models, choose searches, perform inference and interpret results conversationally.
-
-For experienced scientists who already know these concepts, the
-[natural-language inference page](https://pyautofit.readthedocs.io/en/latest/overview/natural_language.html)
-may be the better starting point: it walks a complete fit through **PyAutoFit** as a conversation with an AI
-coding agent, assuming the principles taught in **HowToFit** as background.
-
-## Chapters
-
-- `chapter_1_introduction` — Models, likelihoods, non-linear searches, why modeling is hard, and how to
-  interpret the results of a fit, ending with a short guide to building a scientific workflow.
-- `chapter_advanced` — Fitting many datasets simultaneously with graphical models,
-  hierarchical models, and Expectation Propagation.
-
-Each chapter is a folder of numbered tutorial files — `tutorial_<M>_<topic>.py` (Python script) or the
-matching `.ipynb` in `notebooks/`. Tutorials build on each other within a chapter and assume you have
-completed the earlier ones.
+You don’t need prior experience with Bayesian statistics. If you already know the fundamentals, head to the [PyAutoFit workspace](https://github.com/PyAutoLabs/autofit_workspace#find-your-examples) for concise examples.
 
 ## Getting Started
 
-### Study with the assistant
+### Explore It Yourself
 
-Use the [Jupyter notebooks](notebooks/) if you want to run the code (recommended), or read the
-available [Markdown lectures](markdown/README.md) directly on GitHub.
+- **[Start in your browser](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.11.9.1/start_here.ipynb)** — open the series introduction in Google Colab without installing anything locally.
+- **[Run it locally](https://pyautofit.readthedocs.io/en/latest/installation/overview.html)** — install PyAutoFit, download this repository and open the Jupyter notebooks in `notebooks/`.
+- **[Read Chapter 1 with images](https://github.com/PyAutoLabs/HowToFit/blob/main/markdown/README.md)** — browse the available lectures and their results directly on GitHub.
 
-For help alongside the lectures, open the [autofit_assistant](https://github.com/PyAutoLabs/autofit_assistant)
-repository in your AI coding agent, following its setup instructions, and paste:
+After the introduction, begin with [Tutorial 1: Models](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.11.9.1/notebooks/chapter_1_introduction/tutorial_1_models.ipynb).
+
+### Study with AI
+
+The [**PyAutoFit AI Assistant**](https://github.com/PyAutoLabs/autofit_assistant) can explain concepts, equations and code, help with notebook errors, and discuss your results. Paste this prompt into your AI coding agent:
 
 ```text
-Enter HowToFit mode.
+I want to work through HowToFit
+(https://github.com/PyAutoLabs/HowToFit) with the
+PyAutoFit Assistant (https://github.com/PyAutoLabs/autofit_assistant).
 
-I want to work through the HowToFit lectures. Show me where to find them
-and how to use Jupyter Notebook or Markdown, then help me with questions
-as I go.
+First clone the assistant repository, cd into it and follow its AGENTS.md.
+Enter HowToFit mode. Help me find the lectures and get started,
+then answer questions as I work through them at my own pace.
 ```
 
-The assistant will answer questions about concepts, equations, code and results as you study, and help with
-notebook errors. Share the lecture link and section or the cell you are working on; you choose when to move on.
+See [AI Options](https://github.com/PyAutoLabs/PyAutoScientist/blob/main/AI_OPTIONS.md) for tools and setup guidance.
 
-### Run in Google Colab (nothing to install)
+## Choose Your Chapter
 
-Every tutorial opens in Google Colab in one click. There is nothing to install and no local Python
-environment to set up — **PyAutoFit** installs itself in the notebook's first cell. In Colab you *run*
-the tutorial: edit the code, change the model, and see the output for yourself.
+| Chapter | What you’ll learn |
+|---|---|
+| [1. Introduction](https://github.com/PyAutoLabs/HowToFit/blob/main/scripts/chapter_1_introduction/README.md) | Models, likelihoods, searches, interpreting results and building a scientific workflow |
+| [Advanced: Graphical and Hierarchical Models](https://github.com/PyAutoLabs/HowToFit/blob/main/scripts/chapter_advanced/README.md) | Combining datasets, sharing model parameters and inferring population properties |
 
-Whilst in Colab, we recommend opening **Gemini** — the button at the bottom of the notebook — and using it
-as a study assistant alongside the lecture. It can see the notebook you have open, so you can ask it to
-explain an equation, unpack what a cell is doing, or interpret the output of a fit, without leaving the
-tutorial.
+Work through Chapter 1 in order, then try the [workspace examples](https://github.com/PyAutoLabs/autofit_workspace) with your own models and data. Return to the advanced chapter when you need to fit multiple datasets together.
 
-The `markdown` links are the same tutorial already executed and rendered on GitHub, with its real
-output figures inline. Nothing runs and nothing installs — you just read it. They are good for
-skimming a tutorial before running it, or for reading on a phone. Markdown pages currently exist only
-for the chapter 1 tutorials listed with a `markdown` link below; every other tutorial is Colab-only.
+## Community and Contributing
 
-**[Start Here](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.11.9.1/start_here.ipynb)** — a one-page overview of the whole series.
+Ask questions, suggest improvements and share your work in [PyAutoLabs Discussions](https://github.com/orgs/PyAutoLabs/discussions), or chat with us on [Slack](https://join.slack.com/t/pyautolens/shared_invite/zt-2cufp4eyf-fXfgMxRGuvg~bMrI3uOAxg).
 
-- **[Chapter 1: Introduction](scripts/chapter_1_introduction/README.md)** — Models, likelihoods, non-linear searches, why modeling is hard, and how to interpret the results of a fit, ending with a short guide to building a scientific workflow.
-  - Start Here: HowToFit Lectures — ([Colab](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.11.9.1/notebooks/chapter_1_introduction/start_here.ipynb) / [markdown](markdown/chapter_1_introduction/start_here.md))
-  - Tutorial 1: Models — ([Colab](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.11.9.1/notebooks/chapter_1_introduction/tutorial_1_models.ipynb) / [markdown](markdown/chapter_1_introduction/tutorial_1_models.md))
-  - Tutorial 2: Fitting Data — ([Colab](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.11.9.1/notebooks/chapter_1_introduction/tutorial_2_fitting_data.ipynb) / [markdown](markdown/chapter_1_introduction/tutorial_2_fitting_data.md))
-  - Tutorial 3: Non Linear Search — ([Colab](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.11.9.1/notebooks/chapter_1_introduction/tutorial_3_non_linear_search.ipynb) / [markdown](markdown/chapter_1_introduction/tutorial_3_non_linear_search.md))
-  - Tutorial 4: Why Modeling Is Hard — ([Colab](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.11.9.1/notebooks/chapter_1_introduction/tutorial_4_why_modeling_is_hard.ipynb) / [markdown](markdown/chapter_1_introduction/tutorial_4_why_modeling_is_hard.md))
-  - Tutorial 5: Results and Samples — ([Colab](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.11.9.1/notebooks/chapter_1_introduction/tutorial_5_results_and_samples.ipynb) / [markdown](markdown/chapter_1_introduction/tutorial_5_results_and_samples.md))
-  - Tutorial 6: Gradients — ([Colab](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.11.9.1/notebooks/chapter_1_introduction/tutorial_6_gradients.ipynb))
-  - Tutorial 7: The Details — ([Colab](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.11.9.1/notebooks/chapter_1_introduction/tutorial_7_the_details.ipynb))
-  - Tutorial 8: Scientific Workflow — ([Colab](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.11.9.1/notebooks/chapter_1_introduction/tutorial_8_scientific_workflow.ipynb) / [markdown](markdown/chapter_1_introduction/tutorial_8_scientific_workflow.md))
-  - Tutorial Optional: Bayesian Formalism — ([Colab](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.11.9.1/notebooks/chapter_1_introduction/tutorial_optional_bayesian_formalism.ipynb))
-- **[Advanced Chapter: Graphical & Hierarchical Models](scripts/chapter_advanced/README.md)** — Fitting many datasets simultaneously with graphical models, hierarchical models, and Expectation Propagation.
-  - Tutorial 1: Individual Models — ([Colab](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.11.9.1/notebooks/chapter_advanced/tutorial_1_individual_models.ipynb))
-  - Tutorial 2: Graphical Model — ([Colab](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.11.9.1/notebooks/chapter_advanced/tutorial_2_graphical_model.ipynb))
-  - Tutorial 3: Graphical Benefits — ([Colab](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.11.9.1/notebooks/chapter_advanced/tutorial_3_graphical_benefits.ipynb))
-  - Tutorial 4: Hierarchical Models — ([Colab](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.11.9.1/notebooks/chapter_advanced/tutorial_4_hierachical_models.ipynb))
-  - Tutorial 5: Expectation Propagation — ([Colab](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.11.9.1/notebooks/chapter_advanced/tutorial_5_expectation_propagation.ipynb))
-  - Tutorial Optional: Hierarchical Expectation Propagation — ([Colab](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.11.9.1/notebooks/chapter_advanced/tutorial_optional_hierarchical_ep.ipynb))
-  - Tutorial Optional: Hierarchical Individual — ([Colab](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.11.9.1/notebooks/chapter_advanced/tutorial_optional_hierarchical_individual.ipynb))
-
-Model-fits run considerably faster on a GPU. In Colab, enable one via *Runtime* → *Change runtime type*
-→ *Hardware accelerator* before running a notebook.
-
-### Run on your own machine
-
-Follow the
-[PyAutoFit installation guide](https://pyautofit.readthedocs.io/en/latest/installation/overview.html),
-then clone this repository:
-
-```bash
-git clone https://github.com/PyAutoLabs/HowToFit.git
-cd HowToFit
-```
-
-The tutorials are distributed as both Jupyter notebooks (`notebooks/`) and Python scripts (`scripts/`).
-We recommend the notebooks for reading — figures render inline, and you can step through small code blocks
-interactively. Use the Python scripts for actual **PyAutoFit** use.
-
-## Before Chapter 1
-
-Before starting chapter 1, open `start_here.py` for a one-page overview of the series, then begin
-`scripts/chapter_1_introduction/tutorial_1_models.py`.
-
-## Repository Structure
-
-- `scripts/` — Runnable Python tutorial scripts, one subfolder per chapter.
-- `notebooks/` — Jupyter notebook versions of the scripts (auto-generated; see below).
-- `config/` — **PyAutoFit** configuration YAML files used by the tutorials.
-- `dataset/` — Tutorial 1D datasets are generated at runtime by `scripts/simulators/simulators.py` —
-  no data files are committed.
-- `output/` — Model-fit results (generated at runtime, not committed).
-
-## Notebooks vs Scripts
-
-Notebooks in `notebooks/` are generated from the Python files in `scripts/`. **Always edit the ``.py``
-scripts, never the notebooks directly.** The `# %%` markers in each script alternate between code and
-markdown cells, which [PyAutoHands](https://github.com/PyAutoLabs/PyAutoHands) uses to produce the
-`.ipynb` files.
-
-## Relationship to autofit_workspace
-
-[autofit_workspace](https://github.com/PyAutoLabs/autofit_workspace) is the main user-facing workspace
-for **PyAutoFit** — concise examples, cookbooks, and search templates aimed at users who already understand
-probabilistic modeling. **HowToFit** is the teaching companion. Tutorials in chapters 1 and 3 reference
-`autofit_workspace` scripts as the next place to go after the relevant concept has been introduced.
+To contribute, see the [contribution guide](https://github.com/PyAutoLabs/HowToFit/blob/main/CONTRIBUTING.md).
 
 ## Citations
 
-If you use **HowToFit** or **PyAutoFit** in your research, please cite the references listed in
-`CITATIONS.rst`.
+If you use HowToFit or PyAutoFit in your research, see the [citation guide](https://github.com/PyAutoLabs/HowToFit/blob/main/CITATIONS.md).
 
-## Community & Contributing
+## License
 
-**PyAutoFit** is built in the open by its users: everyone is welcome to ask questions,
-share what they have made with it, and contribute.
-
-Questions, ideas and bug reports: the [PyAutoLabs Discussions](https://github.com/orgs/PyAutoLabs/discussions).
-Chat with us on [Slack](https://join.slack.com/t/pyautolens/shared_invite/zt-2cufp4eyf-fXfgMxRGuvg~bMrI3uOAxg).
-
-Community-built tools and tutorials, and how to contribute: the [**PyAutoFit** community page](https://pyautofit.readthedocs.io/en/latest/general/community.html).
+See the [license](https://github.com/PyAutoLabs/HowToFit/blob/main/LICENSE).

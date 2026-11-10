@@ -7,7 +7,6 @@
 # To accept new breakage: append the URL here. To force a fix: leave it out.
 
 # Code of Conduct boilerplate
-http://geekfeminism.wikia.com/wiki/Conference_anti-harassment/Policy  # CODE_OF_CONDUCT.md:305
 
 # GitHub refs (workspaces / removed tutorials)
 https://github.com/Jammy2211/PyAutoLogo/blob/main/gifs/pyautofit.gif?raw=true  # README.md:7
@@ -17,4 +16,3 @@ https://github.com/PyAutoLabs/HowToFit/blob/main/scripts/chapter_1_introduction/
 https://github.com/PyAutoLabs/HowToFit/blob/main/scripts/chapter_1_introduction/images/good_normalized_residual_map.png?raw=true  # scripts/chapter_1_introduction/tutorial_4_why_modeling_is_hard.py:463
 https://github.com/PyAutoLabs/HowToFit/blob/main/scripts/chapter_1_introduction/images/okay_fit.png?raw=true  # scripts/chapter_1_introduction/tutorial_4_why_modeling_is_hard.py:453
 https://github.com/PyAutoLabs/HowToFit/blob/main/scripts/chapter_1_introduction/images/okay_normalized_residual_map.png?raw=true  # scripts/chapter_1_introduction/tutorial_4_why_modeling_is_hard.py:462
-https://github.com/PyAutoLabs/PyAutoFit/blob/main/files/citations.tex  # CITATIONS.md:5
