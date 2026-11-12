@@ -10,11 +10,11 @@ You don’t need prior experience with Bayesian statistics. If you already know 
 
 ### Explore It Yourself
 
-- **[Start in your browser](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.11.9.1/start_here.ipynb)** — open the series introduction in Google Colab without installing anything locally.
+- **[Start in your browser](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.11.12.1/start_here.ipynb)** — open the series introduction in Google Colab without installing anything locally.
 - **[Run it locally](https://pyautofit.readthedocs.io/en/latest/installation/overview.html)** — install PyAutoFit, download this repository and open the Jupyter notebooks in `notebooks/`.
 - **[Read Chapter 1 with images](https://github.com/PyAutoLabs/HowToFit/blob/main/markdown/README.md)** — browse the available lectures and their results directly on GitHub.
 
-After the introduction, begin with [Tutorial 1: Models](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.11.9.1/notebooks/chapter_1_introduction/tutorial_1_models.ipynb).
+After the introduction, begin with [Tutorial 1: Models](https://colab.research.google.com/github/PyAutoLabs/HowToFit/blob/2026.11.12.1/notebooks/chapter_1_introduction/tutorial_1_models.ipynb).
 
 ### Study with AI
 
